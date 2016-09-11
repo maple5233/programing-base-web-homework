@@ -1,0 +1,376 @@
+.h-region
+{
+	width: 100%;
+	.nav-top
+	{
+		width: 100%;
+		background-color: #fff;
+		padding: 0px;
+		img
+		{
+			width: 100%;
+			margin-top: -10px;
+			height: 100%;
+			display: block;
+		}
+	}
+	.title
+	{
+		background: linear-gradient(to bottom, #72655a, #9A816B 95%);
+		height: 75px;
+		padding: 15px 10% 15px 10%;
+		.title-text
+		{
+			float: right;
+			height: 50px;
+			color: rgb(243, 216, 166);
+			font-weight: bold;
+			font-size: 15px;
+		}
+		.logo
+		{
+			float: left;
+			height: 50px;
+		}
+		img
+		{
+			display: block;
+			margin: 16px auto;
+		}
+	}
+	.nav-tab
+	{
+		height: 77px;
+		background:linear-gradient(to bottom, #9A816B, #72655a);
+		padding: 0 10%;
+		position: relative;
+		.tab
+		{
+			height: 77px;
+			border-left: 1px solid rgb(191, 178, 151);
+			width: 20%;
+			float: left;
+			padding-left: 15px;
+			padding-right: 15px;
+			float: left;
+			.top
+			{
+				color: #fff;
+				font-size: 15px;
+				font-weight: bold;
+				margin: 10px;
+			}
+			.bottom
+			{
+				color: rgb(191, 178, 151);
+				font-size: 13px;
+				margin: 10px;
+			}
+		}
+		img
+		{
+			display: block;
+			position: absolute;
+			right: 230px;
+			top: 10px;
+		}
+	}
+}
+.m-region
+{
+	background-color: rgb(243,239,235);
+	padding: 35px 10%;
+	overflow: hidden;
+	.left
+	{
+		width: 72%;
+		float: left;
+		padding-right: 3%;
+		.search-box
+		{
+			background-color: rgb(226,225,212);
+			border-radius: 10px;
+			padding: 15px 60px 15px 15px;
+			position: relative;
+			.input-box
+			{
+				background-color: #fff;
+				input
+				{
+					border: 0px;
+					height: 40px;
+					padding-left: 10px;
+					line-height: 40px;
+					width: 100%;
+				}
+			}
+			img
+			{
+				position: absolute;
+				right: 30px;
+				top: -15px;
+			}
+		}
+		.advanced
+		{
+			width: 100%;
+			overflow: hidden;
+			p
+			{
+				float: right;
+				font-size: 13px;
+				color: rgb(156,131,110);
+				i
+				{
+					margin-right: 2px;
+					color: #C0C0C0;
+				}
+			}
+		}
+		.category
+		{
+			border-bottom:2px solid #C0C0C0;
+			margin-bottom: 10px;
+			p
+			{
+				width: 100%;
+				font-size: 18px;
+				margin: 5px 0;
+			}
+		}
+		.week-spec
+		{
+			width: 100%;
+			overflow: hidden;
+			margin-bottom: 15px;
+			.pic-box
+			{
+				background-color: rgb(226,225,212);
+				width: 32%;
+				border-radius: 10px;
+				box-sizing: border-box;
+				float: left;
+				padding:10px;
+				position: relative;
+				.text
+				{
+					position: absolute;
+					bottom: 12px;
+					width: 205px;
+					padding: 5px;
+					box-sizing: border-box;
+					background-color: #393A3A;
+					opacity: 0;
+					p
+					{
+						margin: 5px;
+					}
+					.title
+					{
+						font-size: 16px;
+						font-style: italic;
+						color: #fff;
+					}
+					.price
+					{
+						color : #FF8029;
+						font-size: 15px;
+					}
+				}
+				&:hover
+				{
+					.text
+					{
+						opacity: 0.8;
+						transition: 1s;
+					}
+				}
+			}
+			.pic-left
+			{
+				margin: 0;
+				img
+				{
+					width: 205px;
+				}
+			}
+			.pic-right
+			{
+				margin: 0;
+				img
+				{
+					width: 205px;
+				}
+			}
+			.pic-mid
+			{
+				margin: 0 2%;
+				img
+				{
+					width: 205px;
+				}
+			}
+		}
+		.news
+		{
+			padding: 15px 0 0 0;
+			margin-bottom: 10px;
+			overflow: hidden;
+			margin: 0;
+			.news-title
+			{
+				width: 100%;
+				font-size: 20px;
+				color: rgb(165,73,66);
+				margin-bottom: 10px;
+			}
+			.news-info
+			{
+				width: 30%;
+				float: left;
+				font-size: 13px;
+				p
+				{
+					margin-top: 0px;
+				}
+				.date
+				{
+					color: rgb(133,118,102);
+					font-weight: bold;
+				}
+				.time , .author
+				{
+					font-size: 13px;
+					color: rgb(182,164,149);
+				}
+			}
+			.news-content
+			{
+				width: 70%;
+				float: left;
+				font-size: 14px;
+				p
+				{
+					margin-top: 0px;
+					margin-bottom: 30px;
+					line-height: 20px;
+					width: 100%;
+					word-break:break-all;
+					span
+					{
+						color : rgb(59,149,208);
+						font-weight: bold;
+					}
+				}
+			}
+		}
+		.more-news
+		{
+			width: 100%;
+			overflow: hidden;
+			.right
+			{
+				width: 70%;
+				float: right;
+				margin-top: 0px;
+				button
+				{
+					border-radius: 20px;
+					height: 40px;
+					width: 160px;
+					border: none;
+					background-color: rgb(80,160,188);
+					color: #fff;
+					padding: 5px 10px;
+					font-weight: bold;
+				}
+			}
+		}
+	}
+	.right
+	{
+		width: 25%;
+		float: right;
+		.title
+		{
+			color: rgb(165,73,66);
+			font-size: 14px;
+			font-weight: bold;
+			border-bottom: 1px solid #D1D1D1;
+			margin-bottom: 0px;
+			padding-bottom: 5px;
+		}
+		.drink-menu
+		{
+			border-radius: 12px;
+			background-color: #fff;
+			padding: 8px 15px;
+			ul
+			{
+				list-style: none;
+				padding: 0px;
+				margin-top: 0px;
+				li
+				{
+					font-size: 13px;
+					width: 100%;
+					display: block;
+					border-top: 1px solid #D1D1D1;
+					margin-bottom: 7px;
+					padding-top: 7px;
+					a
+					{	
+						font-weight: bold;
+						color : rgb(59,149,208);
+						text-decoration: none;
+					}
+					span
+					{
+						color : rgb(182,164,149);
+						float: right;
+						font-weight: bold;
+					}
+				}
+			}
+		}
+		.press
+		{
+			margin-top: 20px;
+			.text-box
+			{
+				overflow: hidden;
+				border-top: 1px solid #D1D1D1;
+				.text
+				{
+					font-style: italic;
+					font-size: 15px;
+				}
+				.author
+				{
+					font-size: 13px;
+					color: rgb(182,164,149);
+					float: right;
+					font-weight: bold;
+				}
+			}
+		}
+	}
+}
+.b-region
+{
+	font-size: 14px;
+	color: rgb(182,164,149);
+	background-color: rgb(243,239,235);
+	p
+	{
+		width: 80%;
+		border-top:2px solid #C0C0C0; 
+		margin: 0px auto;
+		padding: 10px 0;
+		span
+		{
+			color : rgb(59,149,208);
+			font-weight: bold;
+		}
+	}
+}
