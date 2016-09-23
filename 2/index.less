@@ -1,0 +1,169 @@
+#whole
+{
+	background-color: black; // 外围的黑色背景;
+}
+.main
+{
+	width: 27%; //核心内容的宽度
+	margin: 20px auto 0 auto; // 水平居中;
+	background-color: #3d3a39; // 设置背景色;
+}
+@media screen and (max-width: 450px){ // 使用移动设备时，核心部分占满整个手机屏幕;
+	.main
+	{
+		width: 100%!important;
+	}
+}
+.h-region
+{
+	background-color: rgb(59,59,59); // 设置头部背景色
+	padding: 0 5%; // 左右留出各5%
+	box-sizing: border-box; // 更换盒模型
+	width: 100%; // 充满整个区域
+	img
+	{
+		width: 90%;
+	}
+}
+.m-region
+{
+	border-radius: 1em 1em 0 0;// 设置四个角的圆角程度，只有左上和右上是圆角
+	border: 1px solid #fff; // 增加边框
+	padding: 1em; // 留出padding
+	color: #fff; // 字是白色
+	font-size: 1em; // 字体大小是1em
+	font-weight: bold; // 全部加粗
+	.top
+	{
+		width: 100%;
+		padding: 5px;
+		box-sizing: border-box;
+		overflow: hidden; 
+		#repeatNum
+		{
+			font-weight: 900; // 加粗字体以强调
+			font-size: 1.5em; // 加大字体以强调
+			color: #febe7f;
+			margin-left: 1em; // 拉开一定距离
+			max-width: 60%; // 最大宽度
+		}
+		.fromBox
+		{
+			width: 100%;
+		}
+		p
+		{
+			margin: 5px 0px;
+		}
+		div
+		{
+			margin: 10px 0;
+		}
+		input
+		{
+			width: 100%;
+		}
+		input,select
+		{
+			border-radius: 5px;
+			//border: 1px solid #fff;
+			border: none;
+			padding: 7px;
+			margin: 0 auto;
+			box-sizing: border-box;
+			background-color: #939393;
+			color: #fff;
+			font-weight: bold;
+		}
+		.short
+		{
+			width: 35%;
+			float: left;
+			display: block;
+			line-height: 2.1em;
+			height: 2.1em;
+		}
+		select
+		{
+			width: 65%;
+			float: right;
+			height: 2.1em;
+			line-height: 2.1em;
+		}
+		.classNumBox
+		{
+			overflow: hidden;
+			margin: 20px 0;
+		}
+		.passBox
+		{
+			p
+			{
+				margin-top: 10px;
+			}
+			.hardBox
+			{
+				margin-top: 20px;
+				overflow: hidden; // 去浮动;
+				.text
+				{
+					width: 25%;
+					float: left;
+					display: block;
+					height: 2em;
+					line-height: 2em;
+				}
+				.colorBox
+				{
+					width: 75%;
+					float: right;
+					box-sizing: border-box;
+					border: 1px solid #fff;
+					border-radius: 5px;
+					height: 2em;
+					margin:0;
+					/* 设置颜色渐变 */
+					background: -webkit-linear-gradient(left, green , blue);
+					background: -o-linear-gradient(right, green, blue);
+					background: -moz-linear-gradient(right, green, blue);
+					background: linear-gradient(to right, green , blue);
+					position: relative; // 下面的strenth_pointer相对于父级定位
+					#strenth_pointer
+					{
+						// JS会自动生产这部分的 left属性
+						position: absolute;
+						height: 2em;
+						width: 0; //没有宽度
+						border-left: 1px solid #fff; // 只有边框
+					}
+				}
+			}
+		}
+	}
+}
+.b-region
+{
+	padding: 1em; //同样留出padding;
+	background-color: #939393;
+	overflow: hidden;// 去浮动
+	.rule
+	{
+		float: right; //整个靠右
+		label
+		{
+			font-weight: bold;
+			padding: 1em 0;
+			display: inline-block;
+		}
+		#submitBtn //将input标签渲染为按钮
+		{
+			padding: 0.5em;
+			background-color: #40637e;
+			margin-left: 0.5em;
+			border: none;
+			border-radius: 5px;
+			color: #fff;
+			font-weight: bold;
+		}
+	}
+}

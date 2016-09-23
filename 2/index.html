@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>2</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="index.css">
+	<link rel="stylesheet" href="lib/Normalize.css">
+</head>
+<body id="whole">
+	<div class="main">
+		<div class="h-region"><img src="images/szu.png"></div>
+		<div class="m-region">
+			<div class="top">
+				<from class="fromBox">
+					<div class="phoneNumBox">
+						<p><label for="phoneNumber">手机号</label><span id="repeatNum" v-bind:style="{ display : hidding }">{{phoneNumNew}}</span></p>
+						<input type="text" id="phoneNumber" placeholder="请输入您的手机号" v-model="phoneNum" v-on:input="inputPhoneNum" v-on:blur="hideNum" v-on:focus="showNum" v-on:keydown="check">
+					</div>
+
+					<div class="classNumBox">
+						<label for="classes" class="short">所在班级</label>
+						<select id="classes" v-model="classNum">
+							<option selected>软件工程01</option>
+							<option>软件工程02</option>
+							<option>软件工程03</option>
+							<option>软件工程04</option>
+						</select>
+					</div>
+
+					<div class="passBox">
+						<p><label for="password">输入密码</label></p>
+						<input type="password" id="password" placeholder="请输入您的密码" v-model="password" v-on:input="inputPass">
+
+						<p><label for="passwordRepeat">再次输入密码</label></p>
+						<input type="password" id="passwordRepeat" placeholder="再次输入密码" v-model="passwordRepeat" v-on:input="checkPass" v-bind:style="{backgroundColor : bgc}">
+
+						<div class="hardBox">
+							<span class="text">密码强度</span>
+							<div class="colorBox">
+								<span id="strenth_pointer" v-bind:style="{ left : hardPecent + '%' }"></span>
+							</div>
+						</div>
+					</div>
+				</from>
+			</div>
+		</div>
+		<div class="b-region">
+			<div class="right">
+				<from class="rule">
+					<input type="checkbox" id="checkBox"><label for="checkBox">遵守本站规定</label>
+					<input type="submit" id="submitBtn" value="Register">
+				</from>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="lib/vue.min.js"></script>
+<script type="text/javascript" src="index.js"></script>
+</body>
+</html>
