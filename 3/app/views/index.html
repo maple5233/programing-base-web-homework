@@ -33,7 +33,8 @@
 			<div v-for="msg in msgs" class="msg-box" transition="item">
 				<img class="head-img" :src="msg.headImgSrc">
 				<div class="text-box">
-					<h4 class="user-name"><strong>{{msg.userId}}</strong></h4>
+					<h4 class="user-name pull-left"><strong>{{msg.userId}}</strong></h4>
+                    <button class="pull-right btn btn-sm btn-primary">编辑</button>
 					<p class="user-comment">{{msg.comment}}</p>
 					<p class="pull-left small text-info date">{{msg.date}}</p>
 				</div>
