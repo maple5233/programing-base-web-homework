@@ -6,6 +6,10 @@
   background-color: #eee !important;
 }
 
+input, textarea {
+  word-break: break-all;
+}
+
 .input-group {
   margin-bottom: 15px;
 }
@@ -14,24 +18,25 @@
   width: 100%;
 }
 
-#comment {
+.comment {
   resize: none;
   margin-bottom: 15px;
 }
 
 #main {
   width: 40%;
-  margin: 30px auto 0 auto;
-  .form-group {
-    overflow: hidden;
-    .send-btn {
-      float: right;
-    }
-    .text-num-limit {
-      float: left;
-      font-size: 1em;
-      font-weight: bold;
-    }
+  margin: 30px auto 30px auto;
+}
+
+.form-group {
+  overflow: hidden;
+  .send-btn {
+    float: right;
+  }
+  .text-num-limit {
+    float: left;
+    font-size: 1em;
+    font-weight: bold;
   }
 }
 
@@ -47,6 +52,12 @@
   overflow: hidden;
   border-bottom: 1px solid #CCC;
   margin-bottom: 10px;
+  position: relative;
+  .edit-btn {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+  }
   .head-img {
     float: left;
     width: 10%;
@@ -57,9 +68,16 @@
     width: 80%;
     word-break: break-all;
   }
+  .date {
+    width: 100%;
+  }
 }
 
 .item-move {
   /* applied to the element when moving */
+  transition: transform .5s cubic-bezier(.55, 0, .1, 1);
+}
+
+.show-editing-box {
   transition: transform .5s cubic-bezier(.55, 0, .1, 1);
 }

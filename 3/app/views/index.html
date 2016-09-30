@@ -16,16 +16,16 @@
 	<div id="main" class="panel panel-default">
 		<div class="panel-heading">留言发布区</div>
 		<div class="panel-body">
-			<form class="form-group" action="" v-on:submit.prevent="sendMsg">
+			<form class="form-group" @submit.prevent="sendMsg">
 				<div class="input-group">
 					<span class="input-group-addon">
 						<span class="glyphicon glyphicon-user"></span>
 					</span>
 					<input type="text" placeholder="您的ID" class="form-control" v-model="userId">
 				</div>
-				<textarea  spellcheck="false" id="comment" type="text" placeholder="输入留言.." class="form-control" v-model="comment" rows="5" @input="inputComment" @keydown="checkComment"></textarea>
+				<textarea  spellcheck="false"  type="text" placeholder="输入留言.." class="form-control comment" v-model="comment" rows="5" @input="inputComment" @keydown="checkComment"></textarea>
 				<span class="text-num-limit">还可以输入{{textNumLimit}}个字</span>
-				<button type="submit" class="btn btn-default send-btn">发布</button>
+				<button type="submit" class="btn btn-sm btn-primary send-btn">发布</button>
 			</form>
 		</div>
 		<div class="panel-heading">已经发布的留言</div>
@@ -33,18 +33,24 @@
 			<div v-for="msg in msgs" class="msg-box" transition="item">
 				<img class="head-img" :src="msg.headImgSrc">
 				<div class="text-box">
-					<h4 class="user-name pull-left"><strong>{{msg.userId}}</strong></h4>
-                    <button class="pull-right btn btn-sm btn-primary">编辑</button>
-					<p class="user-comment">{{msg.comment}}</p>
-					<p class="pull-left small text-info date">{{msg.date}}</p>
+					<h4 class="user-name"><strong>{{msg.userId}}</strong></h4>
+					<button class="btn btn-sm btn-primary edit-btn" @click="editComment($index)">编辑</button>
+					<p class="user-comment" v-if="!msg.editing">{{{msg.comment}}}</p>
+					<form  class="form-group" @submit.prevent="updateMsg($index)" v-if="msg.editing" transition="show-editing-box">
+						<textarea  spellcheck="false"  type="text" placeholder="输入留言.." class="form-control comment" v-model="msg.comment" rows="5" @focus="inputUpDateComment($index)" @input="inputUpDateComment($index)" @keydown="checkUpDateComment($index)"></textarea>
+						<span class="text-num-limit">还可以输入{{msg.textNumLimit}}个字</span>
+						<button type="submit" class="btn btn-sm btn-primary send-btn">保存</button>
+					</form>
+					<p class="pull-left small text-info date">创建时间:{{msg.date}}</p>
+					<p class="pull-left small text-info date">更新时间:{{msg.updateDate}}</p>
 				</div>
 			</div>
 		</div>
 		<div class="panel-heading">已无更多</div>
 	</div>
-<script src="/javascripts/libs/vue.js"></script>
-<script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
-<script src="/javascripts/libs/vue-animated-list.js"></script>
-<script src="/javascripts/index.js"></script>
+	<script src="/javascripts/libs/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
+	<script src="/javascripts/libs/vue-animated-list.js"></script>
+	<script src="/javascripts/index.js"></script>
 </body>
 </html>
