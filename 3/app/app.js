@@ -10,7 +10,7 @@ var app = express ();
 
 // 配置mongoose
 var mongoose = require ('./mongoose.js');
-mongoose.db.on ('error', console.error.bind (console, '连接错误:'));
+mongoose.db.on ('error', console.error.bind (console, '连接错误!'));
 mongoose.db.once ('open', function () {
     console.log ('连接数据库成功!')
 });
@@ -35,11 +35,13 @@ app.get ('/', function (req, res) {
         app[ router.method ] (router.path, router.router);
     })
 });
+// 其他URL一律跳回主页
 app.get ('*', function (req, res) {
     res.redirect ('/');
 });
+/* routes end */
 
-// 设定port变量，意为访问端口
+// 设定port变量，即监听的端口
 app.set ('port', process.env.PORT || 3000);
 
 var server = app.listen (app.get ('port'), function () {

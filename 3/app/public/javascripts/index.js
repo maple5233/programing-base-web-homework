@@ -60,7 +60,7 @@ var vm = new Vue ({
                         /* update LocalStorage*/
                         var len = this.msgs.length > 20 ? 20 : this.msgs.length;
                         var latestMsgs = this.msgs.slice (-len); // 深拷贝最旧的20条;
-                        latestMsgs=[];
+                        // latestMsgs=[];
                         localStorage.setItem ('messages', JSON.stringify (latestMsgs));// 更新
                     } else {
                         console.log (result.data.code);
