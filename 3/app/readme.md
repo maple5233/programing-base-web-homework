@@ -2,7 +2,7 @@
 ##Installation
 1. Download the latest release.
 2. cd `/app/`
-3. ** Install with [npm](https://www.npmjs.com): `npm install` **
+3. **Install with [npm](https://www.npmjs.com): `npm install`**
 
 ##Start
 1. cd `/app/`
