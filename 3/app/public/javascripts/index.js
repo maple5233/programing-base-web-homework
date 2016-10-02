@@ -17,20 +17,24 @@ var vm = new Vue ({
             var msgObj = JSON.parse (msgLoad);
             // console.dir(msgObj);
             this.msgs = msgObj;
+            for (var j = 0; j < this.msgs.length; j++) {
+                this.msgs[ j ].textNumLimit = 140 - this.msgs[ j ].comment.length;
+                this.msgs[ j ].editing = false; // 新增加两个只存在于前端的属性
+            }
         }
         /* pullMsg */
         this.pullMsg ();
     },
     methods: {
         sendMsg: function () {
-            if (this.userId.length*this.comment.length === 0) {
-                window.alert('Lost Info!');
+            if (this.userId.length * this.comment.length === 0) {
+                window.alert ('Lost Info!');
                 return;
             }
             this.$http.post ('/comment', {
                 commentNew: {
                     userId: this.userId,
-                    comment: this.comment.replace(/\n/g,'<br />')
+                    comment: this.comment.replace (/\n/g, '<br />')
                 }
             }).then (result => {
                 if (result.data.code === '0') {
@@ -45,10 +49,11 @@ var vm = new Vue ({
             });
         },
         pullMsg: function () {
-            var pullMsgId = setInterval (()=> {
+            var pullMsgId = setInterval (() => {
                 this.$http.get ('/comment').then (result => {
                     if (result.data.code === '0') {
                         /* update view model */
+                        // 更新新的留言和触发插入动画效果
                         var newMsgs = result.data.msgs;
                         var newLength = newMsgs.length;
                         var addLength = newLength - this.msgs.length;
@@ -57,11 +62,18 @@ var vm = new Vue ({
                             newMsgs[ i ].editing = false; // 新增加两个只存在于前端的属性
                             this.msgs.unshift (newMsgs[ i ]);
                         }
+                        /* 更新修改过的留言 */
+                        for (var j = 0; j < this.msgs.length; j++) {
+                            if (this.msgs[ j ].editing === false) { // 不在编辑转态
+                                this.msgs[ j ].comment = newMsgs[ j ].comment;
+                                this.msgs[ j ].updateDate = newMsgs[ j ].updateDate;
+                            }
+                        }
                         /* update LocalStorage*/
                         var len = this.msgs.length > 20 ? 20 : this.msgs.length;
                         var latestMsgs = this.msgs.slice (-len); // 深拷贝最旧的20条;
-                        // latestMsgs=[];
-                        localStorage.setItem ('messages', JSON.stringify (latestMsgs));// 更新
+                        latestMsgs = [];
+                        localStorage.setItem ('messages', JSON.stringify (latestMsgs)); // 更新
                     } else {
                         console.log (result.data.code);
                     }
@@ -101,18 +113,18 @@ var vm = new Vue ({
             } else {
                 this.msgs[ index ].editing = true;
                 this.editing = true;
-                this.msgs[ index ].comment = this.msgs[ index ].comment.replace(/<br\s*\/?>/g,'\n');
+                this.msgs[ index ].comment = this.msgs[ index ].comment.replace (/<br\s*\/?>/g, '\n');
             }
         },
         updateMsg: function (index) {
             this.editing = false;
             this.msgs[ index ].editing = false;
-            this.msgs[ index ].comment = this.msgs[ index ].comment.replace(/\n/g,'<br />');
+            this.msgs[ index ].comment = this.msgs[ index ].comment.replace (/\n/g, '<br />');
             /* 立即上传 */
             this.$http.put ('/comment', {
                 commentNew: {
                     _id: this.msgs[ index ]._id,
-                    comment: this.msgs[ index ].comment.replace(/\n/g,'<br />')
+                    comment: this.msgs[ index ].comment.replace (/\n/g, '<br />')
                 }
             }).then (result => {
                 if (result.data.code === '0') {
@@ -123,7 +135,7 @@ var vm = new Vue ({
                     var len = this.msgs.length > 20 ? 20 : this.msgs.length;
                     var latestMsgs = this.msgs.slice (-len); // 深拷贝最旧的20条;
                     // latestMsgs=[];
-                    localStorage.setItem ('messages', JSON.stringify (latestMsgs));// 更新
+                    localStorage.setItem ('messages', JSON.stringify (latestMsgs)); // 更新
                 } else {
                     console.log (result.data.code);
                 }

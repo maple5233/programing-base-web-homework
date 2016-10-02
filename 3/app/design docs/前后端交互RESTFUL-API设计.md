@@ -1,11 +1,12 @@
 >## 概述
 
-<strong>后端API是在RESTful风格的,发送和返回内容均为`json`数据。<strong>
+**后端API是在RESTful风格的,发送和返回内容均为`json`数据。**
 
 >## API
+
 >### 留言相关
 
-```
+```js
 
 001 获取所有留言
 GET /comment
@@ -23,7 +24,7 @@ Response
         headImgSrc:     String, (用户头像)
         date:           String, (留言创建时间)
         updateDate:     String, (留言更新时间)
-        __v:            Number  (mongodb默认自动生成的版本锁标志，前端用不到)
+        __v:            Number (mongodb默认自动生成的版本锁标志，前端用不到)
     }]
 }
 
@@ -34,7 +35,7 @@ code    msg
 
 ```
 
-```
+```js
 
 002 上传留言
 POST /comment
@@ -57,7 +58,8 @@ code    msg
 -1     未知错误
 
 ```
-```
+
+```js
 
 003 更新留言
 PUT /comment

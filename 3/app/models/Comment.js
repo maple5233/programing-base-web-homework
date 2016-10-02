@@ -5,20 +5,20 @@
 var mongoose = require ('../mongoose');
 
 var CommentSchema = new mongoose.Schema ({
-    userId: String,
-    comment: String,
-    date: String,
-    headImgSrc: String,
-    updateDate: String
-}, {strict: true});
+    userId: String, // 用户ID
+    comment: String, // 留言内容
+    date: String, // 留言创建时间
+    headImgSrc: String, // 头像 此处随机选择
+    updateDate: String // 留言更新时间
+}, {strict: true}); // 开启严格模式，不允许不同数据结构存入 
 
-CommentSchema.statics = {
-    fetch: function (cb) {
+CommentSchema.statics = { //静态方法
+    fetch: function (cb) { // 取出所有数据
         return this
             .find ({})
             .exec (cb);
     },
-    fetchById: function (id, cb) {
+    fetchById: function (id, cb) { //根据_id找数据
         return this
             .findById (id)
             .exec (cb);
@@ -40,9 +40,6 @@ Comment.$routers = [
                     });
                 }
                 else {
-                    // comments.forEach(msg => {
-                    //     msg.comment = msg.comment.replace('<br />','\n')
-                    // });
                     res.status (200).json ({
                         code: '0',
                         msgs: comments.reverse () // 反转数组 让新的在最前面
@@ -87,7 +84,6 @@ Comment.$routers = [
                         code: '-1'
                     });
                 } else {
-                    // console.log(oldComment);
                     oldComment.comment = commentInfo.comment;
                     oldComment.updateDate = dateString;
                     oldComment.save (err=> {
