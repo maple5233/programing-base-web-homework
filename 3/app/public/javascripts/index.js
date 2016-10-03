@@ -7,9 +7,18 @@ var vm = new Vue ({
         userId: '',
         comment: '',
         msgs: [],
-        editing: false
+        editing: false,
+        bgImg : '/images/bgc1.png',
+        bgImgs : [
+            '/images/bgc1.png',
+            '/images/bgc2.png',
+            '/images/bgc3.png',
+            '/images/bgc4.png',
+            '/images/bgc5.png'
+        ]
     },
     ready() {
+        this.changeBgc();
         /* get msgs in LocalStorage*/
         if (localStorage.getItem ('messages')) {
             console.log ('Load localStorage successfully!');
@@ -26,6 +35,16 @@ var vm = new Vue ({
         this.pullMsg ();
     },
     methods: {
+        changeBgc : function () {
+            var index = 0;
+            var changeBgcId = setInterval (() => {
+                this.bgImg = this.bgImgs[index];
+                index++;
+                if(index === 5) {
+                    index = 0;
+                }
+            },5000);
+        },
         sendMsg: function () {
             if (this.userId.length * this.comment.length === 0) {
                 window.alert ('Lost Info!');
@@ -72,7 +91,7 @@ var vm = new Vue ({
                         /* update LocalStorage*/
                         var len = this.msgs.length > 20 ? 20 : this.msgs.length;
                         var latestMsgs = this.msgs.slice (-len); // 深拷贝最旧的20条;
-                        latestMsgs = [];
+                        // latestMsgs = [];
                         localStorage.setItem ('messages', JSON.stringify (latestMsgs)); // 更新
                     } else {
                         console.log (result.data.code);

@@ -1,3 +1,13 @@
+body {
+  width: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;/* 当内容高度大于图片高度时，背景图像的位置相对于viewport固定 */
+  background-size: cover;/* 让背景图基于容器大小伸缩且覆盖 */
+  padding-top: 30px;
+  padding-bottom: 30px;
+  transition: all 1s ease;
+}
 .panel-heading {
   text-align: center;
   border-top: 1px solid transparent;
@@ -25,7 +35,7 @@ input, textarea {
 
 #main {
   width: 40%;
-  margin: 30px auto 30px auto;
+  margin: 0 auto 0 auto;
 }
 
 .form-group {
