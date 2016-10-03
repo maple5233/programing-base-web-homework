@@ -43,7 +43,7 @@ var vm = new Vue ({
                 if(index === 5) {
                     index = 0;
                 }
-            },5000);
+            },10000);
         },
         sendMsg: function () {
             if (this.userId.length * this.comment.length === 0) {

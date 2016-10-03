@@ -22,6 +22,8 @@ app.use (express.static (__dirname + '/public'));
 app.use (bodyParser.json ());
 app.use (bodyParser.urlencoded ({extended: false}));
 app.use (cookieParser ());
+// 配置icon
+app.use(favicon(__dirname + '/public/images/vue_64px.png'));
 // 开启express消息提示
 app.use (flash ());
 
