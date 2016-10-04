@@ -1023,10 +1023,10 @@ body .markdown-body
 <li>网站核心部分是一个居中的面板。</li>
 </ol>
 <h3 id="_3"><a name="user-content-_3" href="#_3" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>总体效果图</h3>
-<p><img alt="总体效果" src="/home/hongjiyao_2014150120/programing%20base%20web/3/app/design%20docs/images/whole.png" /></p>
+<p><img alt="总体效果" src="./images/whole.png" /></p>
 <h3 id="_4"><a name="user-content-_4" href="#_4" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>留言发布区设计说明</h3>
 <h4 id="_5"><a name="user-content-_5" href="#_5" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>效果图</h4>
-<p><img alt="留言发布区效果" src="/home/hongjiyao_2014150120/programing%20base%20web/3/app/design%20docs/images/%E7%95%99%E8%A8%80%E5%8F%91%E5%B8%83%E5%8C%BA.png" />  </p>
+<p><img alt="留言发布区效果" src="./images/%E7%95%99%E8%A8%80%E5%8F%91%E5%B8%83%E5%8C%BA.png" />  </p>
 <h4 id="_6"><a name="user-content-_6" href="#_6" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>代码</h4>
 <ul>
 <li>首先留言发布区用了<code>bootstrap</code>的面板组件。其代码如下:（为了更清晰，简化过，只留下与界面设计有关的部分）</li>
@@ -1070,18 +1070,18 @@ body .markdown-body
 <p>首先是<code>.input-group</code>修饰的输入框组，由<code>input-group-addon</code>包裹的icon和一个input输入框组成。</p>
 </li>
 </ul>
-<p><img alt="输入框组效果" src="/home/hongjiyao_2014150120/programing%20base%20web/3/app/design%20docs/images/%E8%BE%93%E5%85%A5%E6%A1%86%E7%BB%84.png" /></p>
+<p><img alt="输入框组效果" src="./images/%E8%BE%93%E5%85%A5%E6%A1%86%E7%BB%84.png" /></p>
 <ul>
 <li>接下来是一个<code>textarea</code>，它用<code>spellcheck="false"</code>取消了拼写检查，用<code>rows="5"</code>规定了有五行高，用<code>word-break: break-all</code>去掉了整词换行，用<code>resize: none;</code>去掉了右下角的改变大小的控件。</li>
 </ul>
-<p><img alt="留言框效果" src="/home/hongjiyao_2014150120/programing%20base%20web/3/app/design%20docs/images/%E7%95%99%E8%A8%80%E6%A1%86.png" /></p>
+<p><img alt="留言框效果" src="./images/%E7%95%99%E8%A8%80%E6%A1%86.png" /></p>
 <ul>
 <li>再接下来是用于显示计数的文字，和一个用<code>btn btn-sm btn-primary</code>分别修饰了形状大小颜色的按钮，他们在同一行。文字左浮动，按钮右浮动。  </li>
 </ul>
-<p><img alt="发布区底部效果" src="/home/hongjiyao_2014150120/programing%20base%20web/3/app/design%20docs/images/%E5%8F%91%E5%B8%83%E5%8C%BA%E5%BA%95%E9%83%A8.png" /></p>
+<p><img alt="发布区底部效果" src="./images/%E5%8F%91%E5%B8%83%E5%8C%BA%E5%BA%95%E9%83%A8.png" /></p>
 <h3 id="_8"><a name="user-content-_8" href="#_8" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>留言查看区设计说明</h3>
 <h4 id="_9"><a name="user-content-_9" href="#_9" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>效果图</h4>
-<p><img alt="查看区总体效果" src="/home/hongjiyao_2014150120/programing%20base%20web/3/app/design%20docs/images/%E7%95%99%E8%A8%80%E6%9F%A5%E7%9C%8B%E5%8C%BA.png" /></p>
+<p><img alt="查看区总体效果" src="./images/%E7%95%99%E8%A8%80%E6%9F%A5%E7%9C%8B%E5%8C%BA.png" /></p>
 <h4 id="_10"><a name="user-content-_10" href="#_10" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>代码</h4>
 <ul>
 <li>依旧是一个面板组件，代码如下:（为了更清晰，简化过，只留下与界面设计有关的部分）</li>
@@ -1139,15 +1139,15 @@ body .markdown-body
 <ul>
 <li>首先整个区域被两个<code>panel-heading</code>的块包住。</li>
 </ul>
-<p><img alt="空留言效果" src="/home/hongjiyao_2014150120/programing%20base%20web/3/app/design%20docs/images/%E7%A9%BA%E7%95%99%E8%A8%80.png" /></p>
+<p><img alt="空留言效果" src="./images/%E7%A9%BA%E7%95%99%E8%A8%80.png" /></p>
 <ul>
 <li>非编辑状态下，留言盒子部分左侧是一张左浮动的用<code>.head-img</code>修饰的头像，占10%。右侧是文字区域，由一个<code>h4</code>标签做ID显示，一个<code>p</code>标签做留言显示，两个一个<code>p</code>标签做时间显示，还有右上的用绝对定位定死的编辑按钮。每个盒子还有1px下边框做分割线。</li>
 </ul>
-<p><img alt="非编辑留言盒子效果" src="/home/hongjiyao_2014150120/programing%20base%20web/3/app/design%20docs/images/%E7%95%99%E8%A8%80%E7%9B%92%E5%AD%90.png" /></p>
+<p><img alt="非编辑留言盒子效果" src="./images/%E7%95%99%E8%A8%80%E7%9B%92%E5%AD%90.png" /></p>
 <ul>
 <li>编辑状态下，用作展示留言的<code>p</code>标签消失，变成一个<code>textarea</code>，该区域几乎是上边发布区的翻版，故不加赘述。</li>
 </ul>
-<p><img alt="编辑留言盒子效果" src="/home/hongjiyao_2014150120/programing%20base%20web/3/app/design%20docs/images/%E7%95%99%E8%A8%80%E7%9B%92%E5%AD%90_%E7%BC%96%E8%BE%91.png" /></p>
+<p><img alt="编辑留言盒子效果" src="./images/%E7%95%99%E8%A8%80%E7%9B%92%E5%AD%90_%E7%BC%96%E8%BE%91.png" /></p>
 <ul>
 <li>
 <p>编辑按钮与发布区的提交按钮一致，不加赘述。</p>
