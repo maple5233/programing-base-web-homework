@@ -1,0 +1,1 @@
+ pandoc -f markdown_github -t docx ./*.md -o 全部设计说明.docx
