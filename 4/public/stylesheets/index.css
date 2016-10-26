@@ -1,0 +1,49 @@
+body {
+  min-height: 100vh;
+  background: url(../images/bgc5.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #fff;
+}
+header,
+footer {
+  background-color: #0091ea;
+  width: 100%;
+  height: 40px;
+  color: #ffffff;
+  text-align: center;
+  font-size: 20px;
+  line-height: 40px;
+  font-weight: bold;
+}
+footer {
+  position: absolute;
+  bottom: 0;
+}
+.contant {
+  padding: 16px;
+}
+.contant .main-panel {
+  width: 40%;
+  margin: 0 auto;
+  padding: 16px;
+  margin-top: 80px;
+}
+.contant .main-panel .panel-heading {
+  margin-bottom: 16px;
+  text-align: center;
+  font-weight: bold;
+  color: #fff;
+  background-color: #03a9f4;
+}
+.contant .input-group {
+  margin-bottom: 16px;
+}
+.contant .input-group input {
+  transition: all .5s ease;
+}
+.contant .input-group input[type="button"]:hover {
+  background-color: #03a9f4;
+  color: #fff;
+}
