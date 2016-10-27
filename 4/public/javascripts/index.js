@@ -4,7 +4,8 @@ var vm = new Vue ({
     el: '#whole',
     data: {
         userName : '',
-        userPass : ''
+        userPass : '',
+        _userPass : '' // 加密后的密码;
     },
     methods: {
         verify : function () {
@@ -12,6 +13,7 @@ var vm = new Vue ({
                 window.alert("信息不完整!")
                 return false
             }
+            this._userPass = hex_sha1(this.userPass)
             return true
         },
         login : function () {
