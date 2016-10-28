@@ -1,0 +1,234 @@
+.confirm {
+  padding: 6px;
+  width: 300px;
+  height: 200px;
+  margin: 0 auto;
+  position: relative;
+  top: 100px;
+}
+.confirm p {
+  padding: 6px 0;
+}
+.confirm input {
+  width: 300px;
+}
+.submit-button button {
+  margin-top: 10px;
+  width: 120px;
+  height: 40px;
+  border-radius: 10px;
+  color: #fff;
+  background-color: #37474f;
+  border-top-style: none;
+  border-right-style: none;
+  border-bottom-style: none;
+  border-left-style: none;
+  outline: 0;
+}
+.submit-button button:hover {
+  background-color: #0091ea;
+}
+.center-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.align-items-start {
+  align-items: flex-start;
+}
+.wrapper {
+  align-items: flex-start;
+}
+.wrapper .left-menu {
+  width: 200px;
+}
+.wrapper .left-menu ul {
+  width: 100%;
+  border-right: 1px solid #eee;
+}
+.wrapper .left-menu ul li {
+  width: 100%;
+  text-align: center;
+  height: 50px;
+  line-height: 50px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+  transition: all .5s ease;
+}
+.wrapper .left-menu ul li:hover {
+  background: #0288d1;
+  color: #fff;
+}
+.wrapper .left-menu ul .active {
+  background: #0288d1;
+  color: #fff;
+}
+.wrapper .right-content {
+  flex: 8;
+}
+.wrapper .right-content section {
+  font-size: 14px;
+  width: 100%;
+  padding: 15px;
+}
+.wrapper .right-content section div {
+  padding: 3px 6px;
+}
+.wrapper .right-content section aside {
+  display: inline-block;
+}
+.wrapper .right-content section .label-name {
+  width: 100px;
+  margin-right: 10px;
+  text-align: right;
+  font-weight: bold;
+}
+.wrapper .right-content section .input-area {
+  flex: 8;
+}
+.wrapper .right-content section .input-area input[type="text"] {
+  padding: 6px 6px;
+  width: 400px;
+  height: 35px;
+  padding: 15px;
+}
+.wrapper .right-content section .input-area input,
+.wrapper .right-content section .input-area textarea {
+  border-radius: 5px;
+  border: 1px solid #b0bec5;
+  outline: none;
+  transition: all ease-in-out 0.5s;
+}
+.wrapper .right-content section .input-area input:focus,
+.wrapper .right-content section .input-area textarea:focus {
+  border: 1px solid #0091ea;
+}
+.wrapper .right-content section .input-area label {
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 15px;
+}
+.wrapper .right-content section .input-area textarea {
+  width: 400px;
+  padding: 15px;
+  line-height: 20px;
+  word-break: break-all;
+  resize: none;
+}
+.wrapper .right-content section .input-area div {
+  width: auto;
+  display: inline-block;
+  vertical-align: top;
+}
+.wrapper .right-content section .submit-button {
+  flex: 8;
+}
+nav .nav-space {
+  flex: 8;
+}
+nav .user {
+  flex: 2;
+  height: 45px;
+  line-height: 45px;
+}
+nav .user p {
+  background: #0091ea;
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+}
+.act-detail:nth-child(odd) {
+  background: #eee;
+}
+.act-detail.strong {
+  font-weight: 800;
+  background: #37474f;
+  color: #fff;
+}
+.act-detail:hover {
+  background: #0091ea;
+}
+.act-detail {
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+}
+.act-detail div {
+  white-space: nowrap;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
+.act-detail .number {
+  flex: 1;
+}
+.act-detail .name {
+  flex: 4;
+}
+.act-detail .place {
+  flex: 2;
+}
+.act-detail .publisher {
+  flex: 2;
+}
+.act-detail .detail {
+  flex: 6;
+  overflow-x: hidden;
+  max-width: 200px;
+}
+.act-detail .start {
+  flex: 4;
+  max-width: 130px;
+}
+.act-detail .end {
+  flex: 4;
+  max-width: 130px;
+}
+.act-detail .edit {
+  flex: 3;
+}
+.act-detail .edit div {
+  display: inline-block;
+  vertical-align: top;
+}
+.act-detail .edit button {
+  color: #fff;
+  padding: 0 5px;
+  margin-right: 5px;
+  border-radius: 4px;
+  text-align: center;
+  border: 0;
+  height: 25px;
+  line-height: 25px;
+  font-size: 14px;
+  background-color: #0091ea;
+  transition: all .25s ease;
+}
+.act-detail .edit .delete {
+  background: #c62828;
+}
+.act-detail .edit .delete:hover {
+  background: #b71c1c;
+}
+.act-detail .edit .edit-link:hover {
+  background: #37474f;
+}
+.list-enter-active,
+.list-leave-active {
+  transition: all 1s;
+}
+.list-enter,
+.list-leave-active {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.list-move {
+  transition: transform 1s;
+}
+.testAddBtn {
+  width: 50px;
+  height: 50px;
+}
+.no-padding {
+  padding: 0!important;
+}

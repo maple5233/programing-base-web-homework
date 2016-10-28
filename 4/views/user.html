@@ -12,9 +12,36 @@
 </head>
 <body>
     <div id="whole">
-        
-    </div>
-    <script src="http://cdn.bootcss.com/vue/2.0.3/vue.js"></script>
-    <script src="../public/javascripts/user.js"></script>
+        <div class="wrapper center-flex">
+            <div class="left-menu  center-flex">
+                <ul>
+                    <li :class="{ 'active' : active.now === 0 }" v-on:click="changeTab(0, active)">活动管理</li>
+                    <li :class="{ 'active' : active.now === 1 }" v-on:click="changeTab(1, active)"></li>
+                </ul>
+            </div>
+            <div class="right-content">
+                <section v-show="active.now === 0">
+                    <div class="act-detail center-flex strong">
+                        <div class="number">序号</div>
+                        <div class="name">标题</div>
+                        <div class="place">地点</div>
+                        <div class="publisher">发文单位</div>
+                        <div class="detail">详情</div>
+                        <div class="start">开始时间</div>
+                        <div class="end">结束时间</div>
+                        <div class="edit">编辑</div>
+                    </div>
+                    <transition-group name="list" tag="div" class="no-padding">
+                      <div class="act-detail center-flex" v-bind:key="item._id" v-for="(item , index) in activities">
+                      </div>
+                    </transition-group>
+                </section>
+                <section v-show="active.now === 1">
+                </section>
+          </div>
+      </div>
+  </div>
+  <script src="http://cdn.bootcss.com/vue/2.0.3/vue.js"></script>
+  <script src="../public/javascripts/user.js"></script>
 </body>
 </html>
