@@ -1,24 +1,31 @@
-/**
-  * 获取当前时间字符串
-  */
-function getCurTime () {
-  let time = new Date()
-  let year = time.getFullYear()
-  let mon = time.getMonth() + 1
-  let date = time.getDate()
-  let hour = time.getHours()
-  let min = time.getMinutes()
-  let ret = [year, mon, date].join('-') + ' ' + [hour, min].join(':')
-  return ret
-}
-
 var vm = new Vue({
   el: '#whole',
   data: {
       active: {
         now: 0
       },
-      postTexts: []
+      classId : '1',
+      authorId : '2014150120',
+      postTexts: [],
+      newPost: {
+        classId: null,
+        className: null,
+        stuId: null,
+        authorId: null,
+        date: null,
+        deadline: null,
+        gotten: null,
+        num: null,
+        bond: null,
+        howmuch: null,
+        payedMembers: null,
+        unpayedMembers: null,
+        place: null,
+        pAgree: null,
+        pDisagree: null,
+        title: null,
+        contant: null
+      }
   },
   filters: {
     /**
@@ -80,6 +87,29 @@ var vm = new Vue({
      */
     changeTab: function (index, active) {
       active.now = index
+      this.postTexts = []
+      this.newPost = {
+        classId: null,
+        className: null,
+        stuId: null,
+        authorId: null,
+        date: null,
+        deadline: null,
+        gotten: null,
+        num: null,
+        bond: null,
+        howmuch: null,
+        payedMembers: null,
+        unpayedMembers: null,
+        place: null,
+        pAgree: null,
+        pDisagree: null,
+        title: null,
+        contant: null
+      }
+      this.newPost.authorId = this.authorId
+      this.newPost.classId = this.classId
+      /** ajax更新视图 */
     },
     addPost: function () {
        let newPost = {
@@ -102,6 +132,56 @@ var vm = new Vue({
         contant: '我有一个不成熟的小建议'
       }
       this.postTexts.push(newPost)
+    },
+    submitPost: function (index) {
+      try {
+        /* 字符串处理为数组 */
+        this.newPost.payedMembers = JSON.parse('[' + this.newPost.payedMembers + ']')
+        this.newPost.unpayedMembers = JSON.parse('[' + this.newPost.unpayedMembers + ']')
+        this.newPost.pAgree = JSON.parse('[' + this.newPost.pAgree + ']')
+        this.newPost.pDisagree = JSON.parse('[' + this.newPost.pDisagree + ']')
+        /* 时间转化为时间对象 */
+        this.newPost.date = new Date(this.newPost.date)
+        this.newPost.deadline = new Date(this.newPost.deadline)
+        /* 补全信息 */
+        this.newPost.authorId = this.authorId
+        this.newPost.classId = this.classId
+      } catch(e) {
+        widows.alert('数据格式不正确!')
+        console.log(e)
+        return
+      }
+      console.log(this.newPost)
+      switch (index) {
+        case 0:
+          // ajax
+          break;
+        default:
+          break;
+      }
+      this.postTexts.push(this.newPost)
+      // 重置表单
+      this.newPost = {
+        classId: null,
+        className: null,
+        stuId: null,
+        authorId: null,
+        date: null,
+        deadline: null,
+        gotten: null,
+        num: null,
+        bond: null,
+        howmuch: null,
+        payedMembers: null,
+        unpayedMembers: null,
+        place: null,
+        pAgree: null,
+        pDisagree: null,
+        title: null,
+        contant: null
+      }
+      this.newPost.authorId = this.authorId
+      this.newPost.classId = this.classId
     }
   },
   mounted () {
