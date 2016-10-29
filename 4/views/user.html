@@ -46,6 +46,15 @@
                             </ul>
                         </div>
                     </transition-group>
+                    <form v-on:submit.prevent class="post-row strong">
+                        <ul class="list-group">
+                            <li class="list-group-item"><input type="text" placeholder="班级ID"></li>
+                            <li class="list-group-item"><input type="text" placeholder="考勤学生ID"></li>
+                            <li class="list-group-item"><input type="text" placeholder="课程名"></li>
+                            <li class="list-group-item"><input type="text" placeholder="旷课日期"></li>
+                            <li class="list-group-item"><button>提交</button></li>
+                        </ul>
+                    </form>
                 </section>
 
                 <section v-show="active.now === 1">

@@ -73,6 +73,15 @@ header {
   color: black;
   background-color: #eceff1;
 }
+button {
+  background-color: #0091ea;
+  color: #fff;
+  transition: all .5s ease;
+  border: none;
+}
+button:hover {
+  background-color: #0288d1;
+}
 .list-enter-active,
 .list-leave-active {
   transition: all 1s;
