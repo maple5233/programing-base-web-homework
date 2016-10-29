@@ -93,7 +93,13 @@ var vm = new Vue({
         deadline: (new Date()).toString(),
         howmuch: 2000,
         payedMembers: ['2014150120','2014150121'],
-        unpayedMembers: ['2014150122','2014150123']
+        unpayedMembers: ['2014150122','2014150123'],
+        place: '深大文科楼',
+        gotten: 1,
+        num: 2,
+        pAgree: ['2014150120','2014150121'],
+        pDisagree: ['2014150122','2014150123'],
+        title: '出游'
       }
       this.postTexts.push(newPost)
     }

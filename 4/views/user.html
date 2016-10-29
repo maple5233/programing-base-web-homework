@@ -95,6 +95,58 @@
                         </div>
                     </transition-group>
                 </section>
+
+                <section v-show="active.now === 3">
+                    <div class="post-row strong">
+                        <ul class="list-group">
+                            <li class="list-group-item">班级ID</li>
+                            <li class="list-group-item">日期</li>
+                            <li class="list-group-item">地点</li>
+                            <li class="list-group-item">实到人数/应到人数</li>
+                            <li class="list-group-item">主题</li>
+                            <li class="list-group-item">同意者名单</li>
+                            <li class="list-group-item">不同意者名单</li>
+                            <li class="list-group-item">发帖人ID</li>
+                        </ul>
+                    </div>
+                    <transition-group name="list" tag="div" class="">
+                        <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts" appear>
+                            <ul class="list-group">
+                                <li class="list-group-item">{{ postText.classId }}</li>
+                                <li class="list-group-item">{{ postText.date | date }}</li>
+                                <li class="list-group-item">{{ postText.place }}</li>
+                                <li class="list-group-item">{{ postText.gotten }} / {{ postText.num }}</li>
+                                <li class="list-group-item">{{ postText.title }}</li>
+                                <li class="list-group-item">{{ postText.pAgree | members }}</li>
+                                <li class="list-group-item">{{ postText.pDisagree | members }}</li>
+                                <li class="list-group-item">{{ postText.authorId }}</li>
+                            </ul>
+                        </div>
+                    </transition-group>
+                </section>
+
+                <section v-show="active.now === 3">
+                    <div class="post-row strong">
+                        <ul class="list-group">
+                            <li class="list-group-item">发帖人ID</li>
+                            <li class="list-group-item">回复</li>
+                        </ul>
+                    </div>
+                    <transition-group name="list" tag="div" class="">
+                        <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts" appear>
+                            <ul class="list-group">
+                                <li class="list-group-item">{{ postText.classId }}</li>
+                                <li class="list-group-item">{{ postText.date | date }}</li>
+                                <li class="list-group-item">{{ postText.place }}</li>
+                                <li class="list-group-item">{{ postText.gotten }} / {{ postText.num }}</li>
+                                <li class="list-group-item">{{ postText.title }}</li>
+                                <li class="list-group-item">{{ postText.pAgree | members }}</li>
+                                <li class="list-group-item">{{ postText.pDisagree | members }}</li>
+                                <li class="list-group-item">{{ postText.authorId }}</li>
+                            </ul>
+                        </div>
+                    </transition-group>
+                </section>
             </div>
         </div>
     </div>
