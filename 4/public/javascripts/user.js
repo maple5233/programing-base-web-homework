@@ -13,39 +13,12 @@ function getCurTime () {
 }
 
 var vm = new Vue({
+  el: '#whole',
   data: {
       active: {
-        now: 0,
-        is_create: true, // true 活动发布、 false 活动更新
-        cur_id: ''
+        now: 0
       },
-      curStartTime: getCurTime(),
-      curEndTime: getCurTime(),
-      curName: '',
-      curPlace: '',
-      curPublisher: '',
-      curDetail: '',
-      curPublished: getCurTime(),
-      curCover: '',
-      startTimeVarName: 'curStartTime',
-      endTimeVarName: 'curEndTime',
-      publishTimeVarName: 'curPublished',
-      items: [],
-      pagination: {
-        total: 15,
-        per_page: 20,    // required
-        current_page: 1, // required
-        last_page: 3,    // required
-        from: 1,
-        to: 12           // required
-      },
-      paginationOptions: {
-        offset: 4,
-        previousText: 'Prev',
-        nextText: 'Next',
-        alwaysShowPrevNext: true
-      },
-      activities: []
+      postTexts: []
   },
   filters: {
     /**
@@ -54,13 +27,47 @@ var vm = new Vue({
      * @return {String}     格式化的结果
      */
      datetime (str) {
-      const date = new Date(str)
-      const year = date.getFullYear()
-      const day = date.getDate().toString().padStart(2, '0')
-      const mouth = (date.getMonth() + 1).toString().padStart(2, '0')
-      const hour = date.getHours().toString().padStart(2, '0')
-      const minute = date.getMinutes().toString().padStart(2, '0')
+      let date = new Date(str)
+      let year = date.getFullYear()
+      let day = date.getDate().toString()
+      if (day.length === 1) {
+        day = '0'+ day
+      }
+      let mouth = (date.getMonth() + 1).toString()
+      if (mouth.length === 1) {
+        mouth = '0'+ day
+      }
+      let hour = date.getHours().toString()
+      if (hour.length === 1) {
+        hour = '0'+ day
+      }
+      let minute = date.getMinutes().toString()
+      if (minute.length === 1) {
+        minute = '0'+ day
+      }
       return `${year}-${mouth}-${day} ${hour}:${minute}`
+    },
+
+    date (str) {
+      let date = new Date(str)
+      let year = date.getFullYear()
+      let day = date.getDate().toString()
+      if (day.length === 1) {
+        day = '0'+ day
+      }
+      let mouth = (date.getMonth() + 1).toString()
+      if (mouth.length === 1) {
+        mouth = '0'+ day
+      }
+      let hour = date.getHours().toString()
+      if (hour.length === 1) {
+        hour = '0'+ day
+      }
+      let minute = date.getMinutes().toString()
+      if (minute.length === 1) {
+        minute = '0'+ day
+      }
+      return `${year}-${mouth}-${day}`
     }
   },
   methods: {
@@ -68,125 +75,20 @@ var vm = new Vue({
      * 改变Tab标签
      * @param  {Number} index  选择的标签的下标
      * @param  {Object} active 本地变量，存储哪个Tab是激活的
-     * @return {void}
      */
-     changeTab: (index, active) => {
+    changeTab: function (index, active) {
       active.now = index
     },
-    /**
-     * 删除活动
-     * @param  {Number} index 要删除的活动的下标
-     * @return {void}
-     */
-     async deleteAct (index, item) {
-      if (!window.confirm('真的要删除活动："' + item.name + '"吗？')) {
-        return
+    addPost: function () {
+       let newPost = {
+        classId: 1,
+        stuId: 2014150121,
+        className: '软工2班',
+        date: (new Date()).toString()
       }
-      const result = await (await this.$http.delete('activity/' + item._id, {
-        headers: {
-          Authorization: 'Bearer ' + this.token
-        }
-      })).json()
-      if (!result.success) {
-        window.alert(result.message)
-        return
-      }
-      this.activities.splice(index, 1)
-    },
-    /**
-     * 拉取和更新数据
-     */
-     async loadData () {
-      const result = await (await this.$http.get('activities/all/page/' + (this.pagination.current_page - 1))).json()
-      this.activities = result.data
-      const pageResult = await (await this.$http.get('activities')).json()
-      this.pagination.last_page = Math.floor(pageResult.data / 20) + 1
-    },
-    /**
-     * 发布和更新活动
-     */
-     async publishAct () {
-      let para = {
-        name: this.curName,
-        place: this.curPlace,
-        detail: this.curDetail,
-        start: this.curStartTime,
-        end: this.curEndTime,
-        publisher: this.curPublisher,
-        cover: this.curCover
-      }
-      if (this.active.is_create) {
-        const putResult = await (await this.$http.put('activity/', para, {
-          headers: {
-            Authorization: 'Bearer ' + this.token
-          }
-        })).json()
-        if (!putResult.success) {
-          window.alert(putResult.message)
-          return
-        }
-        window.alert('发布成功')
-      } else {
-        const postResult = await (await this.$http.post('activity/' + this.active.cur_id, para, {
-          headers: {
-            Authorization: 'Bearer ' + this.token
-          }
-        })).json()
-        if (!postResult.success) {
-          window.alert(postResult.message)
-          return
-        }
-        window.alert('更新成功')
-      }
-      this.loadData()
-    },
-    /**
-     * 切换到发布活动
-     */
-     changeToCreat () {
-      this.active.now = 1
-      this.active.is_create = true
-      this.active._id = ''
-      this.curName = ''
-      this.curPlace = ''
-      this.curDetail = ''
-      this.curStartTime = ''
-      this.curEndTime = ''
-      this.curPublisher = ''
-      this.curPublishTime = ''
-      this.curCover = ''
-    },
-    /**
-     * 切换到更新活动
-     * @param  {Object} item 要更新的活动的信息
-     */
-     changeToEdit (item) {
-      this.active.now = 1
-      this.active.is_create = false
-      this.active.cur_id = item._id
-      this.curName = item.name
-      this.curPlace = item.place
-      this.curDetail = item.detail
-      this.curStartTime = item.start
-      this.curEndTime = item.end
-      this.curPublisher = item.publisher
-      this.curCover = item.cover
-    },
-    /**
-     * token验证
-     */
-     async confirmToken () {
-      const result = await (await this.$http.post('check', undefined, {
-        headers: {
-          Authorization: 'Bearer ' + this.token_input
-        }
-      })).json()
-      if (result.success) {
-        this.loadData()
-        this.token = this.token_input
-      } else {
-        window.alert('无效token')
-      }
+      this.postTexts.push(newPost)
     }
+  },
+  mounted () {
   }
 })
