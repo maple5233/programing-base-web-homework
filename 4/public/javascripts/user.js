@@ -87,7 +87,7 @@ var vm = new Vue({
         stuId: '2014150121',
         className: '软工2班',
         date: (new Date()).toString(),
-        title: '优秀学生',
+        title: '关于优秀学生',
         bond: 2000,
         authorId: '2014150120',
         deadline: (new Date()).toString(),
@@ -99,7 +99,7 @@ var vm = new Vue({
         num: 2,
         pAgree: ['2014150120','2014150121'],
         pDisagree: ['2014150122','2014150123'],
-        title: '出游'
+        contant: '我有一个不成熟的小建议'
       }
       this.postTexts.push(newPost)
     }

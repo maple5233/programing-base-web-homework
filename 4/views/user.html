@@ -125,24 +125,22 @@
                     </transition-group>
                 </section>
 
-                <section v-show="active.now === 3">
+                <section v-show="active.now === 4">
                     <div class="post-row strong">
                         <ul class="list-group">
                             <li class="list-group-item">发帖人ID</li>
-                            <li class="list-group-item">回复</li>
+                            <li class="list-group-item">主题</li>
+                            <li class="list-group-item">回复内容</li>
+                            <li class="list-group-item">回复时间</li>
                         </ul>
                     </div>
-                    <transition-group name="list" tag="div" class="">
+                    <transition-group name="list" tag="div">
                         <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts" appear>
                             <ul class="list-group">
-                                <li class="list-group-item">{{ postText.classId }}</li>
-                                <li class="list-group-item">{{ postText.date | date }}</li>
-                                <li class="list-group-item">{{ postText.place }}</li>
-                                <li class="list-group-item">{{ postText.gotten }} / {{ postText.num }}</li>
+                                <li class="list-group-item">{{ postText.stuId }}</li>
                                 <li class="list-group-item">{{ postText.title }}</li>
-                                <li class="list-group-item">{{ postText.pAgree | members }}</li>
-                                <li class="list-group-item">{{ postText.pDisagree | members }}</li>
-                                <li class="list-group-item">{{ postText.authorId }}</li>
+                                <li class="list-group-item">{{ postText.contant }}</li>
+                                <li class="list-group-item">{{ postText.date | date }}</li>
                             </ul>
                         </div>
                     </transition-group>
