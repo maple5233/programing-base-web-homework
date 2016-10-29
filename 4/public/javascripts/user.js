@@ -90,8 +90,6 @@ var vm = new Vue({
       active.now = index
       this.postTexts = []
       this.emptyPost()
-      this.newPost.authorId = this.authorId
-      this.newPost.classId = this.classId
       /** ajax更新视图 */
     },
     addPost: function () {
@@ -137,6 +135,8 @@ var vm = new Vue({
         title: null,
         contant: null
       }
+      this.newPost.authorId = this.authorId
+      this.newPost.classId = this.classId
     },
     submitPost: function (index) {
       let datePattern = /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/
@@ -208,8 +208,6 @@ var vm = new Vue({
       }
       this.postTexts.push(this.newPost)
       this.emptyPost()
-      this.newPost.authorId = this.authorId
-      this.newPost.classId = this.classId
     }
   },
   mounted () {
