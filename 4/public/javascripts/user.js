@@ -2,9 +2,9 @@ var vm = new Vue({
   el: '#whole',
   data: {
       active: {
-        now: 0
+        now: 4
       },
-      rank: 3, // 用户权限
+      rank: 0, // 用户权限
       classId : '1',
       authorId : '2014150120',
       postTexts: [],
