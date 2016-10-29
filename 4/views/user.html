@@ -50,6 +50,26 @@
                 </section>
 
                 <section v-show="active.now === 1">
+                    <div class="post-row strong">
+                        <ul class="list-group">
+                            <li class="list-group-item">班级ID</li>
+                            <li class="list-group-item">优等头衔</li>
+                            <li class="list-group-item">获奖学生ID</li>
+                            <li class="list-group-item">奖金数额</li>
+                            <li class="list-group-item">发帖人ID</li>
+                        </ul>
+                    </div>
+                    <transition-group name="list" tag="div" class="">
+                        <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts">
+                            <ul class="list-group">
+                                <li class="list-group-item">{{ postText.classId }}</li>
+                                <li class="list-group-item">{{ postText.title }}</li>
+                                <li class="list-group-item">{{ postText.stuId }}</li>
+                                <li class="list-group-item">{{ postText.bond }}</li>
+                                <li class="list-group-item">{{ postText.authorId }}</li>
+                            </ul>
+                        </div>
+                    </transition-group>
                 </section>
             </div>
         </div>

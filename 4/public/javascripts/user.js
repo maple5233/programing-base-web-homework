@@ -84,7 +84,10 @@ var vm = new Vue({
         classId: 1,
         stuId: 2014150121,
         className: '软工2班',
-        date: (new Date()).toString()
+        date: (new Date()).toString(),
+        title: '优秀学生',
+        bond: 2000,
+        authorId: 2014150120
       }
       this.postTexts.push(newPost)
     }
