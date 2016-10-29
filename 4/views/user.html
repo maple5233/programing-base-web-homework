@@ -115,9 +115,9 @@
                         <ul class="list-group">
                             <li class="list-group-item"><input type="text" placeholder="班级ID"></li>
                             <li class="list-group-item"><input type="text" placeholder="截止时间"></li>
-                            <li class="list-group-item"><input type="text" placeholder="金额大小" number></li>
-                            <li class="list-group-item"><input type="text" placeholder="已交费ID(半角逗号分隔)"></li>
-                            <li class="list-group-item"><input type="text" placeholder="未交费ID(半角逗号分隔)"></li>
+                            <li class="list-group-item"><input type="text" placeholder="金额大小"></li>
+                            <li class="list-group-item"><input type="text" placeholder="已交费ID(','分隔)"></li>
+                            <li class="list-group-item"><input type="text" placeholder="未交费ID(','分隔)"></li>
                             <li class="list-group-item"><button>提交</button></li>
                         </ul>
                     </form>
@@ -150,6 +150,19 @@
                             </ul>
                         </div>
                     </transition-group>
+                    <form v-on:submit.prevent class="post-row strong">
+                        <ul class="list-group">
+                            <li class="list-group-item"><input type="text" placeholder="班级ID"></li>
+                            <li class="list-group-item"><input type="text" placeholder="日期"></li>
+                            <li class="list-group-item"><input type="text" placeholder="地点"></li>
+                            <li class="list-group-item"><input type="text" placeholder="实到人数"></li>
+                            <li class="list-group-item"><input type="text" placeholder="应到人数"></li>
+                            <li class="list-group-item"><input type="text" placeholder="主题"></li>
+                            <li class="list-group-item"><input type="text" placeholder="同意ID(','分隔)"></li>
+                            <li class="list-group-item"><input type="text" placeholder="不同意ID(','分隔)"></li>
+                            <li class="list-group-item"><button>提交</button></li>
+                        </ul>
+                    </form>
                 </section>
 
                 <section v-show="active.now === 4">
@@ -171,6 +184,14 @@
                             </ul>
                         </div>
                     </transition-group>
+                    <form v-on:submit.prevent class="post-row strong">
+                        <ul class="list-group">
+                            <li class="list-group-item"><input type="text" placeholder="主题"></li>
+                            <li class="list-group-item"><input type="text" placeholder="回复内容"></li>
+                            <li class="list-group-item"><input type="text" placeholder="回复时间"></li>
+                            <li class="list-group-item"><button>提交</button></li>
+                        </ul>
+                    </form>
                 </section>
             </div>
         </div>
