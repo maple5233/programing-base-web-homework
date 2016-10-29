@@ -4,6 +4,7 @@ var vm = new Vue({
       active: {
         now: 0
       },
+      rank: 3, // 用户权限
       classId : '1',
       authorId : '2014150120',
       postTexts: [],
