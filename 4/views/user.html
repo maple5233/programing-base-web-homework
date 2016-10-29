@@ -51,7 +51,7 @@
                             <li class="list-group-item"><input type="text" placeholder="考勤学生ID"></li>
                             <li class="list-group-item"><input type="text" placeholder="课程名"></li>
                             <li class="list-group-item"><input type="text" placeholder="旷课日期"></li>
-                            <li class="list-group-item"><button>提交</button></li>
+                            <li class="list-group-item"><button v-on:click="submit(0)">提交</button></li>
                         </ul>
                     </form>
                 </section>
@@ -79,11 +79,10 @@
                     </transition-group>
                     <form v-on:submit.prevent class="post-row strong">
                         <ul class="list-group">
-                            <li class="list-group-item"><input type="text" placeholder="班级ID"></li>
                             <li class="list-group-item"><input type="text" placeholder="优等头衔"></li>
                             <li class="list-group-item"><input type="text" placeholder="获奖学生ID"></li>
                             <li class="list-group-item"><input type="text" placeholder="奖金数额"></li>
-                            <li class="list-group-item"><button>提交</button></li>
+                            <li class="list-group-item"><button v-on:click="submit(1)">提交</button></li>
                         </ul>
                     </form>
                 </section>
@@ -113,12 +112,11 @@
                     </transition-group>
                     <form v-on:submit.prevent class="post-row strong">
                         <ul class="list-group">
-                            <li class="list-group-item"><input type="text" placeholder="班级ID"></li>
                             <li class="list-group-item"><input type="text" placeholder="截止时间"></li>
                             <li class="list-group-item"><input type="text" placeholder="金额大小"></li>
                             <li class="list-group-item"><input type="text" placeholder="已交费ID(','分隔)"></li>
                             <li class="list-group-item"><input type="text" placeholder="未交费ID(','分隔)"></li>
-                            <li class="list-group-item"><button>提交</button></li>
+                            <li class="list-group-item"><button v-on:click="submit(2)">提交</button></li>
                         </ul>
                     </form>
                 </section>
@@ -152,7 +150,6 @@
                     </transition-group>
                     <form v-on:submit.prevent class="post-row strong">
                         <ul class="list-group">
-                            <li class="list-group-item"><input type="text" placeholder="班级ID"></li>
                             <li class="list-group-item"><input type="text" placeholder="日期"></li>
                             <li class="list-group-item"><input type="text" placeholder="地点"></li>
                             <li class="list-group-item"><input type="text" placeholder="实到人数"></li>
@@ -160,7 +157,7 @@
                             <li class="list-group-item"><input type="text" placeholder="主题"></li>
                             <li class="list-group-item"><input type="text" placeholder="同意ID(','分隔)"></li>
                             <li class="list-group-item"><input type="text" placeholder="不同意ID(','分隔)"></li>
-                            <li class="list-group-item"><button>提交</button></li>
+                            <li class="list-group-item"><button v-on:click="submit(3)">提交</button></li>
                         </ul>
                     </form>
                 </section>
@@ -189,7 +186,7 @@
                             <li class="list-group-item"><input type="text" placeholder="主题"></li>
                             <li class="list-group-item"><input type="text" placeholder="回复内容"></li>
                             <li class="list-group-item"><input type="text" placeholder="回复时间"></li>
-                            <li class="list-group-item"><button>提交</button></li>
+                            <li class="list-group-item"><button v-on:click="submit(4)">提交</button></li>
                         </ul>
                     </form>
                 </section>
