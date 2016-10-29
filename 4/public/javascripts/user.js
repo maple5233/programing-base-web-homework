@@ -93,6 +93,7 @@ var vm = new Vue({
       /** ajax更新视图 */
     },
     addPost: function () {
+      return
        let newPost = {
         classId: '1',
         className: '软工2班',

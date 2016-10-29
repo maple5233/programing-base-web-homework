@@ -17,11 +17,11 @@
 
             <div class="left-menu center-flex">
                 <ul class="list-group">
+                    <li class="list-group-item" :class="{ 'active' : active.now === 4 }" v-if="rank > -1" v-on:click="changeTab(4, active)">回复帖</li>
                     <li class="list-group-item" :class="{ 'active' : active.now === 0 }" v-if="rank > 0" v-on:click="changeTab(0, active)">发布考勤结果帖</li>
                     <li class="list-group-item" :class="{ 'active' : active.now === 1 }" v-if="rank > 0" v-on:click="changeTab(1, active)">评优等生帖</li>
                     <li class="list-group-item" :class="{ 'active' : active.now === 2 }" v-if="rank > 2" v-on:click="changeTab(2, active)">收班费帖</li>
                     <li class="list-group-item" :class="{ 'active' : active.now === 3 }" v-if="rank > 3" v-on:click="changeTab(3, active)">开班会帖</li>
-                    <li class="list-group-item" :class="{ 'active' : active.now === 4 }" v-if="rank > -1" v-on:click="changeTab(4, active)">回复帖</li>
                 </ul>
             </div>
 
