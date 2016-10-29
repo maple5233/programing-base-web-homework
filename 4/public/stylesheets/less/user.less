@@ -67,16 +67,14 @@
     }
 
     .post-row {
-      display: flex;
 
       .list-group {
-        margin-bottom: 1px;
+        margin-bottom: 3px;
       }
       
       ul {
-        flex: 1;
         display: flex;
-        overflow: hidden;
+        flex-wrap: wrap;
 
         .list-group-item:first-child {
           border-radius: 4px 0 0 4px;
@@ -88,11 +86,13 @@
 
       li {
         flex: 1;
-        align-items: flex-start;
         justify-content: center;
-        float: left;
         text-align: center;
-        text-overflow: hidden;
+        color: @main-color-dark;
+        margin-bottom: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
       }
     }
 

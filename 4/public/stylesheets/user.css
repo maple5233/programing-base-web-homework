@@ -46,16 +46,12 @@ header {
 .right-content section {
   width: 100%;
 }
-.right-content .post-row {
-  display: flex;
-}
 .right-content .post-row .list-group {
-  margin-bottom: 1px;
+  margin-bottom: 3px;
 }
 .right-content .post-row ul {
-  flex: 1;
   display: flex;
-  overflow: hidden;
+  flex-wrap: wrap;
 }
 .right-content .post-row ul .list-group-item:first-child {
   border-radius: 4px 0 0 4px;
@@ -65,11 +61,13 @@ header {
 }
 .right-content .post-row li {
   flex: 1;
-  align-items: flex-start;
   justify-content: center;
-  float: left;
   text-align: center;
-  text-overflow: hidden;
+  color: #37474f;
+  margin-bottom: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 .right-content .strong ul li {
   color: black;

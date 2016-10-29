@@ -47,7 +47,6 @@ var vm = new Vue({
       }
       return `${year}-${mouth}-${day} ${hour}:${minute}`
     },
-
     date (str) {
       let date = new Date(str)
       let year = date.getFullYear()
@@ -68,6 +67,9 @@ var vm = new Vue({
         minute = '0'+ day
       }
       return `${year}-${mouth}-${day}`
+    },
+    members (arr) {
+      return arr.join('\n')
     }
   },
   methods: {
@@ -81,13 +83,17 @@ var vm = new Vue({
     },
     addPost: function () {
        let newPost = {
-        classId: 1,
-        stuId: 2014150121,
+        classId: '1',
+        stuId: '2014150121',
         className: '软工2班',
         date: (new Date()).toString(),
         title: '优秀学生',
         bond: 2000,
-        authorId: 2014150120
+        authorId: '2014150120',
+        deadline: (new Date()).toString(),
+        howmuch: 2000,
+        payedMembers: ['2014150120','2014150121'],
+        unpayedMembers: ['2014150122','2014150123']
       }
       this.postTexts.push(newPost)
     }

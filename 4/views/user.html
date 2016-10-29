@@ -19,10 +19,9 @@
                 <ul class="list-group">
                     <li :class="{ 'active' : active.now === 0 }" class="list-group-item" v-on:click="changeTab(0, active)">发布考勤结果帖</li>
                     <li :class="{ 'active' : active.now === 1 }" class="list-group-item" v-on:click="changeTab(1, active)">评优等生帖</li>
-                    <li :class="{ 'active' : active.now === 2 }" class="list-group-item" v-on:click="changeTab(2, active)">收党费帖</li>
-                    <li :class="{ 'active' : active.now === 3 }" class="list-group-item" v-on:click="changeTab(3, active)">收班费帖</li>
-                    <li :class="{ 'active' : active.now === 4 }" class="list-group-item" v-on:click="changeTab(4, active)">开班会帖</li>
-                    <li :class="{ 'active' : active.now === 5 }" class="list-group-item" v-on:click="changeTab(5, active)">回复帖</li>
+                    <li :class="{ 'active' : active.now === 2 }" class="list-group-item" v-on:click="changeTab(2, active)">收班费帖</li>
+                    <li :class="{ 'active' : active.now === 3 }" class="list-group-item" v-on:click="changeTab(3, active)">开班会帖</li>
+                    <li :class="{ 'active' : active.now === 4 }" class="list-group-item" v-on:click="changeTab(4, active)">回复帖</li>
                 </ul>
             </div>
 
@@ -66,6 +65,31 @@
                                 <li class="list-group-item">{{ postText.title }}</li>
                                 <li class="list-group-item">{{ postText.stuId }}</li>
                                 <li class="list-group-item">{{ postText.bond }}</li>
+                                <li class="list-group-item">{{ postText.authorId }}</li>
+                            </ul>
+                        </div>
+                    </transition-group>
+                </section>
+
+                <section v-show="active.now === 2">
+                    <div class="post-row strong">
+                        <ul class="list-group">
+                            <li class="list-group-item">班级ID</li>
+                            <li class="list-group-item">截止时间</li>
+                            <li class="list-group-item">金额大小</li>
+                            <li class="list-group-item">已交费名单</li>
+                            <li class="list-group-item">未交费名单</li>
+                            <li class="list-group-item">发帖人ID</li>
+                        </ul>
+                    </div>
+                    <transition-group name="list" tag="div" class="">
+                        <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts" appear>
+                            <ul class="list-group">
+                                <li class="list-group-item">{{ postText.classId }}</li>
+                                <li class="list-group-item">{{ postText.deadline | datetime }}</li>
+                                <li class="list-group-item">{{ postText.howmuch }}</li>
+                                <li class="list-group-item">{{ postText.payedMembers | members }}</li>
+                                <li class="list-group-item">{{ postText.unpayedMembers | members }}</li>
                                 <li class="list-group-item">{{ postText.authorId }}</li>
                             </ul>
                         </div>
