@@ -9,22 +9,22 @@ var vm = new Vue ({
         authorId: '2014150120',
         postTexts: [],
         newPost: {
-            classId: null,    // ajax请求得到发帖人的班级
-            className: null,  // 班级的某一门课的名字
-            stuId: null,      // 某个学生的Id
-            authorId: null,   // 发帖人的学生Id
-            date: null,       // 日期或者ddl
-            gotten: null,     // 实际到的人数
-            num: null,        // 参加的总人数
-            bond: null,       // 奖金
-            howmuch: null,    // 班费
-            payedMembers: null,  // 已经交付的人
-            unpayedMembers: null, // 还没交付的人
-            place: null,          // 地点
-            pAgree: null,         // 同意的人
-            pDisagree: null,      // 不同意的人
-            title: null,        // 主题或者奖项名称或者回复主题
-            contant: null       // 回复内容
+            classId: null,    // ajax请求得到发帖人的班级 String
+            className: null,  // 班级的某一门课的名字 String
+            stuId: null,      // 某个学生的Id String 后端Number
+            authorId: null,   // 发帖人的学生Id 后端Number
+            date: null,       // 日期或者ddl Date 后端Date
+            gotten: null,     // 实际到的人数 Number 后端Number
+            num: null,        // 参加的总人数 Number 后端Number
+            bond: null,       // 奖金 Number 后端Number
+            howmuch: null,    // 班费 Number 后端Number
+            payedMembers: null,  // 已经交付的人 [String] 后端[Number]
+            unpayedMembers: null, // 还没交付的人 [String] 后端[Number]
+            place: null,          // 地点 String
+            pAgree: null,         // 同意的人 [String] 后端[Number]
+            pDisagree: null,      // 不同意的人 [String] 后端[Number]
+            title: null,        // 主题或者奖项名称或者回复主题 String
+            contant: null       // 回复内容 String
         }
     },
     filters: {
