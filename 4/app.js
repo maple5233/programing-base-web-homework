@@ -5,16 +5,17 @@ let logger = require ('morgan');
 let cookieParser = require ('cookie-parser');
 let bodyParser = require ('body-parser');
 let routes = require ('./routes/index');
-var session = require ('express-session');
-var flash = require ('express-flash');
+let session = require ('express-session');
+let flash = require ('express-flash');
+let debug = require('debug')('4:server');
 let app = express ();
 
 // 配置mongoose
-// var mongoose = require ('./mongoose.js');
-// mongoose.db.on ('error', console.error.bind (console, '连接错误!'));
-// mongoose.db.once ('open', function () {
-//     console.log ('连接数据库成功!')
-// });
+var mongoose = require ('./mongoose.js');
+mongoose.db.on ('error', console.error.bind (console, '连接错误!'));
+mongoose.db.once ('open', function () {
+    debug('连接数据库成功!')
+});
 // var Comment = require ('./models/Comment');
 
 // 配置解析url json
