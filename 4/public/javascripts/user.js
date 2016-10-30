@@ -151,10 +151,10 @@ let vm = new Vue ({
          * 提交发帖 更新视图 请求后台
          * @param  {Number} index 是哪一种帖子
          */
-        submitPost: function (index) {
+        submitPost: async function (index) {
 
             let datePattern =
-            /^((((1[6-9]|[2-9]\d)\d{2})-(0?[13578]|1[02])-(0?[1-9]|[12]\d|3[01]))|(((1[6-9]|[2-9]\d)\d{2})-(0?[13456789]|1[012])-(0?[1-9]|[12]\d|30))|(((1[6-9]|[2-9]\d)\d{2})-0?2-(0?[1-9]|1\d|2[0-8]))|(((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))-0?2-29-))$/
+                /^((((1[6-9]|[2-9]\d)\d{2})-(0?[13578]|1[02])-(0?[1-9]|[12]\d|3[01]))|(((1[6-9]|[2-9]\d)\d{2})-(0?[13456789]|1[012])-(0?[1-9]|[12]\d|30))|(((1[6-9]|[2-9]\d)\d{2})-0?2-(0?[1-9]|1\d|2[0-8]))|(((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))-0?2-29-))$/
             try {
                 /* 字符串处理为数组 */
                 this.newPost.payedMembers = JSON.parse ('[' + this.newPost.payedMembers + ']')
@@ -163,7 +163,7 @@ let vm = new Vue ({
                 this.newPost.pDisagree = JSON.parse ('[' + this.newPost.pDisagree + ']')
                 /* 时间转化为时间对象再转字符串 */
                 if (this.newPost.date !== null && !this.newPost.date.match (datePattern)) {
-                    this.emptyPost()
+                    this.emptyPost ()
                     window.alert ('时间格式: 年-月-日')
                     return
                 }
@@ -176,8 +176,6 @@ let vm = new Vue ({
                 console.log (e)
                 return
             }
-
-            let post = this.newPost
 
             switch (index) {
                 case 0:
