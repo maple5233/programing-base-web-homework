@@ -4,10 +4,35 @@
  */
 
 'use strict';
-var mongoose = require ('../mongoose');
+let mongoose = require ('../mongoose');
+let Schema = mongoose.Schema;
+let autoIncrement = require('mongoose-auto-increment');
+autoIncrement.initialize(connection);
 
-var UserSchema = new mongoose.Schema ({
-
+let UserSchema = new mongoose.Schema ({
+    authorId: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'AuthorId',
+        index: true
+    }, // 用户的学号，系统自动分配
+    userName: {
+        type: String,
+        required: true
+    }, // 用户注册的时候的登录名
+    userClass: {
+        type: String,
+        required: true
+    }, // 所在班级的ID
+    userPass: {
+        type: String,
+        required: true
+    },// 加密后用户的密码
+    roleId: {
+        type: Number,
+        ref: 'Role', // 参照完整性约束
+        required: true
+    } // 外键 需要[参照完整性约束]
 }, {strict: true}); // 开启严格模式，不允许不同数据结构存入
 
 UserSchema.statics = { //静态方法
@@ -23,7 +48,9 @@ UserSchema.statics = { //静态方法
     }
 };
 
-var User = mongoose.model ('User', UserSchema);
+UserSchema.plugin(autoIncrement.plugin, 'User');
+
+let User = mongoose.model ('User', UserSchema);
 
 User.$routers = [
     { // 获取所有留言
