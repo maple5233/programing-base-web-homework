@@ -14,7 +14,6 @@ var vm = new Vue({
         stuId: null,
         authorId: null,
         date: null,
-        deadline: null,
         gotten: null,
         num: null,
         bond: null,
@@ -100,7 +99,6 @@ var vm = new Vue({
         stuId: '2014150121',
         authorId: '2014150120',
         date: (new Date()).toString(),
-        deadline: (new Date()).toString(),
         gotten: 1,
         num: 2,
         bond: 2000,
@@ -123,7 +121,6 @@ var vm = new Vue({
         stuId: null,
         authorId: null,
         date: null,
-        deadline: null,
         gotten: null,
         num: null,
         bond: null,
@@ -152,12 +149,7 @@ var vm = new Vue({
           window.alert('时间格式: 年-月-日')
           return
         }
-        if (this.newPost.deadline !== null && !this.newPost.deadline.match(datePattern)) {
-          window.alert('时间格式: 年-月-日')
-          return
-        }
         this.newPost.date = new Date(this.newPost.date).toString()
-        this.newPost.deadline = new Date(this.newPost.deadline).toString()
         /* 补全信息 */
         this.newPost.authorId = this.authorId
         this.newPost.classId = this.classId
@@ -212,5 +204,6 @@ var vm = new Vue({
     }
   },
   mounted () {
+    this.changeTab(4,this.active)
   }
 })

@@ -102,7 +102,7 @@
                         <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts" appear>
                             <ul class="list-group">
                                 <li class="list-group-item">{{ postText.classId }}</li>
-                                <li class="list-group-item">{{ postText.deadline | datetime }}</li>
+                                <li class="list-group-item">{{ postText.date | date }}</li>
                                 <li class="list-group-item">{{ postText.howmuch }}</li>
                                 <li class="list-group-item">{{ postText.payedMembers | members }}</li>
                                 <li class="list-group-item">{{ postText.unpayedMembers | members }}</li>
@@ -173,7 +173,7 @@
                     <transition-group name="list" tag="div">
                         <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts" appear>
                             <ul class="list-group">
-                                <li class="list-group-item">{{ postText.stuId }}</li>
+                                <li class="list-group-item">{{ postText.authorId }}</li>
                                 <li class="list-group-item">{{ postText.title }}</li>
                                 <li class="list-group-item">{{ postText.contant }}</li>
                                 <li class="list-group-item">{{ postText.date | date }}</li>
