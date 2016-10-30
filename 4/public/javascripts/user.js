@@ -9,22 +9,22 @@ var vm = new Vue({
       authorId : '2014150120',
       postTexts: [],
       newPost: {
-        classId: null,
-        className: null,
-        stuId: null,
-        authorId: null,
-        date: null,
-        gotten: null,
-        num: null,
-        bond: null,
-        howmuch: null,
-        payedMembers: null,
-        unpayedMembers: null,
-        place: null,
-        pAgree: null,
-        pDisagree: null,
-        title: null,
-        contant: null
+        classId: null,    // ajax请求得到发帖人的班级
+        className: null,  // 班级的某一门课的名字
+        stuId: null,      // 某个学生的Id
+        authorId: null,   // 发帖人的学生Id
+        date: null,       // 日期或者ddl
+        gotten: null,     // 实际到的人数
+        num: null,        // 参加的总人数
+        bond: null,       // 奖金
+        howmuch: null,    // 班费
+        payedMembers: null,  // 已经交付的人
+        unpayedMembers: null, // 还没交付的人
+        place: null,          // 地点
+        pAgree: null,         // 同意的人
+        pDisagree: null,      // 不同意的人
+        title: null,        // 主题或者奖项名称或者回复主题
+        contant: null       // 回复内容
       }
   },
   filters: {
@@ -75,6 +75,11 @@ var vm = new Vue({
       }
       return `${year}-${mouth}-${day}`
     },
+    /**
+     * 数组转化为字符串并添加换行符号
+     * @param  {Array} arr 要转化的学生ID数组
+     * @return {String}     能显示的字符串
+     */ 
     members (arr) {
       return arr.join('\n')
     }
@@ -91,6 +96,9 @@ var vm = new Vue({
       this.emptyPost()
       /** ajax更新视图 */
     },
+    /**
+     * 测试添加活动用的
+     */
     addPost: function () {
       return
        let newPost = {
@@ -113,8 +121,11 @@ var vm = new Vue({
       }
       this.postTexts.push(newPost)
     },
+    /**
+     * 清空表单内容
+     * 填充作者的ID和作者班级的ID
+     */
     emptyPost : function () {
-      // 重置表单
       this.newPost = {
         classId: null,
         className: null,
@@ -136,8 +147,15 @@ var vm = new Vue({
       this.newPost.authorId = this.authorId
       this.newPost.classId = this.classId
     },
+    /**
+     * 提交发帖 更新视图 请求后台
+     * @param  {Number} index 是哪一种帖子
+     */
     submitPost: function (index) {
-      let datePattern = /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/
+      let datePattern = /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|
+      1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)
+      |(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/
+      
       try {
         /* 字符串处理为数组 */
         this.newPost.payedMembers = JSON.parse('[' + this.newPost.payedMembers + ']')
@@ -158,7 +176,9 @@ var vm = new Vue({
         console.log(e)
         return
       }
+
       let post = this.newPost
+      
       switch (index) {
         case 0:
           if (post.stuId == null || post.className == null || post.date == null) {
@@ -199,6 +219,7 @@ var vm = new Vue({
         default:
           break;
       }
+
       this.postTexts.push(this.newPost)
       this.emptyPost()
     }
