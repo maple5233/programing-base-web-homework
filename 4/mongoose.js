@@ -5,5 +5,5 @@
 var mongoose = require ('mongoose');
 mongoose.Promise = global.Promise;
 module.exports.db = mongoose.connection;
-module.exports.connection = mongoose.createConnection ('mongodb://localhost/studentSyS');
+module.exports = mongoose.createConnection ('mongodb://localhost/studentSyS');
 module.exports.Schema = mongoose.Schema;

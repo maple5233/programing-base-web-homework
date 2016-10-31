@@ -12,7 +12,8 @@ let debug = require ('debug') ('4:server');
 let app = express ();
 
 // 配置mongoose
-var mongoose = require ('./mongoose.js');
+let mongoose = require ('./mongoose.js');
+// let connection = mongoose.connection
 mongoose.db.on ('error', () => {
     debug ('连接数据库未成功!');
     console.error.bind (console, '连接错误!');

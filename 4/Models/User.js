@@ -7,7 +7,7 @@
 let mongoose = require ('../mongoose');
 let Schema = mongoose.Schema;
 let autoIncrement = require('mongoose-auto-increment');
-autoIncrement.initialize(mongoose.connection);
+autoIncrement.initialize(mongoose);
 let RoleSchema = request('role').RoleSchema;
 
 let UserSchema = new mongoose.Schema ({
