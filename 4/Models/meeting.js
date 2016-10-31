@@ -4,9 +4,6 @@
  */
 'use strict';
 let mongoose = require ('../mongoose');
-let Schema = mongoose.Schema;
-let autoIncrement = require('mongoose-auto-increment');
-autoIncrement.initialize(mongoose.connection);
 
 let MeetingSchema = new mongoose.Schema ({
     classId: {
@@ -61,8 +58,7 @@ MeetingSchema.statics = { //静态方法
     }
 };
 
-MeetingSchema.plugin(autoIncrement.plugin, 'Meeting');
-let Meeting = mongoose.model ('Meeting', Meeting);
+let Meeting = mongoose.model ('Meeting', MeetingSchema);
 
 Meeting.$routers = [
     { // 获取所有

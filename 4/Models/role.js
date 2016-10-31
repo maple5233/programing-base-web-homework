@@ -43,7 +43,7 @@ RoleSchema.statics = { //静态方法
 };
 
 RoleSchema.plugin(autoIncrement.plugin, 'Role');
-let Role = mongoose.model ('Role', Role);
+let Role = mongoose.model ('Role', RoleSchema);
 
 Role.$routers = [
     { // 获取所有
