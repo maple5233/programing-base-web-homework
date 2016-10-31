@@ -1,3 +1,4 @@
+"use strict";
 let express = require ('express');
 let path = require ('path');
 let favicon = require ('serve-favicon');
@@ -12,7 +13,10 @@ let app = express ();
 
 // 配置mongoose
 var mongoose = require ('./mongoose.js');
-mongoose.db.on ('error', console.error.bind (console, '连接错误!'));
+mongoose.db.on ('error', () => {
+    debug ('连接数据库未成功!');
+    console.error.bind (console, '连接错误!');
+});
 mongoose.db.once ('open', function () {
     debug ('连接数据库成功!')
 });
