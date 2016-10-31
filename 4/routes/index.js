@@ -11,4 +11,8 @@ router.get('/', function(req, res, next) {
     res.sendFile (path.resolve (__dirname, '../views/index.html'));
 });
 
+router.get('/user/*', function(req, res, next) {
+    res.sendFile (path.resolve (__dirname, '../views/user.html'));
+});
+
 module.exports = router;

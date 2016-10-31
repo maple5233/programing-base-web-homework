@@ -1,6 +1,7 @@
 var vm = new Vue ({
     el: '#whole',
     data: {
+        bgImg: '/images/bgc5.png',
         active: {
             now: 4
         },
@@ -25,6 +26,12 @@ var vm = new Vue ({
             pDisagree: null,      // 不同意的人 [String] 后端[Number]
             title: null,        // 主题或者奖项名称或者回复主题 String
             contant: null       // 回复内容 String
+        },
+        thisAuthor: {
+            howMuch: 1000,// 已经交了多少班费
+            howMuchRemain: 200, // 还差多少要交
+            numOfDayNotSign: 2, // 旷课总数
+            dayNotSign: [new Date(),new Date()] // 旷课情况
         }
     },
     filters: {
@@ -65,15 +72,27 @@ var vm = new Vue ({
             if (mouth.length === 1) {
                 mouth = '0' + mouth
             }
-            let hour = date.getHours ().toString ()
-            if (hour.length === 1) {
-                hour = '0' + hour
-            }
-            let minute = date.getMinutes ().toString ()
-            if (minute.length === 1) {
-                minute = '0' + minute
-            }
             return `${year}-${mouth}-${day}`
+        },
+        dates (datesArr) {
+            let str = ''
+            datesArr.forEach((date)=>{
+                let year = date.getFullYear ()
+                let day = date.getDate ().toString ()
+                if (day.length === 1) {
+                    day = '0' + day
+                }
+                let mouth = (date.getMonth () + 1).toString ()
+                if (mouth.length === 1) {
+                    mouth = '0' + mouth
+                }
+                let hour = date.getHours ().toString ()
+                if (hour.length === 1) {
+                    hour = '0' + hour
+                }
+                str += `${year}-${mouth}-${day}` + ',' + '\n'
+            })
+            return str.substr(0,str.length-2)
         },
         /**
          * 数组转化为字符串并添加换行符号
@@ -176,6 +195,8 @@ var vm = new Vue ({
                 console.log (e)
                 return
             }
+
+            let post = this.newPost
 
             switch (index) {
                 case 0:

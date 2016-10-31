@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <title>用户页面</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,height=device-height,
     user-scalable=no,maximum-scale=1.0,minimum-scale=1.0">
@@ -11,188 +11,227 @@
     <link rel="stylesheet" href="/stylesheets/user.css">
 </head>
 <body>
-    <div id="whole">
-        <header v-on:click="addPost">用户管理页面</header>
-        <div class="center-flex">
+<div id="whole" v-bind:style="{ background: 'url(' + bgImg + ')'}">
+    <header v-on:click="addPost">用户管理页面</header>
+    <div class="center-flex">
 
-            <div class="left-menu center-flex">
-                <ul class="list-group">
-                    <li class="list-group-item" :class="{ 'active' : active.now === 4 }" v-if="rank > -1" v-on:click="changeTab(4, active)">回复帖</li>
-                    <li class="list-group-item" :class="{ 'active' : active.now === 0 }" v-if="rank > 0" v-on:click="changeTab(0, active)">发布考勤结果帖</li>
-                    <li class="list-group-item" :class="{ 'active' : active.now === 1 }" v-if="rank > 0" v-on:click="changeTab(1, active)">评优等生帖</li>
-                    <li class="list-group-item" :class="{ 'active' : active.now === 2 }" v-if="rank > 2" v-on:click="changeTab(2, active)">收班费帖</li>
-                    <li class="list-group-item" :class="{ 'active' : active.now === 3 }" v-if="rank > 3" v-on:click="changeTab(3, active)">开班会帖</li>
-                </ul>
-            </div>
+        <div class="left-menu">
+            <ul class="list-group">
+                <li class="list-group-item" :class="{ 'active' : active.now === 4 }" v-if="rank > -1"
+                    v-on:click="changeTab(4, active)">回复帖
+                </li>
+                <li class="list-group-item" :class="{ 'active' : active.now === 0 }" v-if="rank > 0"
+                    v-on:click="changeTab(0, active)">发布考勤结果帖
+                </li>
+                <li class="list-group-item" :class="{ 'active' : active.now === 1 }" v-if="rank > 0"
+                    v-on:click="changeTab(1, active)">评优等生帖
+                </li>
+                <li class="list-group-item" :class="{ 'active' : active.now === 2 }" v-if="rank > 2"
+                    v-on:click="changeTab(2, active)">收班费帖
+                </li>
+                <li class="list-group-item" :class="{ 'active' : active.now === 3 }" v-if="rank > 3"
+                    v-on:click="changeTab(3, active)">开班会帖
+                </li>
+            </ul>
+            <ul class="list-group statistics">
+                <li class="list-group-item">已缴班费：{{ thisAuthor.howMuch }}</li>
+                <li class="list-group-item">代缴班费：{{ thisAuthor.howMuchRemain }}</li>
+                <li class="list-group-item">旷课次数：{{ thisAuthor.numOfDayNotSign }}</li>
+                <li class="list-group-item">旷课情况：</li>
+                <li class="list-group-item">{{ thisAuthor.dayNotSign | dates }}</li>
+            </ul>
+        </div>
 
-            <div class="right-content center-flex">
+        <div class="right-content center-flex">
 
-                <section v-show="active.now === 0">
-                    <div class="post-row strong">
+            <section v-show="active.now === 0">
+                <div class="post-row strong">
+                    <ul class="list-group">
+                        <li class="list-group-item">班级ID</li>
+                        <li class="list-group-item">考勤学生ID</li>
+                        <li class="list-group-item">课程名</li>
+                        <li class="list-group-item">旷课日期</li>
+                    </ul>
+                </div>
+                <transition-group name="list" tag="div" class="">
+                    <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts" appear>
                         <ul class="list-group">
-                            <li class="list-group-item">班级ID</li>
-                            <li class="list-group-item">考勤学生ID</li>
-                            <li class="list-group-item">课程名</li>
-                            <li class="list-group-item">旷课日期</li>
+                            <li class="list-group-item">{{ postText.classId }}</li>
+                            <li class="list-group-item">{{ postText.stuId }}</li>
+                            <li class="list-group-item">{{ postText.className }}</li>
+                            <li class="list-group-item">{{ postText.date | date }}</li>
                         </ul>
                     </div>
-                    <transition-group name="list" tag="div" class="">
-                        <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts" appear>
-                            <ul class="list-group">
-                                <li class="list-group-item">{{ postText.classId }}</li>
-                                <li class="list-group-item">{{ postText.stuId }}</li>
-                                <li class="list-group-item">{{ postText.className }}</li>
-                                <li class="list-group-item">{{ postText.date | date }}</li>
-                            </ul>
-                        </div>
-                    </transition-group>
-                    <form v-on:submit.prevent class="post-row strong">
-                        <ul class="list-group">
-                            <li class="list-group-item"><input v-model="newPost.stuId" type="text" placeholder="考勤学生ID"></li>
-                            <li class="list-group-item"><input v-model="newPost.className" type="text" placeholder="课程名"></li>
-                            <li class="list-group-item"><input v-model="newPost.date" type="text" placeholder="旷课日期"></li>
-                            <li class="list-group-item"><button v-on:click="submitPost(0)">提交</button></li>
-                        </ul>
-                    </form>
-                </section>
+                </transition-group>
+                <form v-on:submit.prevent class="post-row strong">
+                    <ul class="list-group">
+                        <li class="list-group-item"><input v-model="newPost.stuId" type="text" placeholder="考勤学生ID">
+                        </li>
+                        <li class="list-group-item"><input v-model="newPost.className" type="text" placeholder="课程名">
+                        </li>
+                        <li class="list-group-item"><input v-model="newPost.date" type="text" placeholder="旷课日期"></li>
+                        <li class="list-group-item">
+                            <button v-on:click="submitPost(0)">提交</button>
+                        </li>
+                    </ul>
+                </form>
+            </section>
 
-                <section v-show="active.now === 1">
-                    <div class="post-row strong">
+            <section v-show="active.now === 1">
+                <div class="post-row strong">
+                    <ul class="list-group">
+                        <li class="list-group-item">班级ID</li>
+                        <li class="list-group-item">优等头衔</li>
+                        <li class="list-group-item">获奖学生ID</li>
+                        <li class="list-group-item">奖金数额</li>
+                        <li class="list-group-item">发帖人ID</li>
+                    </ul>
+                </div>
+                <transition-group name="list" tag="div" class="">
+                    <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts" appear>
                         <ul class="list-group">
-                            <li class="list-group-item">班级ID</li>
-                            <li class="list-group-item">优等头衔</li>
-                            <li class="list-group-item">获奖学生ID</li>
-                            <li class="list-group-item">奖金数额</li>
-                            <li class="list-group-item">发帖人ID</li>
+                            <li class="list-group-item">{{ postText.classId }}</li>
+                            <li class="list-group-item">{{ postText.title }}</li>
+                            <li class="list-group-item">{{ postText.stuId }}</li>
+                            <li class="list-group-item">{{ postText.bond }}</li>
+                            <li class="list-group-item">{{ postText.authorId }}</li>
                         </ul>
                     </div>
-                    <transition-group name="list" tag="div" class="">
-                        <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts" appear>
-                            <ul class="list-group">
-                                <li class="list-group-item">{{ postText.classId }}</li>
-                                <li class="list-group-item">{{ postText.title }}</li>
-                                <li class="list-group-item">{{ postText.stuId }}</li>
-                                <li class="list-group-item">{{ postText.bond }}</li>
-                                <li class="list-group-item">{{ postText.authorId }}</li>
-                            </ul>
-                        </div>
-                    </transition-group>
-                    <form v-on:submit.prevent class="post-row strong">
-                        <ul class="list-group">
-                            <li class="list-group-item"><input v-model="newPost.stuId" type="text" placeholder="优等头衔"></li>
-                            <li class="list-group-item"><input v-model="newPost.title" type="text" placeholder="获奖学生ID"></li>
-                            <li class="list-group-item"><input v-model="newPost.bond" type="text" placeholder="奖金数额" number></li>
-                            <li class="list-group-item"><button v-on:click="submitPost(1)">提交</button></li>
-                        </ul>
-                    </form>
-                </section>
+                </transition-group>
+                <form v-on:submit.prevent class="post-row strong">
+                    <ul class="list-group">
+                        <li class="list-group-item"><input v-model="newPost.stuId" type="text" placeholder="优等头衔"></li>
+                        <li class="list-group-item"><input v-model="newPost.title" type="text" placeholder="获奖学生ID">
+                        </li>
+                        <li class="list-group-item"><input v-model="newPost.bond" type="text" placeholder="奖金数额" number>
+                        </li>
+                        <li class="list-group-item">
+                            <button v-on:click="submitPost(1)">提交</button>
+                        </li>
+                    </ul>
+                </form>
+            </section>
 
-                <section v-show="active.now === 2">
-                    <div class="post-row strong">
+            <section v-show="active.now === 2">
+                <div class="post-row strong">
+                    <ul class="list-group">
+                        <li class="list-group-item">班级ID</li>
+                        <li class="list-group-item">截止时间</li>
+                        <li class="list-group-item">金额大小</li>
+                        <li class="list-group-item">已交费名单</li>
+                        <li class="list-group-item">未交费名单</li>
+                        <li class="list-group-item">发帖人ID</li>
+                    </ul>
+                </div>
+                <transition-group name="list" tag="div" class="">
+                    <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts" appear>
                         <ul class="list-group">
-                            <li class="list-group-item">班级ID</li>
-                            <li class="list-group-item">截止时间</li>
-                            <li class="list-group-item">金额大小</li>
-                            <li class="list-group-item">已交费名单</li>
-                            <li class="list-group-item">未交费名单</li>
-                            <li class="list-group-item">发帖人ID</li>
+                            <li class="list-group-item">{{ postText.classId }}</li>
+                            <li class="list-group-item">{{ postText.date | date }}</li>
+                            <li class="list-group-item">{{ postText.howmuch }}</li>
+                            <li class="list-group-item">{{ postText.payedMembers | members }}</li>
+                            <li class="list-group-item">{{ postText.unpayedMembers | members }}</li>
+                            <li class="list-group-item">{{ postText.authorId }}</li>
                         </ul>
                     </div>
-                    <transition-group name="list" tag="div" class="">
-                        <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts" appear>
-                            <ul class="list-group">
-                                <li class="list-group-item">{{ postText.classId }}</li>
-                                <li class="list-group-item">{{ postText.date | date }}</li>
-                                <li class="list-group-item">{{ postText.howmuch }}</li>
-                                <li class="list-group-item">{{ postText.payedMembers | members }}</li>
-                                <li class="list-group-item">{{ postText.unpayedMembers | members }}</li>
-                                <li class="list-group-item">{{ postText.authorId }}</li>
-                            </ul>
-                        </div>
-                    </transition-group>
-                    <form v-on:submit.prevent class="post-row strong">
-                        <ul class="list-group">
-                            <li class="list-group-item"><input v-model="newPost.howmuch" type="text" placeholder="金额大小" number></li>
-                            <li class="list-group-item"><input v-model="newPost.payedMembers" type="text" placeholder="已交费ID(','分隔)"></li>
-                            <li class="list-group-item"><input v-model="newPost.unpayedMembers" type="text" placeholder="未交费ID(','分隔)"></li>
-                            <li class="list-group-item"><button v-on:click="submitPost(2)">提交</button></li>
-                        </ul>
-                    </form>
-                </section>
+                </transition-group>
+                <form v-on:submit.prevent class="post-row strong">
+                    <ul class="list-group">
+                        <li class="list-group-item"><input v-model="newPost.howmuch" type="text" placeholder="金额大小"
+                                                           number></li>
+                        <li class="list-group-item"><input v-model="newPost.payedMembers" type="text"
+                                                           placeholder="已交费ID(','分隔)"></li>
+                        <li class="list-group-item"><input v-model="newPost.unpayedMembers" type="text"
+                                                           placeholder="未交费ID(','分隔)"></li>
+                        <li class="list-group-item">
+                            <button v-on:click="submitPost(2)">提交</button>
+                        </li>
+                    </ul>
+                </form>
+            </section>
 
-                <section v-show="active.now === 3">
-                    <div class="post-row strong">
+            <section v-show="active.now === 3">
+                <div class="post-row strong">
+                    <ul class="list-group">
+                        <li class="list-group-item">班级ID</li>
+                        <li class="list-group-item">日期</li>
+                        <li class="list-group-item">地点</li>
+                        <li class="list-group-item">实到人数/应到人数</li>
+                        <li class="list-group-item">主题</li>
+                        <li class="list-group-item">同意者名单</li>
+                        <li class="list-group-item">不同意者名单</li>
+                        <li class="list-group-item">发帖人ID</li>
+                    </ul>
+                </div>
+                <transition-group name="list" tag="div" class="">
+                    <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts" appear>
                         <ul class="list-group">
-                            <li class="list-group-item">班级ID</li>
-                            <li class="list-group-item">日期</li>
-                            <li class="list-group-item">地点</li>
-                            <li class="list-group-item">实到人数/应到人数</li>
-                            <li class="list-group-item">主题</li>
-                            <li class="list-group-item">同意者名单</li>
-                            <li class="list-group-item">不同意者名单</li>
-                            <li class="list-group-item">发帖人ID</li>
+                            <li class="list-group-item">{{ postText.classId }}</li>
+                            <li class="list-group-item">{{ postText.date | date }}</li>
+                            <li class="list-group-item">{{ postText.place }}</li>
+                            <li class="list-group-item">{{ postText.gotten }} / {{ postText.num }}</li>
+                            <li class="list-group-item">{{ postText.title }}</li>
+                            <li class="list-group-item">{{ postText.pAgree | members }}</li>
+                            <li class="list-group-item">{{ postText.pDisagree | members }}</li>
+                            <li class="list-group-item">{{ postText.authorId }}</li>
                         </ul>
                     </div>
-                    <transition-group name="list" tag="div" class="">
-                        <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts" appear>
-                            <ul class="list-group">
-                                <li class="list-group-item">{{ postText.classId }}</li>
-                                <li class="list-group-item">{{ postText.date | date }}</li>
-                                <li class="list-group-item">{{ postText.place }}</li>
-                                <li class="list-group-item">{{ postText.gotten }} / {{ postText.num }}</li>
-                                <li class="list-group-item">{{ postText.title }}</li>
-                                <li class="list-group-item">{{ postText.pAgree | members }}</li>
-                                <li class="list-group-item">{{ postText.pDisagree | members }}</li>
-                                <li class="list-group-item">{{ postText.authorId }}</li>
-                            </ul>
-                        </div>
-                    </transition-group>
-                    <form v-on:submit.prevent class="post-row strong">
-                        <ul class="list-group">
-                            <li class="list-group-item"><input v-model="newPost.date" type="text" placeholder="日期"></li>
-                            <li class="list-group-item"><input v-model="newPost.place" type="text" placeholder="地点"></li>
-                            <li class="list-group-item"><input v-model="newPost.num" type="text" placeholder="实到人数" number></li>
-                            <li class="list-group-item"><input v-model="newPost.gotten" type="text" placeholder="应到人数" number></li>
-                            <li class="list-group-item"><input v-model="newPost.title" type="text" placeholder="主题"></li>
-                            <li class="list-group-item"><input v-model="newPost.pAgree" type="text" placeholder="同意ID(','分隔)"></li>
-                            <li class="list-group-item"><input v-model="newPost.pDisagree" type="text" placeholder="不同意ID(','分隔)"></li>
-                            <li class="list-group-item"><button v-on:click="submitPost(3)">提交</button></li>
-                        </ul>
-                    </form>
-                </section>
+                </transition-group>
+                <form v-on:submit.prevent class="post-row strong">
+                    <ul class="list-group">
+                        <li class="list-group-item"><input v-model="newPost.date" type="text" placeholder="日期"></li>
+                        <li class="list-group-item"><input v-model="newPost.place" type="text" placeholder="地点"></li>
+                        <li class="list-group-item"><input v-model="newPost.num" type="text" placeholder="实到人数" number>
+                        </li>
+                        <li class="list-group-item"><input v-model="newPost.gotten" type="text" placeholder="应到人数"
+                                                           number></li>
+                        <li class="list-group-item"><input v-model="newPost.title" type="text" placeholder="主题"></li>
+                        <li class="list-group-item"><input v-model="newPost.pAgree" type="text"
+                                                           placeholder="同意ID(','分隔)"></li>
+                        <li class="list-group-item"><input v-model="newPost.pDisagree" type="text"
+                                                           placeholder="不同意ID(','分隔)"></li>
+                        <li class="list-group-item">
+                            <button v-on:click="submitPost(3)">提交</button>
+                        </li>
+                    </ul>
+                </form>
+            </section>
 
-                <section v-show="active.now === 4">
-                    <div class="post-row strong">
+            <section v-show="active.now === 4">
+                <div class="post-row strong">
+                    <ul class="list-group">
+                        <li class="list-group-item">发帖人ID</li>
+                        <li class="list-group-item">主题</li>
+                        <li class="list-group-item">回复内容</li>
+                        <li class="list-group-item">回复时间</li>
+                    </ul>
+                </div>
+                <transition-group name="list" tag="div">
+                    <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts" appear>
                         <ul class="list-group">
-                            <li class="list-group-item">发帖人ID</li>
-                            <li class="list-group-item">主题</li>
-                            <li class="list-group-item">回复内容</li>
-                            <li class="list-group-item">回复时间</li>
+                            <li class="list-group-item">{{ postText.authorId }}</li>
+                            <li class="list-group-item">{{ postText.title }}</li>
+                            <li class="list-group-item">{{ postText.contant }}</li>
+                            <li class="list-group-item">{{ postText.date | date }}</li>
                         </ul>
                     </div>
-                    <transition-group name="list" tag="div">
-                        <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts" appear>
-                            <ul class="list-group">
-                                <li class="list-group-item">{{ postText.authorId }}</li>
-                                <li class="list-group-item">{{ postText.title }}</li>
-                                <li class="list-group-item">{{ postText.contant }}</li>
-                                <li class="list-group-item">{{ postText.date | date }}</li>
-                            </ul>
-                        </div>
-                    </transition-group>
-                    <form v-on:submit.prevent class="post-row strong">
-                        <ul class="list-group">
-                            <li class="list-group-item"><input v-model="newPost.title" type="text" placeholder="主题"></li>
-                            <li class="list-group-item"><input v-model="newPost.contant" type="text" placeholder="回复内容"></li>
-                            <li class="list-group-item"><input v-model="newPost.date" type="text" placeholder="回复时间"></li>
-                            <li class="list-group-item"><button v-on:click="submitPost(4)">提交</button></li>
-                        </ul>
-                    </form>
-                </section>
-            </div>
+                </transition-group>
+                <form v-on:submit.prevent class="post-row strong">
+                    <ul class="list-group">
+                        <li class="list-group-item"><input v-model="newPost.title" type="text" placeholder="主题"></li>
+                        <li class="list-group-item"><input v-model="newPost.contant" type="text" placeholder="回复内容">
+                        </li>
+                        <li class="list-group-item"><input v-model="newPost.date" type="text" placeholder="回复时间"></li>
+                        <li class="list-group-item">
+                            <button v-on:click="submitPost(4)">提交</button>
+                        </li>
+                    </ul>
+                </form>
+            </section>
         </div>
     </div>
-    <script src="http://cdn.bootcss.com/vue/2.0.3/vue.js"></script>
-    <script src="/javascripts/user.js"></script>
+</div>
+<script src="http://cdn.bootcss.com/vue/2.0.3/vue.js"></script>
+<script src="/javascripts/user.js"></script>
 </body>
 </html>
