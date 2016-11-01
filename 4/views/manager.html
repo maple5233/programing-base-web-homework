@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>权限管理</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,height=device-height,
+    user-scalable=no,maximum-scale=1.0,minimum-scale=1.0">
+    <meta name="keywords" content="学生管理系统"/>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/manager.css">
+</head>
+<body>
+<header>学生管理系统</header>
+<div class="contant" id="whole">
+    <div class="panel panel-default main-panel authentication" v-if="hasAuth">
+        <div class="panel-heading">
+            <h3 class="panel-title">输入管理员密码</h3>
+        </div>
+        <form class="form-group" v-on:submit.prevent>
+            <div class="input-group">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                    </span>
+                <input type="text" class="form-control" placeholder="输入您的密码" v-model="userPass">
+            </div>
+            <div class="input-group">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    </span>
+                <input type="button" value="登  录" class="form-control" v-on:click="login">
+            </div>
+        </form>
+    </div>
+    <div class="student-panel panel panel-defalt main-panel" v-else>
+        <div class="panel-heading">
+            <h3 class="panel-title">学生信息面板</h3>
+        </div>
+        <div class="panel-body student-info">
+            <table class="table table-bordered table-hover table-striped">
+                <thead class="student-head">
+                <tr>
+                    <th class="student-num-head">学号</th>
+                    <th class="student-role-head" colspan="5">身份</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="student-row" v-bind:key="student.stuId" v-for="(student , index) in students">
+                    <td>{{ student.stuId }}</td>
+                    <td :class="{ info: student.rank === 4 }" @click="changeRank(index,4)">班长</td>
+                    <td :class="{ info: student.rank === 3 }" @click="changeRank(index,3)">团支书</td>
+                    <td :class="{ info: student.rank === 2 }" @click="changeRank(index,2)">学习委员</td>
+                    <td :class="{ info: student.rank === 1 }" @click="changeRank(index,1)">课代表</td>
+                    <td :class="{ info: student.rank === 0 }" @click="changeRank(index,0)">普通学生</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="http://cdn.bootcss.com/vue/2.0.3/vue.js"></script>
+<script src="/javascripts/manager.js"></script>
+<script src="/javascripts/libs/sha1.js"></script>
+</body>
+</html>
