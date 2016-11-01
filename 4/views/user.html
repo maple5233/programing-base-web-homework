@@ -53,8 +53,8 @@
                         <li class="list-group-item">旷课日期</li>
                     </ul>
                 </div>
-                <transition-group name="list" tag="div" class="">
-                    <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts" appear>
+                <transition-group name="list" tag="div" class="" appear>
+                    <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts">
                         <ul class="list-group">
                             <li class="list-group-item">{{ postText.classId }}</li>
                             <li class="list-group-item">{{ postText.stuId }}</li>
@@ -87,8 +87,8 @@
                         <li class="list-group-item">发帖人ID</li>
                     </ul>
                 </div>
-                <transition-group name="list" tag="div" class="">
-                    <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts" appear>
+                <transition-group name="list" tag="div" class="" appear>
+                    <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts">
                         <ul class="list-group">
                             <li class="list-group-item">{{ postText.classId }}</li>
                             <li class="list-group-item">{{ postText.title }}</li>
@@ -123,8 +123,8 @@
                         <li class="list-group-item">发帖人ID</li>
                     </ul>
                 </div>
-                <transition-group name="list" tag="div" class="">
-                    <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts" appear>
+                <transition-group name="list" tag="div" class="" appear>
+                    <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts">
                         <ul class="list-group">
                             <li class="list-group-item">{{ postText.classId }}</li>
                             <li class="list-group-item">{{ postText.date | date }}</li>
@@ -163,8 +163,8 @@
                         <li class="list-group-item">发帖人ID</li>
                     </ul>
                 </div>
-                <transition-group name="list" tag="div" class="">
-                    <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts" appear>
+                <transition-group name="list" tag="div" class="" appear>
+                    <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts">
                         <ul class="list-group">
                             <li class="list-group-item">{{ postText.classId }}</li>
                             <li class="list-group-item">{{ postText.date | date }}</li>
@@ -206,8 +206,8 @@
                         <li class="list-group-item">回复时间</li>
                     </ul>
                 </div>
-                <transition-group name="list" tag="div">
-                    <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts" appear>
+                <transition-group name="list" tag="div" appear>
+                    <div class="post-row" v-bind:key="postText.classId" v-for="(postText , index) in postTexts">
                         <ul class="list-group">
                             <li class="list-group-item">{{ postText.authorId }}</li>
                             <li class="list-group-item">{{ postText.title }}</li>
