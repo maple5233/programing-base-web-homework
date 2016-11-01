@@ -31,7 +31,7 @@ var vm = new Vue ({
             howMuch: 1000,// 已经交了多少班费
             howMuchRemain: 200, // 还差多少要交
             numOfDayNotSign: 2, // 旷课总数
-            dayNotSign: [new Date(),new Date()] // 旷课情况
+            dayNotSign: [ new Date (), new Date () ] // 旷课情况
         }
     },
     filters: {
@@ -76,7 +76,7 @@ var vm = new Vue ({
         },
         dates (datesArr) {
             let str = ''
-            datesArr.forEach((date)=>{
+            datesArr.forEach ((date)=> {
                 let year = date.getFullYear ()
                 let day = date.getDate ().toString ()
                 if (day.length === 1) {
@@ -92,7 +92,7 @@ var vm = new Vue ({
                 }
                 str += `${year}-${mouth}-${day}` + ',' + '\n'
             })
-            return str.substr(0,str.length-2)
+            return str.substr (0, str.length - 2)
         },
         /**
          * 数组转化为字符串并添加换行符号
