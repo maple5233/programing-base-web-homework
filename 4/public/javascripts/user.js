@@ -100,7 +100,7 @@ var vm = new Vue ({
          * @return {String}     能显示的字符串
          */
         members (arr) {
-            return arr.join ('\n')
+            return arr.join (',\n')
         }
     },
     methods: {
