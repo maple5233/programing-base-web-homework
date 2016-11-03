@@ -1,8 +1,8 @@
 [TOC]
 
-# 前后端交互设计
+## 前后端交互设计
 
-## 概述
+### 概述
 
 后端API是在`RESTful`风格的,发送和返回内容均为`json`数据。
 
@@ -36,9 +36,9 @@
 }
 ```
 
-## 数据
+### 数据
 
-### 学生用户登录注册相关
+#### 学生用户登录注册相关
 
 ```json
 1001 注册
@@ -97,7 +97,7 @@ code	 msg
 
 
 
-### 管理员相关
+#### 管理员相关
 
 ```json
 2001 获取所有学生
@@ -141,7 +141,7 @@ code	 msg
 
 
 
-### 帖子相关
+#### 帖子相关
 
 ```json
 3001 获取某个班级全部开班会帖
@@ -176,19 +176,19 @@ code	 msg
 POST /meeting
 Params {
   meeting : {
-    classId: String,// 班级ID
-    date: Date, // 开会时间
-    place: String, // 开会地点
-    title: String, // 主题
-    num: Number, // 应到人数
-    gotten: Number, // 实到人数
-    pAgree: [Number], // 同意的人的ID
-    pDisagree: [Number], // 不同意的人的ID
-    authorId: Number // 发帖人ID
+    classId		: String,	// 班级ID
+    date		: Date, 	// 开会时间
+    place		: String, 	// 开会地点
+    title		: String, 	// 主题
+    num			: Number, 	// 应到人数
+    gotten		: Number, 	// 实到人数
+    pAgree		: [Number], // 同意的人的ID
+    pDisagree	: [Number], // 不同意的人的ID
+    authorId	: Number 	// 发帖人ID
   }
 }
 Response {
-  code : '0',
+  code : '0'
 }
 
 Response Excetion ： {code : '', msg : ''}
@@ -287,6 +287,6 @@ code	 msg
 3004A	数据库查询错误
 ```
 
-### 关于其他发布/获取全部帖子接口
+#### 关于其他发布/获取全部帖子接口
 
 发布考勤结果帖接口结构与其他帖子的类似，不再赘述
