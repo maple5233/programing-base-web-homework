@@ -57,14 +57,22 @@ code 	msg
 ```
 
 ```json
-1002 登录
+1002 登录并获取统计数据
 POST /login
 Params {
   	loginName	: String （用户名）
   	loginPass	: String （加密后的密码）
 }
 Response {
-  	code : '0'
+  	code : '0',
+  	data : {
+      statistics : { 				// 统计数据
+        howMuch			: Number,	// 已经交了多少班费
+        howMuchRemain	: Number, 	// 还差多少要交
+        numOfDayNotSign	: Number, 	// 旷课总数
+        dayNotSign		: [Date] 	// 旷课情况
+      }
+  	}
 }
 
 Response Excetion ： {code : '', msg : ''}
