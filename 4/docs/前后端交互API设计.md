@@ -42,10 +42,10 @@
 
 ```json
 1001 注册
-POST /regist
+POST /register
 Params {
-  	registName	  :  String （用户名）
-  	registPass    :  String  (加密后的密码)
+  	registerName	:  String （用户名）
+  	registerPass    :  String  (加密后的密码)
 }
 Response {
 	code : '0'
