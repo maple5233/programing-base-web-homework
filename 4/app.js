@@ -8,6 +8,7 @@ let bodyParser = require ('body-parser');
 let session = require ('express-session');
 let flash = require ('express-flash');
 let debug = require ('debug') ('4:server');
+let sha1 = require('./public/javascripts/libs/sha1');
 let app = express ();
 
 // 配置mongoose
@@ -49,12 +50,82 @@ app.use (favicon (__dirname + '/public/images/vue_64px.png'));
 app.use (logger ('dev'));
 app.use (express.static (path.join (__dirname, 'public')));
 
-// 基本登录路由
+/* 基本登录路由 */
+
+/**
+ * 管理员界面不需要登录
+ */
+app.get ('/manager', function (req, res) {
+    res.sendFile (path.resolve (__dirname, 'views/manager.html'))
+});
+/**
+ * 管理员验证
+ */
+app.post ('/manager', function (req, res) {
+    let pass = req.body.pass;
+    if (sha1.hex_sha1(pass) == sha1.hex_sha1('maple')) {
+        req.session.manager = 'manager';
+        res.status (200).json ({
+            code: '0'
+        }).end ();
+    } else {
+        res.status (200).json ({
+            code: '1001A'
+        }).end ();
+    }
+});
+/**
+ * 检查session,确定是否已经登录
+ */
 app.get('/', function(req, res, next) {
-    // if (req.session.Id) {
-    //     res.redirect ('/menu/' + req.session.Id);
-    // }
+    if (req.session.authorId) {
+        res.redirect ('/user/' + req.session.authorId);
+    }
     res.sendFile (path.resolve (__dirname, './views/index.html'));
+});
+/**
+ * 注册路由
+ */
+app.post ('/register', function (req, res) {
+    let newUser = req.body;
+    let unMatches = false;
+    User.fetchOne (newUser.registerName, function (err, theUser) {
+        if (err) {
+            console.log (err);
+            res.status (500).json ({
+                code: '-1'
+            }).end ();
+            return
+        }
+        unMatches = (theUser === {});
+        if (unMatches) {
+            var userModel = new User ({
+                userName: newUser.registerName,
+                userPass: newUser.registerPass,
+            });
+            userModel.save (function (err) {
+                if (err) console.log (err);
+            });
+            res.status (200).json ({
+                code: '0'
+            }).end ();
+        } else {
+            res.status (200).json ({
+                code: '1001A',
+                message: '登录名已存在'
+            }).end ();
+        }
+    })
+});
+/**
+ *  验证是否登录
+ */
+app.all ('*', function (req, res, next) {
+    if (req.session.authorId) {
+        next ();
+    } else {
+        res.redirect ('/');
+    }
 });
 
 app.get('/user/*', function(req, res, next) {

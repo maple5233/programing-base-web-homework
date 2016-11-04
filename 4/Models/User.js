@@ -46,6 +46,11 @@ UserSchema.statics = { //静态方法
         return this
             .findById (id)
             .exec (cb);
+    },
+    fetchOne: function (name, cb) { // 查找有无同名
+        return this
+            .findOne ({userName: name})
+            .exec (cb)
     }
 };
 

@@ -1,3 +1,4 @@
+import { hex_sha1 } from "./libs/sha1";
 'use strict';
 
 var vm = new Vue ({
