@@ -1,7 +1,13 @@
 "use strict";
-var express = require('express');
-var path = require ("path");
-var router = express.Router();
+let express = require('express');
+let path = require ("path");
+let router = express.Router();
+let CheckIn = require ('../Models/CheckIn');
+let ClassMoney = require('../Models/ClassMoney');
+let GoodStudent = require('../Models/GoodStudent');
+let Meetings = require('../Models/Meeting');
+let Role = require('../Models/Role');
+let User = require('../Models/User');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
