@@ -32,11 +32,11 @@ let MeetingSchema = new mongoose.Schema ({
         required: true
     }, // 实到人数
     pAgree: {
-        type: [Number],
+        type: [ Number ],
         required: true
     }, // 同意的人的ID
     pDisagree: {
-        type: [Number],
+        type: [ Number ],
         required: true
     }, // 不同意的人的ID
     authorId: {
@@ -65,7 +65,7 @@ Meeting.$routers = [
         method: 'get',
         path: '/',
         router: (req, res) => {
-            User.fetch ((err, roles)=> {
+            Meeting.fetch ((err, meetings)=> {
                 if (err) {
                     console.log (err);
                     res.status (200).json ({
@@ -75,7 +75,7 @@ Meeting.$routers = [
                 else {
                     res.status (200).json ({
                         code: '0',
-                        msgs: roles.reverse ()
+                        msgs: meetings
                     });
                 }
             })

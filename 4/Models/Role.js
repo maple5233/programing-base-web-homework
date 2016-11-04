@@ -5,8 +5,8 @@
 'use strict';
 let mongoose = require ('../mongoose');
 let Schema = mongoose.Schema;
-let autoIncrement = require('mongoose-auto-increment');
-autoIncrement.initialize(mongoose);
+let autoIncrement = require ('mongoose-auto-increment');
+autoIncrement.initialize (mongoose);
 
 let RoleSchema = new mongoose.Schema ({
     roleId: {
@@ -20,7 +20,7 @@ let RoleSchema = new mongoose.Schema ({
         required: true
     }, // 职位名字
     roleRights: {
-        type: [String],
+        type: [ String ],
         required: true
     }, // 角色
     parentRoleId: {
@@ -42,7 +42,7 @@ RoleSchema.statics = { //静态方法
     }
 };
 
-RoleSchema.plugin(autoIncrement.plugin, 'Role');
+RoleSchema.plugin (autoIncrement.plugin, 'Role');
 let Role = mongoose.model ('Role', RoleSchema);
 
 Role.$routers = [
@@ -50,7 +50,7 @@ Role.$routers = [
         method: 'get',
         path: '/',
         router: (req, res) => {
-            User.fetch ((err, roles)=> {
+            Role.fetch ((err, roles)=> {
                 if (err) {
                     console.log (err);
                     res.status (200).json ({
@@ -60,7 +60,7 @@ Role.$routers = [
                 else {
                     res.status (200).json ({
                         code: '0',
-                        msgs: roles.reverse ()
+                        msgs: roles
                     });
                 }
             })

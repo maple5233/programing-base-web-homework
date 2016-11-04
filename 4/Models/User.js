@@ -6,9 +6,9 @@
 'use strict';
 let mongoose = require ('../mongoose');
 let Schema = mongoose.Schema;
-let autoIncrement = require('mongoose-auto-increment');
-autoIncrement.initialize(mongoose);
-let RoleSchema = request('role').RoleSchema;
+let autoIncrement = require ('mongoose-auto-increment');
+autoIncrement.initialize (mongoose);
+let RoleSchema = require ('./Role').RoleSchema;
 
 let UserSchema = new mongoose.Schema ({
     authorId: {
@@ -49,8 +49,9 @@ UserSchema.statics = { //静态方法
     }
 };
 
-UserSchema.plugin(autoIncrement.plugin, 'User');
-RoleSchema.plugin(autoIncrement.plugin, 'Role');
+UserSchema.plugin (autoIncrement.plugin, 'User');
+RoleSchema.plugin (autoIncrement.plugin, 'Role');
+
 let User = mongoose.model ('User', UserSchema);
 
 User.$routers = [
@@ -68,7 +69,7 @@ User.$routers = [
                 else {
                     res.status (200).json ({
                         code: '0',
-                        msgs: users.reverse ()
+                        msgs: users
                     });
                 }
             })

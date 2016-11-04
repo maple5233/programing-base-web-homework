@@ -27,5 +27,42 @@ let checkInSchema = new mongoose.Schema ({
     } // 发帖人ID
 }, {strict: true});
 
+checkInSchema.statics = { //静态方法
+    fetch: function (cb) { // 取出所有数据
+        return this
+            .find ({})
+            .exec (cb);
+    },
+    fetchById: function (id, cb) { //根据_id找数据
+        return this
+            .findById (id)
+            .exec (cb);
+    }
+};
+
 let checkIn = mongoose.model ('CheckIn', checkInSchema);
+
+checkIn.$routers = [
+    { // 获取所有
+        method: 'get',
+        path: '/',
+        router: (req, res) => {
+            checkIn.fetch ((err, checkIns)=> {
+                if (err) {
+                    console.log (err);
+                    res.status (200).json ({
+                        code: '-1'
+                    });
+                }
+                else {
+                    res.status (200).json ({
+                        code: '0',
+                        msgs: checkIns
+                    });
+                }
+            })
+        }
+    }
+];
+
 module.exports = checkIn;

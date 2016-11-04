@@ -41,7 +41,29 @@ classMoneySchema.statics = { //静态方法
     }
 };
 
-
-
 let classMoney = mongoose.model ('ClassMoney', classMoneySchema);
+
+classMoney.$routers = [
+    { // 获取所有
+        method: 'get',
+        path: '/',
+        router: (req, res) => {
+            classMoney.fetch ((err, classMoneys)=> {
+                if (err) {
+                    console.log (err);
+                    res.status (200).json ({
+                        code: '-1'
+                    });
+                }
+                else {
+                    res.status (200).json ({
+                        code: '0',
+                        msgs: classMoneys
+                    });
+                }
+            })
+        }
+    }
+];
+
 module.exports = classMoney;
