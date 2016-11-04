@@ -5,7 +5,6 @@ let favicon = require ('serve-favicon');
 let logger = require ('morgan');
 let cookieParser = require ('cookie-parser');
 let bodyParser = require ('body-parser');
-let routes = require ('./routes/login');
 let session = require ('express-session');
 let flash = require ('express-flash');
 let debug = require ('debug') ('4:server');
@@ -27,7 +26,7 @@ let ClassMoney = require ('./Models/ClassMoney');
 let GoodStudent = require ('./Models/GoodStudent');
 let Meetings = require ('./Models/Meeting');
 let Role = require ('./Models/Role');
-let User = require ('./Models/User')
+let User = require ('./Models/User');
 
 // 配置解析url json
 app.use (bodyParser.json ());
@@ -49,8 +48,23 @@ app.use (favicon (__dirname + '/public/images/vue_64px.png'));
 // 配置静态文件
 app.use (logger ('dev'));
 app.use (express.static (path.join (__dirname, 'public')));
+
 // 基本登录路由
-app.use ('/', routes);
+app.get('/', function(req, res, next) {
+    // if (req.session.Id) {
+    //     res.redirect ('/menu/' + req.session.Id);
+    // }
+    res.sendFile (path.resolve (__dirname, './views/index.html'));
+});
+
+app.get('/user/*', function(req, res, next) {
+    res.sendFile (path.resolve (__dirname, './views/user.html'));
+});
+
+app.get('/manager',function (req,res,next) {
+    res.sendfile(path.resolve(__dirname,'./views/manager.html'));
+});
+
 // Model路由
 [ CheckIn, ClassMoney, GoodStudent, Meetings, Role, User ].forEach (item => {
     item.$routers.forEach (router => {
