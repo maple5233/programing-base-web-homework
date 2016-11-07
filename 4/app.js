@@ -75,12 +75,9 @@ app.post ('/manager', function (req, res) {
     }
 });
 /**
- * 检查session,确定是否已经登录
+ * 主页
  */
 app.get ('/', function (req, res, next) {
-    if (req.session.authorId) {
-        res.redirect ('/user/' + req.session.authorId);
-    }
     res.sendFile (path.resolve (__dirname, './views/index.html'));
 });
 /**
@@ -172,7 +169,7 @@ app.post ('/login', async (req, res) => {
  */
 app.all ('*', function (req, res, next) {
     if (req.session.authorId !== null && req.session.authorId !== undefined) {
-        // console.log(req.session.authorId)
+        console.log(req.session.authorId)
         next ();
     } else {
         res.redirect ('/');
