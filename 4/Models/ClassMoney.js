@@ -49,7 +49,7 @@ classMoneySchema.statics = { //静态方法
             .exec (cb)
     },
     getHowMuchSomeoneHasNotPay: function (id, cb) { // 统计未交班费
-        let moneyArr = this.$where ('this.payedMembers.indexOf (' + id + ') !== -1');
+        let moneyArr = this.$where ('this.unpayedMembers.indexOf (' + id + ') !== -1');
         return moneyArr
             .exec (cb)
     },
