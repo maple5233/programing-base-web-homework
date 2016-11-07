@@ -75,7 +75,8 @@ checkIn.$routers = [
                 }).end ();
             }
         }
-    }, {
+    },
+    {
         method: 'post',
         path: '/checkIn',
         router: async (req, res) => {

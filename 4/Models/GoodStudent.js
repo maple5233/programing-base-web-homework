@@ -38,30 +38,58 @@ goodStudentSchema.statics = { //静态方法
         return this
             .findById (id)
             .exec (cb);
+    },
+    fetchByClassId: function (id, cb) {
+        return this
+            .find ({
+                classId: id
+            })
+            .exec (cb)
     }
 };
 
 let goodStudent = mongoose.model('GoodStudent',goodStudentSchema);
 
 goodStudent.$routers = [
-    { // 获取所有
+    { // 获取某班级所有
         method: 'get',
-        path: '/',
-        router: (req, res) => {
-            goodStudent.fetch ((err, goodStudents)=> {
-                if (err) {
-                    console.log (err);
-                    res.status (200).json ({
-                        code: '-1'
-                    });
-                }
-                else {
-                    res.status (200).json ({
-                        code: '0',
-                        msgs: goodStudents
-                    });
-                }
-            })
+        path: '/goodStudent',
+        router: async (req, res) => {
+            let classId = req.query.classId;
+            let posts;
+            try {
+                posts = await goodStudent.fetchByClassId (classId);
+                res.status (200).json ({
+                    code: '0',
+                    posts: posts
+                });
+            } catch (err) {
+                console.log (err);
+                res.status (500).json ({
+                    code: '-1',
+                    message: '数据库错误'
+                }).end ();
+            }
+        }
+    },
+    {
+        method: 'post',
+        path: '/goodStudent',
+        router: async (req, res) => {
+            let aGoodStudent = req.body.goodStudent;
+            try {
+                let newGoodStudent = new goodStudent (aGoodStudent);
+                await newGoodStudent.save ();
+                res.status (200).json ({
+                    code: '0'
+                });
+            } catch (err) {
+                console.log (err);
+                res.status (500).json ({
+                    code: '-1',
+                    message: '数据库错误'
+                }).end ();
+            }
         }
     }
 ];
