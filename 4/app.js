@@ -8,7 +8,7 @@ let bodyParser = require ('body-parser');
 let session = require ('express-session');
 let flash = require ('express-flash');
 let debug = require ('debug') ('4:server');
-let sha1 = require('./public/javascripts/libs/sha1');
+let sha1 = require ('./public/javascripts/libs/sha1');
 let app = express ();
 
 // 配置mongoose
@@ -63,7 +63,7 @@ app.get ('/manager', function (req, res) {
  */
 app.post ('/manager', function (req, res) {
     let pass = req.body.pass;
-    if (sha1.hex_sha1(pass) == sha1.hex_sha1('maple')) {
+    if (sha1.hex_sha1 (pass) == sha1.hex_sha1 ('maple')) {
         req.session.manager = 'manager';
         res.status (200).json ({
             code: '0'
@@ -77,7 +77,7 @@ app.post ('/manager', function (req, res) {
 /**
  * 检查session,确定是否已经登录
  */
-app.get('/', function(req, res, next) {
+app.get ('/', function (req, res, next) {
     if (req.session.authorId) {
         res.redirect ('/user/' + req.session.authorId);
     }
@@ -97,7 +97,6 @@ app.post ('/register', function (req, res) {
             }).end ();
             return
         }
-        console.log(theUser);
         unMatches = (theUser === null);
         if (unMatches) {
             var userModel = new User ({
@@ -123,54 +122,68 @@ app.post ('/register', function (req, res) {
 /**
  * 登录路由
  */
-app.post ('/login', function (req, res) {
+app.post ('/login', async (req, res) => {
+    // 已经登录
     if (req.session.authorId)
         res.status (200).json ({code: '0'}).end ();
 
     let user = req.body;
-    let unMatches = false;
-
-    User.find ({authorId: user.loginId}, function (err, theUser) {
-        if (err) {
-            console.log (err);
-            res.status (500).json ({code: '-1'}).end ();
-        }
-        unMatches = (theUser.length === 0);
-        if (unMatches) {
-            res.status (200).json ({
-                code: '1002A',
-                message: '用户不存在'
-            }).end ();
-        } else if (theUser[ 0 ].userPass === user.loginPass) {
-            req.session.authorId = user.loginId;
-            res.status (200).json ({
-                code: '0'
-            }).end ();
-        } else {
-            res.status (200).json ({
-                code: '1002B' ,
-                message: 'password error'
-            }).end ();
-        }
-    })
+    let theUsers;
+    try {
+        theUsers = await User.find ({userName: user.userName});
+    } catch (err) {
+        console.log (err);
+        res.status (500).json ({
+            code: '-1',
+            message: '数据库错误'
+        }).end ();
+    }
+    let unMatches = (theUsers.length === 0);
+    if (unMatches) {
+        res.status (200).json ({
+            code: '1002A',
+            message: '用户不存在'
+        }).end ();
+    } else if (theUsers[ 0 ].userPass === user.userPass) {
+        req.session.authorId = theUsers[0].authorId;
+        res.status (200).json ({
+            code: '0',
+            user: {
+                authorId: theUsers[0].authorId,
+                // roleId: theUsers[0].roleId,
+                userClass: theUsers[0].userClass
+            },
+            statistics : {                // 统计数据
+                howMuch         : 0,   // 已经交了多少班费
+                howMuchRemain   : 0,   // 还差多少要交
+                numOfDayNotSign : 0,   // 旷课总数
+                dayNotSign      : [new Date()]    // 旷课情况
+            }
+        }).end ();
+    } else {
+        res.status (200).json ({
+            code: '1002B',
+            message: '密码错误'
+        }).end ();
+    }
 });
 /**
  *  验证是否登录
  */
 app.all ('*', function (req, res, next) {
-    if (req.session.authorId) {
+    if (req.session.authorId !== null) {
         next ();
     } else {
         res.redirect ('/');
     }
 });
 
-app.get('/user/*', function(req, res, next) {
+app.get ('/user/*', function (req, res, next) {
     res.sendFile (path.resolve (__dirname, './views/user.html'));
 });
 
-app.get('/manager',function (req,res,next) {
-    res.sendfile(path.resolve(__dirname,'./views/manager.html'));
+app.get ('/manager', function (req, res, next) {
+    res.sendfile (path.resolve (__dirname, './views/manager.html'));
 });
 
 // Model路由
