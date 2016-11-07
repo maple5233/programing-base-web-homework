@@ -13,7 +13,6 @@ let app = express ();
 
 // 配置mongoose
 let mongoose = require ('./mongoose.js');
-// let connection = mongoose.connection
 mongoose.db.on ('error', () => {
     debug ('连接数据库未成功!');
     console.error.bind (console, '连接错误!');
@@ -158,7 +157,6 @@ app.post ('/login', async (req, res) => {
         let rank;
         try {
             rank = await Role.findOne({roleId: theUsers[0].roleId});
-            debug(rank)
         } catch (err) {
             console.log (err);
             res.status (500).json ({
@@ -170,7 +168,7 @@ app.post ('/login', async (req, res) => {
             code: '0',
             user: {
                 authorId: theUsers[ 0 ].authorId,
-                rank: rank,
+                rank: rank.rank,
                 userClass: theUsers[ 0 ].userClass
             },
             statistics: {     // 统计数据

@@ -119,7 +119,7 @@ var vm = new Vue ({
             thisAuthor.dayNotSign.forEach ((item)=> {
                 this.thisAuthor.dayNotSign.push (new Date (item))
             })
-            this.rank = Math.valueOf(urls[ 7 ])
+            this.rank = parseInt(urls[ 7 ])
         },
         /**
          * 登出
