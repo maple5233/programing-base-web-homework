@@ -43,11 +43,18 @@ RoleSchema.statics = { //静态方法
         return this
             .findById (id)
             .exec (cb);
+    },
+    fetchByRoleId: function (roleId, cb) {
+        return this
+            .findOne ({
+                roleId: roleId
+            })
+            .exec (cb)
     }
 };
 
 RoleSchema.plugin (autoIncrement.plugin, 'Role');
-RoleSchema.plugin (autoIncrement.plugin, {model:'Role',field:'roleId'});
+RoleSchema.plugin (autoIncrement.plugin, {model: 'Role', field: 'roleId'});
 let Role = mongoose.model ('Role', RoleSchema);
 
 Role.$routers = [

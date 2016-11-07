@@ -74,6 +74,53 @@ app.post ('/manager', function (req, res) {
     }
 });
 /**
+ * 管理员获取所有学生
+ */
+app.get ('/manager/students', async function (req, res) {
+    if (req.session.manager === undefined) {
+        res.status (200).json ({
+            code: '2001A',
+            message: '没通过验证'
+        }).end ();
+    } else {
+        let students;
+        try {
+            students = await User.fetch ()
+        } catch (err) {
+            console.log (err);
+            res.status (500).json ({
+                code: '-1',
+                message: '数据库错误'
+            }).end ();
+        }
+        debug(students)
+        let send = [];
+        students.forEach (async (item)=> {
+            let rank;
+            try {
+                rank = await Role.fetchByRoleId (item.roleId);
+            } catch (err) {
+                console.log (err);
+                res.status (500).json ({
+                    code: '-1',
+                    message: '数据库错误'
+                }).end ();
+            }
+            send.push ({
+                stuId: item.authorId,
+                rank: rank.rank
+            })
+            res.status (200).json ({
+                code: '0',
+                students: send
+            }).end ();
+        })
+    }
+});
+/**
+ * 
+ */
+/**
  * 主页
  */
 app.get ('/', function (req, res, next) {

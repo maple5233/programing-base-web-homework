@@ -13,6 +13,19 @@ var vm = new Vue ({
         students: []
     },
     methods: {
+        getStudents: function () {
+            this.$http.get ('/manager/students').then (function (result) {
+                let res = result.data
+                if (res.code == '0') {
+                    this.students = res.students
+                    console.log(res.students)
+                } else {
+                    window.alert ('未知错误!')
+                }
+            },function (result) {
+                window.alert (result.toString())
+            })
+        },
         verify: function () {
             if (this.userPass.length === 0) {
                 window.alert ("信息不完整!")
@@ -31,15 +44,20 @@ var vm = new Vue ({
                     let res = result.data
                     if (res.code == '0') {
                         this.hasAuth = true
+                        this.getStudents()
                     } else {
                         window.alert ('密码错误!')
                     }
                 },function (result) {
-                    window.alert (result)
+                    window.alert (result.toString())
                 })
         },
         changeRank: function (index, rank) {
+
             this.students[ index ].rank = rank
         }
+    },
+    mounted() {
+
     }
 })
