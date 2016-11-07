@@ -22,7 +22,7 @@ let RoleSchema = new mongoose.Schema ({
     roleRights: {
         type: [ String ],
         required: true
-    }, // 角色
+    }, // 角色权限
     parentRoleId: {
         type: String,
         required: true
@@ -43,6 +43,7 @@ RoleSchema.statics = { //静态方法
 };
 
 RoleSchema.plugin (autoIncrement.plugin, 'Role');
+RoleSchema.plugin (autoIncrement.plugin, {model:'Role',field:'roleId'});
 let Role = mongoose.model ('Role', RoleSchema);
 
 Role.$routers = [
