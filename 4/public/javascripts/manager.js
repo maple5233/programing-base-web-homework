@@ -64,8 +64,5 @@ var vm = new Vue ({
                 window.alert (result.toString ())
             })
         }
-    },
-    mounted() {
-
     }
 })
