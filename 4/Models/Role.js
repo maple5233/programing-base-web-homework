@@ -26,7 +26,11 @@ let RoleSchema = new mongoose.Schema ({
     parentRoleId: {
         type: String,
         required: true
-    } // 父角色
+    }, // 父角色
+    rank: {
+        type: Number,
+        required: true
+    }
 }, {strict: true}); // 开启严格模式，不允许不同数据结构存入
 
 RoleSchema.statics = { //静态方法

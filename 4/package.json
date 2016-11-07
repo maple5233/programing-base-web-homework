@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node --harmony ./bin/www"
+    "start": "node init.js && node --harmony ./bin/www"
   },
   "dependencies": {
     "babel": "latest",
