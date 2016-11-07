@@ -208,9 +208,10 @@ app.post ('/register', async (req, res) => {
  * 登录路由
  */
 app.post ('/login', async (req, res) => {
-    // 已经登录
-    if (req.session.authorId !== undefined)
-        res.status (200).json ({code: '0'}).end ();
+    // // 已经登录
+    // if (req.session.authorId !== undefined)
+    //     res.status (200).json ({code: '0',
+    //     }).end ();
 
     let user = req.body;
     let theUsers;
@@ -218,6 +219,7 @@ app.post ('/login', async (req, res) => {
         theUsers = await User.find ({userName: user.userName});
     } catch (err) {
         console.log (err);
+        debug(3333);
         res.status (500).json ({
             code: '-1',
             message: '数据库错误'
@@ -235,6 +237,7 @@ app.post ('/login', async (req, res) => {
         try {
             rank = await Role.findOne ({roleId: theUsers[ 0 ].roleId});
         } catch (err) {
+            debug(2222);
             console.log (err);
             res.status (500).json ({
                 code: '-1',
@@ -262,11 +265,13 @@ app.post ('/login', async (req, res) => {
             numOfDayNotSign = dates.length;
         } catch (err) {
             console.log (err);
+            debug(1111);
             res.status (500).json ({
                 code: '-1',
                 message: '数据库错误'
             }).end ();
         }
+        debug(theUsers[0].authorId)
         res.status (200).json ({
             code: '0',
             user: {
