@@ -162,9 +162,11 @@ var vm = new Vue ({
         getInfoFromURL: function () {
             let url = window.location.href;
             let urls = url.split ('/')
+
             this.authorId = urls[ 4 ]
-            this.classId = urls[ 5 ]
+            this.classId = decodeURIComponent(urls[ 5 ])
             let thisAuthor = JSON.parse (decodeURIComponent (urls[ 6 ]));
+
             this.thisAuthor.howMuch = thisAuthor.howMuch
             this.thisAuthor.howMuchRemain = thisAuthor.howMuchRemain
             this.thisAuthor.numOfDayNotSign = thisAuthor.numOfDayNotSign
