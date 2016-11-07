@@ -27,6 +27,7 @@ let GoodStudent = require ('./Models/GoodStudent');
 let Meetings = require ('./Models/Meeting');
 let Role = require ('./Models/Role');
 let User = require ('./Models/User');
+let Reply = require ('./Models/Reply');
 
 // 配置解析url json
 app.use (bodyParser.json ());
@@ -143,7 +144,7 @@ app.put ('/manager/update', async function (req, res) {
         theStudent.roleId = newRoleId
         // debug (theStudent)
         theStudent.save ((err) => {
-            if(err) console.log (err)
+            if (err) console.log (err)
         })
         res.status (200).json ({
             code: '0'
@@ -214,7 +215,7 @@ app.post ('/login', async (req, res) => {
         theUsers = await User.find ({userName: user.userName});
     } catch (err) {
         console.log (err);
-        debug(3333);
+        debug (3333);
         res.status (500).json ({
             code: '-1',
             message: '数据库错误'
@@ -232,7 +233,7 @@ app.post ('/login', async (req, res) => {
         try {
             rank = await Role.findOne ({roleId: theUsers[ 0 ].roleId});
         } catch (err) {
-            debug(2222);
+            debug (2222);
             console.log (err);
             res.status (500).json ({
                 code: '-1',
@@ -260,13 +261,13 @@ app.post ('/login', async (req, res) => {
             numOfDayNotSign = dates.length;
         } catch (err) {
             console.log (err);
-            debug(1111);
+            debug (1111);
             res.status (500).json ({
                 code: '-1',
                 message: '数据库错误'
             }).end ();
         }
-        debug(theUsers[0].authorId)
+        debug (theUsers[ 0 ].authorId)
         res.status (200).json ({
             code: '0',
             user: {
@@ -321,7 +322,7 @@ app.get ('/manager*', function (req, res, next) {
 });
 
 // Model路由
-[ CheckIn, ClassMoney, GoodStudent, Meetings, Role, User ].forEach (item => {
+[ CheckIn, ClassMoney, GoodStudent, Meetings, Role, User, Reply ].forEach (item => {
     item.$routers.forEach (router => {
         app[ router.method ] (router.path, router.router)
     })
