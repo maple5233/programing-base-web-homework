@@ -13,7 +13,6 @@ let RoleSchema = require ('./Role').RoleSchema;
 let UserSchema = new mongoose.Schema ({
     authorId: {
         type: Schema.Types.ObjectId,
-        required: true,
         ref: 'AuthorId',
         index: true
     }, // 用户的学号，系统自动分配
@@ -29,12 +28,12 @@ let UserSchema = new mongoose.Schema ({
         type: String,
         required: true
     },// 加密后用户的密码
-    roleId: {
-        type: Number,
-        ref: 'RoleId', // 参照完整性约束
-        required: true
-    } // 外键 需要[参照完整性约束]
-}, {strict: true}); // 开启严格模式，不允许不同数据结构存入
+    // roleId: {
+    //     type: Number,
+    //     ref: 'RoleId', // 参照完整性约束
+    //     required: true
+    // } // 外键 需要[参照完整性约束]
+}, {strict: false});
 
 UserSchema.statics = { //静态方法
     fetch: function (cb) { // 取出所有数据
@@ -54,6 +53,7 @@ UserSchema.statics = { //静态方法
     }
 };
 
+UserSchema.plugin (autoIncrement.plugin, {model:'User',field:'authorId'});
 UserSchema.plugin (autoIncrement.plugin, 'User');
 RoleSchema.plugin (autoIncrement.plugin, 'Role');
 

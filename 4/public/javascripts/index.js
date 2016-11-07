@@ -1,4 +1,3 @@
-import { hex_sha1 } from "./libs/sha1";
 'use strict';
 
 var vm = new Vue ({
@@ -44,6 +43,19 @@ var vm = new Vue ({
                 registerClass: this.userClass
             }).then (function (result) {
                 let res = result.data
+                if (res.code == '0') {
+                    alert ('注册成功')
+                    window.location.href = '/user/1'
+                } else if (res.code == '1001A') {
+                    alert ('用户名已经存在')
+                    window.location.href = '/'
+                } else if (res.code == '-1') {
+                    alert ('未知错误')
+                    window.location.href = '/'
+                }
+            },function (result) {
+                window.alert(result)
+                return
             })
         }
     }

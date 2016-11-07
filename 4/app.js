@@ -97,11 +97,14 @@ app.post ('/register', function (req, res) {
             }).end ();
             return
         }
-        unMatches = (theUser === {});
+        console.log(theUser);
+        unMatches = (theUser === null);
         if (unMatches) {
             var userModel = new User ({
                 userName: newUser.registerName,
                 userPass: newUser.registerPass,
+                roleId: 0, // 默认是普通的学生
+                userClass: newUser.registerClass
             });
             userModel.save (function (err) {
                 if (err) console.log (err);
@@ -113,6 +116,40 @@ app.post ('/register', function (req, res) {
             res.status (200).json ({
                 code: '1001A',
                 message: '登录名已存在'
+            }).end ();
+        }
+    })
+});
+/**
+ * 登录路由
+ */
+app.post ('/login', function (req, res) {
+    if (req.session.authorId)
+        res.status (200).json ({code: '0'}).end ();
+
+    let user = req.body;
+    let unMatches = false;
+
+    User.find ({authorId: user.loginId}, function (err, theUser) {
+        if (err) {
+            console.log (err);
+            res.status (500).json ({code: '-1'}).end ();
+        }
+        unMatches = (theUser.length === 0);
+        if (unMatches) {
+            res.status (200).json ({
+                code: '1002A',
+                message: '用户不存在'
+            }).end ();
+        } else if (theUser[ 0 ].userPass === user.loginPass) {
+            req.session.authorId = user.loginId;
+            res.status (200).json ({
+                code: '0'
+            }).end ();
+        } else {
+            res.status (200).json ({
+                code: '1002B' ,
+                message: 'password error'
             }).end ();
         }
     })
