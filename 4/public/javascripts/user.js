@@ -104,6 +104,13 @@ var vm = new Vue ({
         }
     },
     methods: {
+        logout: function () {
+            this.$http.post ('/logout').then (function (result) {
+                window.location.href = '/'
+            }, function (result) {
+                window.alert (result)
+            })
+        },
         /**
          * 改变Tab标签
          * @param  {Number} index  选择的标签的下标
@@ -114,31 +121,6 @@ var vm = new Vue ({
             this.postTexts = []
             this.emptyPost ()
             /** ajax更新视图 */
-        },
-        /**
-         * 测试添加活动用的
-         */
-        addPost: function () {
-            return
-            let newPost = {
-                classId: '1',
-                className: '软工2班',
-                stuId: '2014150121',
-                authorId: '2014150120',
-                date: (new Date ()).toString (),
-                gotten: 1,
-                num: 2,
-                bond: 2000,
-                howmuch: 2000,
-                payedMembers: [ '2014150120', '2014150121' ],
-                unpayedMembers: [ '2014150122', '2014150123' ],
-                place: '深大文科楼',
-                pAgree: [ '2014150120', '2014150121' ],
-                pDisagree: [ '2014150122', '2014150123' ],
-                title: '关于优秀学生',
-                contant: '我有一个不成熟的小建议'
-            }
-            this.postTexts.push (newPost)
         },
         /**
          * 清空表单内容

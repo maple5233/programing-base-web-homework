@@ -64,7 +64,7 @@ var vm = new Vue ({
                 let res = result.data
                 if (res.code == '0') {
                     alert ('注册成功')
-                    window.location.href = '/user/1'
+                    window.location.href = '/'
                 } else if (res.code == '1001A') {
                     alert ('用户名已经存在')
                     window.location.href = '/'
@@ -74,7 +74,6 @@ var vm = new Vue ({
                 }
             }, function (result) {
                 window.alert (result)
-                return
             })
         }
     }

@@ -194,7 +194,7 @@ app.get ('/user/*', function (req, res, next) {
     res.sendFile (path.resolve (__dirname, './views/user.html'));
 });
 
-app.get ('/manager', function (req, res, next) {
+app.get ('/manager*', function (req, res, next) {
     res.sendfile (path.resolve (__dirname, './views/manager.html'));
 });
 

@@ -12,7 +12,7 @@
 </head>
 <body>
 <div id="whole" v-bind:style="{ background: 'url(' + bgImg + ')'}">
-    <header v-on:click="addPost">用户管理页面</header>
+    <header>用户管理页面</header>
     <div class="center-flex">
 
         <div class="left-menu">
@@ -32,6 +32,7 @@
                 <li class="list-group-item" :class="{ 'active' : active.now === 3 }" v-if="rank > 3"
                     v-on:click="changeTab(3, active)">开班会帖
                 </li>
+                <li class="list-group-item" v-on:click="logout">登出</li>
             </ul>
             <ul class="list-group statistics">
                 <li class="list-group-item">已缴班费：{{ thisAuthor.howMuch }}</li>
@@ -232,6 +233,7 @@
     </div>
 </div>
 <script src="http://cdn.bootcss.com/vue/2.0.3/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
 <script src="/javascripts/user.js"></script>
 </body>
 </html>
