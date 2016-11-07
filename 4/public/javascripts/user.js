@@ -5,9 +5,9 @@ var vm = new Vue ({
         active: {
             now: 4
         },
-        rank: 5, // 用户权限
-        classId: '1',
-        authorId: '2014150120',
+        rank: null, // 用户权限
+        classId: null,
+        authorId: null,
         postTexts: [],
         newPost: {
             classId: null,    // ajax请求得到发帖人的班级 String
@@ -28,9 +28,9 @@ var vm = new Vue ({
             contant: null       // 回复内容 String
         },
         thisAuthor: {
-            howMuch: 1000,// 已经交了多少班费
-            howMuchRemain: 200, // 还差多少要交
-            numOfDayNotSign: 2, // 旷课总数
+            howMuch: null,// 已经交了多少班费
+            howMuchRemain: null, // 还差多少要交
+            numOfDayNotSign: null, // 旷课总数
             dayNotSign: [] // 旷课情况
         }
     },
@@ -105,6 +105,52 @@ var vm = new Vue ({
     },
     methods: {
         /**
+         * ajax 请求后台 更新视图
+         */
+        getInfoFromBackend:function (index) {
+            let posts;
+            switch (index) {
+                case 3:
+                    this.$http.get ('/meeting?classId='+this.classId).then (function (result) {
+                        let res = result.data
+                        if (res.code === '0') {
+                            posts = res.posts
+                            this.pushPosts(posts)
+                        } else {
+                            console.log (res.code)
+                        }
+                    }, function (result) {
+                        window.alert (result.toString ())
+                    })
+                    break
+                default:
+                    break
+            }
+        },
+        /**
+         * 塞数据
+         */
+        pushPosts:function (posts) {
+            posts.forEach ((item) => {
+                if (item.date !== undefined) {
+                    item.date = new Date(item.date).toString ();
+                }
+                if (item.payedMembers === undefined || item.payedMembers === null){
+                    item.payedMembers = []
+                }
+                if (item.unpayedMembers === undefined || item.unpayedMembers === null){
+                    item.unpayedMembers = []
+                }
+                if (item.pAgree === undefined || item.pAgree === null){
+                    item.pAgree = []
+                }
+                if (item.pDisagree === undefined || item.pDisagree === null){
+                    item.pDisagree = []
+                }
+                this.postTexts.push(item)
+            })
+        },
+        /**
          * 取出URL里的信息
          */
         getInfoFromURL: function () {
@@ -119,7 +165,7 @@ var vm = new Vue ({
             thisAuthor.dayNotSign.forEach ((item)=> {
                 this.thisAuthor.dayNotSign.push (new Date (item))
             })
-            this.rank = parseInt(urls[ 7 ])
+            this.rank = parseInt (urls[ 7 ])
         },
         /**
          * 登出
@@ -141,7 +187,7 @@ var vm = new Vue ({
             active.now = index
             this.postTexts = []
             this.emptyPost ()
-            /** ajax更新视图 */
+            this.getInfoFromBackend(index)
         },
         /**
          * 清空表单内容
@@ -158,7 +204,7 @@ var vm = new Vue ({
                 num: null,
                 bond: null,
                 howmuch: null,
-                payedMembers: null,
+                payedMembers:null,
                 unpayedMembers: null,
                 place: null,
                 pAgree: null,
@@ -182,6 +228,15 @@ var vm = new Vue ({
                 this.newPost.unpayedMembers = JSON.parse ('[' + this.newPost.unpayedMembers + ']')
                 this.newPost.pAgree = JSON.parse ('[' + this.newPost.pAgree + ']')
                 this.newPost.pDisagree = JSON.parse ('[' + this.newPost.pDisagree + ']')
+                /**
+                 * 字符串处理为数字
+                 */
+                this.newPost.authorId = parseInt (this.authorId)
+                this.newPost.gotten = parseInt (this.newPost.gotten)
+                this.newPost.num = parseInt (this.newPost.num)
+                this.newPost.bond = parseInt (this.newPost.bond)
+                this.newPost.stuId = parseInt (this.newPost.stuId)
+                this.newPost.howmuch = parseInt (this.newPost.howmuch)
                 /* 时间转化为时间对象再转字符串 */
                 if (this.newPost.date !== null && !this.newPost.date.match (datePattern)) {
                     this.emptyPost ()
@@ -190,7 +245,6 @@ var vm = new Vue ({
                 }
                 this.newPost.date = new Date (this.newPost.date).toString ()
                 /* 补全信息 */
-                this.newPost.authorId = this.authorId
                 this.newPost.classId = this.classId
             } catch (e) {
                 widows.alert ('数据格式不正确!')
@@ -199,7 +253,6 @@ var vm = new Vue ({
             }
 
             let post = this.newPost
-
             switch (index) {
                 case 0:
                     if (post.stuId == null || post.className == null || post.date == null) {
@@ -229,6 +282,21 @@ var vm = new Vue ({
                         this.emptyPost ()
                         return
                     }
+                    post.date = new Date (post.date)
+                    this.$http.post ('/meeting', {
+                        meeting: post
+                    }).then (function (result) {
+                        let res = result.data
+                        if (res.code === '0') {
+                            post.date = post.date.toString ()
+                            this.postTexts.push (post)
+                            console.log(post)
+                        } else {
+                            console.log (res.code)
+                        }
+                    }, function (result) {
+                        window.alert (result.toString ())
+                    })
                     break;
                 case 4:
                     if (post.title == null || post.contant == null || post.date == null) {
@@ -240,8 +308,6 @@ var vm = new Vue ({
                 default:
                     break;
             }
-
-            this.postTexts.push (this.newPost)
             this.emptyPost ()
         }
     },

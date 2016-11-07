@@ -55,30 +55,57 @@ MeetingSchema.statics = { //静态方法
         return this
             .findById (id)
             .exec (cb);
+    },
+    fetchByClassId: function (id, cb) {
+        return this
+            .find ({
+                classId: id
+            })
+            .exec (cb)
     }
 };
 
 let Meeting = mongoose.model ('Meeting', MeetingSchema);
 
 Meeting.$routers = [
-    { // 获取所有
+    { // 获取某班级所有
         method: 'get',
-        path: '/',
-        router: (req, res) => {
-            Meeting.fetch ((err, meetings)=> {
-                if (err) {
-                    console.log (err);
-                    res.status (200).json ({
-                        code: '-1'
-                    });
-                }
-                else {
-                    res.status (200).json ({
-                        code: '0',
-                        msgs: meetings
-                    });
-                }
-            })
+        path: '/meeting',
+        router: async (req, res) => {
+            let classId = req.query.classId;
+            let posts;
+            try {
+                posts = await Meeting.fetchByClassId (classId);
+                res.status (200).json ({
+                    code: '0',
+                    posts: posts
+                });
+            } catch (err) {
+                console.log (err);
+                res.status (500).json ({
+                    code: '-1',
+                    message: '数据库错误'
+                }).end ();
+            }
+        }
+    },{
+        method: 'post',
+        path: '/meeting',
+        router: async (req, res) => {
+            let meeting = req.body.meeting;
+            try {
+                let newMeeting = new Meeting(meeting);
+                await newMeeting.save();
+                res.status (200).json ({
+                    code: '0'
+                });
+            } catch (err) {
+                console.log (err);
+                res.status (500).json ({
+                    code: '-1',
+                    message: '数据库错误'
+                }).end ();
+            }
         }
     }
 ];
