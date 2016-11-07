@@ -208,11 +208,6 @@ app.post ('/register', async (req, res) => {
  * 登录路由
  */
 app.post ('/login', async (req, res) => {
-    // // 已经登录
-    // if (req.session.authorId !== undefined)
-    //     res.status (200).json ({code: '0',
-    //     }).end ();
-
     let user = req.body;
     let theUsers;
     try {

@@ -42,30 +42,57 @@ checkInSchema.statics = { //静态方法
         let days = this.find({stuId:id})
         return days
             .exec(cb)
+    },
+    fetchByClassId: function (id, cb) {
+        return this
+            .find ({
+                classId: id
+            })
+            .exec (cb)
     }
 };
 
 let checkIn = mongoose.model ('CheckIn', checkInSchema);
 
 checkIn.$routers = [
-    { // 获取所有
+    { // 获取某班级所有
         method: 'get',
-        path: '/',
-        router: (req, res) => {
-            checkIn.fetch ((err, checkIns)=> {
-                if (err) {
-                    console.log (err);
-                    res.status (200).json ({
-                        code: '-1'
-                    });
-                }
-                else {
-                    res.status (200).json ({
-                        code: '0',
-                        msgs: checkIns
-                    });
-                }
-            })
+        path: '/checkIn',
+        router: async (req, res) => {
+            let classId = req.query.classId;
+            let posts;
+            try {
+                posts = await checkIn.fetchByClassId (classId);
+                res.status (200).json ({
+                    code: '0',
+                    posts: posts
+                });
+            } catch (err) {
+                console.log (err);
+                res.status (500).json ({
+                    code: '-1',
+                    message: '数据库错误'
+                }).end ();
+            }
+        }
+    }, {
+        method: 'post',
+        path: '/checkIn',
+        router: async (req, res) => {
+            let aCheckIn = req.body.checkIn;
+            try {
+                let newCheckIn = new checkIn (aCheckIn);
+                await newCheckIn.save ();
+                res.status (200).json ({
+                    code: '0'
+                });
+            } catch (err) {
+                console.log (err);
+                res.status (500).json ({
+                    code: '-1',
+                    message: '数据库错误'
+                }).end ();
+            }
         }
     }
 ];

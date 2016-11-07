@@ -114,7 +114,8 @@ var vm = new Vue ({
                 api = 'classMoney'
             } else if (index === 3) {
                 api = 'meeting'
-            } else {
+            } else if (index === 0) {
+                api = 'checkIn'
             }
 
             this.$http.get ('/' + api + '?classId=' + this.classId).then (function (result) {
@@ -263,6 +264,23 @@ var vm = new Vue ({
                         this.emptyPost ()
                         return
                     }
+
+                    post.date = new Date (post.date)
+
+                    this.$http.post ('/checkIn', {
+                        checkIn: post
+                    }).then (function (result) {
+                        let res = result.data
+                        if (res.code === '0') {
+                            post.date = post.date.toString ()
+                            this.postTexts.push (post)
+                            console.log (post)
+                        } else {
+                            console.log (res.code)
+                        }
+                    }, function (result) {
+                        window.alert (result.toString ())
+                    })
                     break;
                 }
                 case 1:
