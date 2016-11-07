@@ -83,38 +83,50 @@ app.get ('/', function (req, res, next) {
 /**
  * 注册路由
  */
-app.post ('/register', function (req, res) {
+app.post ('/register', async (req, res) => {
     let newUser = req.body;
-    let unMatches = false;
-    User.fetchOne (newUser.registerName, function (err, theUser) {
-        if (err) {
+    let unMatches;
+    let theUser;
+    try {
+        theUser = await User.fetchOne (newUser.registerName);
+    } catch (err) {
+        console.log (err);
+        res.status (500).json ({
+            code: '-1',
+            message: '数据库错误'
+        }).end ();
+    }
+    unMatches = (theUser === null);
+    if (unMatches) {
+        let role;
+        try {
+            role = await Role.findOne({roleName:"班级成员"});
+        } catch (err) {
             console.log (err);
             res.status (500).json ({
-                code: '-1'
-            }).end ();
-            return
-        }
-        unMatches = (theUser === null);
-        if (unMatches) {
-            var userModel = new User ({
-                userName: newUser.registerName,
-                userPass: newUser.registerPass,
-                roleId: 0, // 默认是普通的学生
-                userClass: newUser.registerClass
-            });
-            userModel.save (function (err) {
-                if (err) console.log (err);
-            });
-            res.status (200).json ({
-                code: '0'
-            }).end ();
-        } else {
-            res.status (200).json ({
-                code: '1001A',
-                message: '登录名已存在'
+                code: '-1',
+                message: '数据库错误'
             }).end ();
         }
-    })
+        
+        var userModel = new User ({
+            userName: newUser.registerName,
+            userPass: newUser.registerPass,
+            roleId: role.roleId, // 默认是普通的学生
+            userClass: newUser.registerClass
+        });
+        userModel.save (function (err) {
+            if (err) console.log (err);
+        });
+        res.status (200).json ({
+            code: '0'
+        }).end ();
+    } else {
+        res.status (200).json ({
+            code: '1001A',
+            message: '登录名已存在'
+        }).end ();
+    }
 });
 /**
  * 登录路由
@@ -143,11 +155,22 @@ app.post ('/login', async (req, res) => {
         }).end ();
     } else if (theUsers[ 0 ].userPass === user.userPass) {
         req.session.authorId = theUsers[ 0 ].authorId;
+        let rank;
+        try {
+            rank = await Role.findOne({roleId: theUsers[0].roleId});
+            debug(rank)
+        } catch (err) {
+            console.log (err);
+            res.status (500).json ({
+                code: '-1',
+                message: '数据库错误'
+            }).end ();
+        }
         res.status (200).json ({
             code: '0',
             user: {
                 authorId: theUsers[ 0 ].authorId,
-                // roleId: theUsers[0].roleId,
+                rank: rank,
                 userClass: theUsers[ 0 ].userClass
             },
             statistics: {     // 统计数据

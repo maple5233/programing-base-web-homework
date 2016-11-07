@@ -38,8 +38,8 @@ var vm = new Vue ({
                     window.alert ('登录成功')
                     window.location.href = '/user/' + res.user.authorId
                         + '/' + res.user.userClass
-                    // +'/'+res.user.roleId
-                        + '/' + JSON.stringify(res.statistics)
+                        + '/' + JSON.stringify (res.statistics)
+                        + '/' + res.user.rank
                 } else {
                     window.alert (res.message)
                     window.location.href = '/'
