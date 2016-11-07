@@ -28,11 +28,11 @@ let UserSchema = new mongoose.Schema ({
         type: String,
         required: true
     },// 加密后用户的密码
-    // roleId: {
-    //     type: Number,
-    //     ref: 'RoleId', // 参照完整性约束
-    //     required: true
-    // } // 外键 需要[参照完整性约束]
+    roleId: {
+        type: Number,
+        ref: 'RoleId', // 参照完整性约束
+        required: true
+    } // 外键 需要[参照完整性约束]
 }, {strict: false});
 
 UserSchema.statics = { //静态方法
