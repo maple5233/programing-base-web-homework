@@ -145,19 +145,19 @@ app.post ('/login', async (req, res) => {
             message: '用户不存在'
         }).end ();
     } else if (theUsers[ 0 ].userPass === user.userPass) {
-        req.session.authorId = theUsers[0].authorId;
+        req.session.authorId = theUsers[ 0 ].authorId;
         res.status (200).json ({
             code: '0',
             user: {
-                authorId: theUsers[0].authorId,
+                authorId: theUsers[ 0 ].authorId,
                 // roleId: theUsers[0].roleId,
-                userClass: theUsers[0].userClass
+                userClass: theUsers[ 0 ].userClass
             },
-            statistics : {                // 统计数据
-                howMuch         : 0,   // 已经交了多少班费
-                howMuchRemain   : 0,   // 还差多少要交
-                numOfDayNotSign : 0,   // 旷课总数
-                dayNotSign      : [new Date(),new Date()]    // 旷课情况
+            statistics: {     // 统计数据
+                howMuch: 0,   // 已经交了多少班费
+                howMuchRemain: 0,   // 还差多少要交
+                numOfDayNotSign: 0,   // 旷课总数
+                dayNotSign: [ new Date (), new Date () ]    // 旷课情况
             }
         }).end ();
     } else {
