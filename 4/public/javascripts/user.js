@@ -118,6 +118,8 @@ var vm = new Vue ({
                 api = 'checkIn'
             } else if (index === 1){
                 api = 'goodStudent'
+            } else {
+                api = 'Reply'
             }
             this.$http.get ('/' + api + '?classId=' + this.classId).then (function (result) {
                 let res = result.data
@@ -366,6 +368,22 @@ var vm = new Vue ({
                         this.emptyPost ()
                         return
                     }
+
+                    post.date = new Date (post.date)
+
+                    this.$http.post ('/Reply', {
+                        Reply: post
+                    }).then (function (result) {
+                        let res = result.data
+                        if (res.code === '0') {
+                            post.date = post.date.toString ()
+                            this.postTexts.push (post)
+                        } else {
+                            console.log (res.code)
+                        }
+                    }, function (result) {
+                        window.alert (result.toString ())
+                    })
                     break;
                 }
                 default:

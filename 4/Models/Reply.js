@@ -20,7 +20,11 @@ let ReplySchema = new mongoose.Schema ({
     authorId: {
         type: Number,
         required: true
-    } // 发帖人ID
+    }, // 发帖人ID
+    date: {
+        type: Date,
+        required: true
+    }
 }, {strict: true});
 
 ReplySchema.statics = { //静态方法
@@ -53,7 +57,7 @@ Reply.$routers = [
             let classId = req.query.classId;
             let posts;
             try {
-                posts = await goodStudent.fetchByClassId (classId);
+                posts = await Reply.fetchByClassId (classId);
                 res.status (200).json ({
                     code: '0',
                     posts: posts
