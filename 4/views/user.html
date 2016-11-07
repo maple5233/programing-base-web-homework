@@ -17,19 +17,19 @@
 
         <div class="left-menu">
             <ul class="list-group">
-                <li class="list-group-item" :class="{ 'active' : active.now === 4 }" v-if="rank > -1"
+                <li class="list-group-item" :class="{ 'active' : active.now === 4 }"
                     v-on:click="changeTab(4, active)">回复帖
                 </li>
-                <li class="list-group-item" :class="{ 'active' : active.now === 0 }" v-if="rank > 0"
+                <li class="list-group-item" :class="{ 'active' : active.now === 0 }"
                     v-on:click="changeTab(0, active)">发布考勤结果帖
                 </li>
-                <li class="list-group-item" :class="{ 'active' : active.now === 1 }" v-if="rank > 0"
+                <li class="list-group-item" :class="{ 'active' : active.now === 1 }"
                     v-on:click="changeTab(1, active)">评优等生帖
                 </li>
-                <li class="list-group-item" :class="{ 'active' : active.now === 2 }" v-if="rank > 2"
+                <li class="list-group-item" :class="{ 'active' : active.now === 2 }"
                     v-on:click="changeTab(2, active)">收班费帖
                 </li>
-                <li class="list-group-item" :class="{ 'active' : active.now === 3 }" v-if="rank > 3"
+                <li class="list-group-item" :class="{ 'active' : active.now === 3 }"
                     v-on:click="changeTab(3, active)">开班会帖
                 </li>
                 <li class="list-group-item" v-on:click="logout">登出</li>
@@ -64,7 +64,7 @@
                         </ul>
                     </div>
                 </transition-group>
-                <form v-on:submit.prevent class="post-row strong">
+                <form v-on:submit.prevent class="post-row strong" v-if="rank > 0">
                     <ul class="list-group">
                         <li class="list-group-item"><input v-model="newPost.stuId" type="text" placeholder="考勤学生ID">
                         </li>
@@ -99,7 +99,7 @@
                         </ul>
                     </div>
                 </transition-group>
-                <form v-on:submit.prevent class="post-row strong">
+                <form v-on:submit.prevent class="post-row strong" v-if="rank > 0">
                     <ul class="list-group">
                         <li class="list-group-item"><input v-model="newPost.stuId" type="text" placeholder="优等头衔"></li>
                         <li class="list-group-item"><input v-model="newPost.title" type="text" placeholder="获奖学生ID">
@@ -136,7 +136,7 @@
                         </ul>
                     </div>
                 </transition-group>
-                <form v-on:submit.prevent class="post-row strong">
+                <form v-on:submit.prevent class="post-row strong" v-if="rank > 2">
                     <ul class="list-group">
                         <li class="list-group-item"><input v-model="newPost.howmuch" type="text" placeholder="金额大小"
                                                            number></li>
@@ -179,7 +179,7 @@
                         </ul>
                     </div>
                 </transition-group>
-                <form v-on:submit.prevent class="post-row strong">
+                <form v-on:submit.prevent class="post-row strong" v-if="rank > 3">
                     <ul class="list-group">
                         <li class="list-group-item"><input v-model="newPost.date" type="text" placeholder="日期"></li>
                         <li class="list-group-item"><input v-model="newPost.place" type="text" placeholder="地点"></li>
