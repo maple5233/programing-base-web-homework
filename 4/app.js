@@ -93,7 +93,6 @@ app.get ('/manager/students', async function (req, res) {
                 message: '数据库错误'
             }).end ();
         }
-        debug(students)
         let send = [];
         students.forEach (async (item)=> {
             let rank;
@@ -118,8 +117,39 @@ app.get ('/manager/students', async function (req, res) {
     }
 });
 /**
- * 
+ * 管理员修改学生权限
  */
+app.put ('/manager/update', async function (req, res) {
+    if (req.session.manager === undefined) {
+        res.status (200).json ({
+            code: '2001A',
+            message: '没通过验证'
+        }).end ();
+    } else {
+        let stuId = req.body.stuId
+        let newRank = req.body.rank
+        let theStudent = null
+        let newRoleId = null
+        try {
+            theStudent = await User.fetchById (stuId)
+            newRoleId = (await Role.fetchByRank (newRank)).roleId
+        } catch (err) {
+            if (err) console.log (err);
+            res.status (500).json ({
+                code: '-1',
+                message: '数据库错误'
+            }).end ();
+        }
+        theStudent.roleId = newRoleId
+        // debug (theStudent)
+        theStudent.save ((err) => {
+            if(err) console.log (err)
+        })
+        res.status (200).json ({
+            code: '0'
+        }).end ();
+    }
+});
 /**
  * 主页
  */

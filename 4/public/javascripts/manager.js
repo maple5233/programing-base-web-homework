@@ -18,12 +18,11 @@ var vm = new Vue ({
                 let res = result.data
                 if (res.code == '0') {
                     this.students = res.students
-                    console.log(res.students)
                 } else {
                     window.alert ('未知错误!')
                 }
-            },function (result) {
-                window.alert (result.toString())
+            }, function (result) {
+                window.alert (result.toString ())
             })
         },
         verify: function () {
@@ -41,20 +40,29 @@ var vm = new Vue ({
             this.$http.post ('/manager', {
                 pass: this._userPass
             }).then (function (result) {
-                    let res = result.data
-                    if (res.code == '0') {
-                        this.hasAuth = true
-                        this.getStudents()
-                    } else {
-                        window.alert ('密码错误!')
-                    }
-                },function (result) {
-                    window.alert (result.toString())
-                })
+                let res = result.data
+                if (res.code == '0') {
+                    this.hasAuth = true
+                    this.getStudents ()
+                } else {
+                    window.alert ('密码错误!')
+                }
+            }, function (result) {
+                window.alert (result.toString ())
+            })
         },
         changeRank: function (index, rank) {
-
-            this.students[ index ].rank = rank
+            this.$http.put ('/manager/update', {
+                stuId: this.students[ index ].stuId,
+                rank: rank
+            }).then (function (result) {
+                let res = result.data
+                if (res.code == '0') {
+                    this.students[ index ].rank = rank
+                } 
+            }, function (result) {
+                window.alert (result.toString ())
+            })
         }
     },
     mounted() {

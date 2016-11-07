@@ -50,6 +50,13 @@ RoleSchema.statics = { //静态方法
                 roleId: roleId
             })
             .exec (cb)
+    },
+    fetchByRank: function (rank, cb) {
+        return this
+            .findOne ({
+                rank: rank
+            })
+            .exec (cb)
     }
 };
 
