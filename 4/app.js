@@ -99,7 +99,7 @@ app.post ('/register', async (req, res) => {
     if (unMatches) {
         let role;
         try {
-            role = await Role.findOne({roleName:"班级成员"});
+            role = await Role.findOne ({roleName: "班级成员"});
         } catch (err) {
             console.log (err);
             res.status (500).json ({
@@ -107,7 +107,7 @@ app.post ('/register', async (req, res) => {
                 message: '数据库错误'
             }).end ();
         }
-        
+
         var userModel = new User ({
             userName: newUser.registerName,
             userPass: newUser.registerPass,
@@ -132,7 +132,7 @@ app.post ('/register', async (req, res) => {
  */
 app.post ('/login', async (req, res) => {
     // 已经登录
-    if (req.session.authorId)
+    if (req.session.authorId !== undefined)
         res.status (200).json ({code: '0'}).end ();
 
     let user = req.body;
@@ -156,7 +156,33 @@ app.post ('/login', async (req, res) => {
         req.session.authorId = theUsers[ 0 ].authorId;
         let rank;
         try {
-            rank = await Role.findOne({roleId: theUsers[0].roleId});
+            rank = await Role.findOne ({roleId: theUsers[ 0 ].roleId});
+        } catch (err) {
+            console.log (err);
+            res.status (500).json ({
+                code: '-1',
+                message: '数据库错误'
+            }).end ();
+        }
+        let howMuch = 0;
+        let howMuchRemain = 0;
+        let numOfDayNotSign = 0;
+        let dayNotSign = [];
+        try {
+            let authorId = theUsers[ 0 ].authorId;
+            let moneyArr = await ClassMoney.getHowMuchSomeonePay (authorId);
+            moneyArr.forEach ((item)=> {
+                howMuch += item.howmuch
+            });
+            moneyArr = await ClassMoney.getHowMuchSomeoneHasNotPay (authorId);
+            moneyArr.forEach ((item)=> {
+                howMuchRemain += item.howmuch
+            });
+            let dates = await CheckIn.getDaysNotSign (authorId);
+            dates.forEach ((item)=> {
+                dayNotSign.push (item.date)
+            })
+            numOfDayNotSign = dates.length;
         } catch (err) {
             console.log (err);
             res.status (500).json ({
@@ -172,10 +198,10 @@ app.post ('/login', async (req, res) => {
                 userClass: theUsers[ 0 ].userClass
             },
             statistics: {     // 统计数据
-                howMuch: 0,   // 已经交了多少班费
-                howMuchRemain: 0,   // 还差多少要交
-                numOfDayNotSign: 0,   // 旷课总数
-                dayNotSign: [ new Date (), new Date () ]    // 旷课情况
+                howMuch: howMuch,   // 已经交了多少班费
+                howMuchRemain: howMuchRemain,   // 还差多少要交
+                numOfDayNotSign: numOfDayNotSign,   // 旷课总数
+                dayNotSign: dayNotSign    // 旷课情况
             }
         }).end ();
     } else {
@@ -190,7 +216,7 @@ app.post ('/login', async (req, res) => {
  */
 app.all ('*', function (req, res, next) {
     if (req.session.authorId !== null && req.session.authorId !== undefined) {
-        console.log(req.session.authorId)
+        // console.log (req.session.authorId)
         next ();
     } else {
         res.redirect ('/');

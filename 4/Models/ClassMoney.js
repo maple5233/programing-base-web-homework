@@ -15,11 +15,15 @@ let classMoneySchema = new mongoose.Schema ({
         required: true
     }, // 截止时间
     payedMembers: {
-        type: [Number],
+        type: [ Number ],
         required: true
     }, // 已经缴费的人的ID
+    howmuch: {
+        type: Number,
+        required: true
+    }, // 多少钱
     unpayedMembers: {
-        type: [Number],
+        type: [ Number ],
         required: true
     }, // 尚未缴费的人的ID
     authorId: {
@@ -38,6 +42,16 @@ classMoneySchema.statics = { //静态方法
         return this
             .findById (id)
             .exec (cb);
+    },
+    getHowMuchSomeonePay: function (id, cb) { // 统计已交班费
+        let moneyArr = this.$where ('this.payedMembers.indexOf (id) !== -1');
+        return moneyArr
+            .exec(cb)
+    },
+    getHowMuchSomeoneHasNotPay: function (id, cb) { // 统计未交班费
+        let moneyArr = this.$where ('this.payedMembers.indexOf (id) !== -1');
+        return moneyArr
+            .exec(cb)
     }
 };
 

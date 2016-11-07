@@ -37,6 +37,11 @@ checkInSchema.statics = { //静态方法
         return this
             .findById (id)
             .exec (cb);
+    },
+    getDaysNotSign: function (id, cb) {
+        let days = this.find({stuId:id})
+        return days
+            .exec(cb)
     }
 };
 
