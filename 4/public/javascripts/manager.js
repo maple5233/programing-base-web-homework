@@ -10,52 +10,7 @@ var vm = new Vue ({
         userPass: '',
         _userPass: '', // 加密后的密码;
         hasAuth: false, // 是否已经验证
-        students: [ {
-            stuId: 2014150120,
-            rank: 4
-        }, {
-            stuId: 2014150121,
-            rank: 3
-        }, {
-            stuId: 2014150122,
-            rank: 2
-        }, {
-            stuId: 2014150123,
-            rank: 1
-        }, {
-            stuId: 2014150121,
-            rank: 0
-        }, {
-            stuId: 2014150121,
-            rank: 4
-        }, {
-            stuId: 2014150121,
-            rank: 3
-        }, {
-            stuId: 2014150121,
-            rank: 2
-        }, {
-            stuId: 2014150121,
-            rank: 3
-        }, {
-            stuId: 2014150122,
-            rank: 2
-        }, {
-            stuId: 2014150123,
-            rank: 1
-        }, {
-            stuId: 2014150121,
-            rank: 0
-        }, {
-            stuId: 2014150121,
-            rank: 4
-        }, {
-            stuId: 2014150121,
-            rank: 3
-        }, {
-            stuId: 2014150121,
-            rank: 2
-        } ]
+        students: []
     },
     methods: {
         verify: function () {
@@ -67,12 +22,24 @@ var vm = new Vue ({
             return true
         },
         login: function () {
-            if (this.verify ()) {
-                this.hasAuth = true
+            if (!this.verify ()) {
+                return
             }
+            this.$http.post ('/manager', {
+                pass: this._userPass
+            }).then (function (result) {
+                    let res = result.data
+                    if (res.code == '0') {
+                        this.hasAuth = true
+                    } else {
+                        window.alert ('密码错误!')
+                    }
+                },function (result) {
+                    window.alert (result)
+                })
         },
         changeRank: function (index, rank) {
-            this.students[index].rank = rank
+            this.students[ index ].rank = rank
         }
     }
 })

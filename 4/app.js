@@ -62,7 +62,7 @@ app.get ('/manager', function (req, res) {
  */
 app.post ('/manager', function (req, res) {
     let pass = req.body.pass;
-    if (sha1.hex_sha1 (pass) == sha1.hex_sha1 ('maple')) {
+    if (pass === sha1.hex_sha1 ('maple')) {
         req.session.manager = 'manager';
         res.status (200).json ({
             code: '0'
