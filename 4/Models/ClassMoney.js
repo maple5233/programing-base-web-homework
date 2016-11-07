@@ -44,12 +44,12 @@ classMoneySchema.statics = { //静态方法
             .exec (cb);
     },
     getHowMuchSomeonePay: function (id, cb) { // 统计已交班费
-        let moneyArr = this.$where ('this.payedMembers.indexOf (id) !== -1');
+        let moneyArr = this.$where ('this.payedMembers.indexOf (' + id + ') !== -1');
         return moneyArr
             .exec (cb)
     },
     getHowMuchSomeoneHasNotPay: function (id, cb) { // 统计未交班费
-        let moneyArr = this.$where ('this.payedMembers.indexOf (id) !== -1');
+        let moneyArr = this.$where ('this.payedMembers.indexOf (' + id + ') !== -1');
         return moneyArr
             .exec (cb)
     },
@@ -91,7 +91,7 @@ classMoney.$routers = [
         router: async (req, res) => {
             let aClassMoney = req.body.classMoney;
             try {
-                let newClassMoney = new classMoney(aClassMoney);
+                let newClassMoney = new classMoney (aClassMoney);
                 await newClassMoney.save ();
                 res.status (200).json ({
                     code: '0'
