@@ -46,36 +46,63 @@ classMoneySchema.statics = { //静态方法
     getHowMuchSomeonePay: function (id, cb) { // 统计已交班费
         let moneyArr = this.$where ('this.payedMembers.indexOf (id) !== -1');
         return moneyArr
-            .exec(cb)
+            .exec (cb)
     },
     getHowMuchSomeoneHasNotPay: function (id, cb) { // 统计未交班费
         let moneyArr = this.$where ('this.payedMembers.indexOf (id) !== -1');
         return moneyArr
-            .exec(cb)
+            .exec (cb)
+    },
+    fetchByClassId: function (id, cb) {
+        return this
+            .find ({
+                classId: id
+            })
+            .exec (cb)
     }
 };
 
 let classMoney = mongoose.model ('ClassMoney', classMoneySchema);
 
 classMoney.$routers = [
-    { // 获取所有
+    { // 获取某班级所有
         method: 'get',
-        path: '/',
-        router: (req, res) => {
-            classMoney.fetch ((err, classMoneys)=> {
-                if (err) {
-                    console.log (err);
-                    res.status (200).json ({
-                        code: '-1'
-                    });
-                }
-                else {
-                    res.status (200).json ({
-                        code: '0',
-                        msgs: classMoneys
-                    });
-                }
-            })
+        path: '/classMoney',
+        router: async (req, res) => {
+            let classId = req.query.classId;
+            let posts;
+            try {
+                posts = await classMoney.fetchByClassId (classId);
+                res.status (200).json ({
+                    code: '0',
+                    posts: posts
+                });
+            } catch (err) {
+                console.log (err);
+                res.status (500).json ({
+                    code: '-1',
+                    message: '数据库错误'
+                }).end ();
+            }
+        }
+    }, {
+        method: 'post',
+        path: '/classMoney',
+        router: async (req, res) => {
+            let aClassMoney = req.body.classMoney;
+            try {
+                let newClassMoney = new classMoney(aClassMoney);
+                await newClassMoney.save ();
+                res.status (200).json ({
+                    code: '0'
+                });
+            } catch (err) {
+                console.log (err);
+                res.status (500).json ({
+                    code: '-1',
+                    message: '数据库错误'
+                }).end ();
+            }
         }
     }
 ];

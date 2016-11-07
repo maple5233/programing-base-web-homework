@@ -107,47 +107,49 @@ var vm = new Vue ({
         /**
          * ajax 请求后台 更新视图
          */
-        getInfoFromBackend:function (index) {
+        getInfoFromBackend: function (index) {
             let posts;
-            switch (index) {
-                case 3:
-                    this.$http.get ('/meeting?classId='+this.classId).then (function (result) {
-                        let res = result.data
-                        if (res.code === '0') {
-                            posts = res.posts
-                            this.pushPosts(posts)
-                        } else {
-                            console.log (res.code)
-                        }
-                    }, function (result) {
-                        window.alert (result.toString ())
-                    })
-                    break
-                default:
-                    break
+            let api = '';
+            if (index === 2) {
+                api = 'classMoney'
+            } else if (index === 3) {
+                api = 'meeting'
+            } else {
             }
+
+            this.$http.get ('/' + api + '?classId=' + this.classId).then (function (result) {
+                let res = result.data
+                if (res.code === '0') {
+                    posts = res.posts
+                    this.pushPosts (posts)
+                } else {
+                    console.log (res.code)
+                }
+            }, function (result) {
+                window.alert (result.toString ())
+            })
         },
         /**
          * 塞数据
          */
-        pushPosts:function (posts) {
+        pushPosts: function (posts) {
             posts.forEach ((item) => {
                 if (item.date !== undefined) {
-                    item.date = new Date(item.date).toString ();
+                    item.date = new Date (item.date).toString ();
                 }
-                if (item.payedMembers === undefined || item.payedMembers === null){
+                if (item.payedMembers === undefined || item.payedMembers === null) {
                     item.payedMembers = []
                 }
-                if (item.unpayedMembers === undefined || item.unpayedMembers === null){
+                if (item.unpayedMembers === undefined || item.unpayedMembers === null) {
                     item.unpayedMembers = []
                 }
-                if (item.pAgree === undefined || item.pAgree === null){
+                if (item.pAgree === undefined || item.pAgree === null) {
                     item.pAgree = []
                 }
-                if (item.pDisagree === undefined || item.pDisagree === null){
+                if (item.pDisagree === undefined || item.pDisagree === null) {
                     item.pDisagree = []
                 }
-                this.postTexts.push(item)
+                this.postTexts.push (item)
             })
         },
         /**
@@ -187,7 +189,7 @@ var vm = new Vue ({
             active.now = index
             this.postTexts = []
             this.emptyPost ()
-            this.getInfoFromBackend(index)
+            this.getInfoFromBackend (index)
         },
         /**
          * 清空表单内容
@@ -204,7 +206,7 @@ var vm = new Vue ({
                 num: null,
                 bond: null,
                 howmuch: null,
-                payedMembers:null,
+                payedMembers: null,
                 unpayedMembers: null,
                 place: null,
                 pAgree: null,
@@ -255,42 +257,41 @@ var vm = new Vue ({
             let post = this.newPost
             switch (index) {
                 case 0:
+                {
                     if (post.stuId == null || post.className == null || post.date == null) {
                         window.alert ('信息不全')
                         this.emptyPost ()
                         return
                     }
                     break;
+                }
                 case 1:
+                {
                     if (post.stuId == null || post.title == null || post.bond == null) {
                         window.alert ('信息不全')
                         this.emptyPost ()
                         return
                     }
                     break;
+                }
                 case 2:
-                    if (post.howmuch == null || post.payedMembers == null || post.unpayedMembers == null) {
+                {
+                    if (post.howmuch == null || post.payedMembers == null || post.unpayedMembers == null || post.date == null) {
                         window.alert ('信息不全')
                         this.emptyPost ()
                         return
                     }
-                    break;
-                case 3:
-                    if (post.date == null || post.place == null || post.num == null || post.gotten == null
-                        || post.title == null || post.pAgree == null || post.pDisagree == null) {
-                        window.alert ('信息不全')
-                        this.emptyPost ()
-                        return
-                    }
+
                     post.date = new Date (post.date)
-                    this.$http.post ('/meeting', {
-                        meeting: post
+
+                    this.$http.post ('/classMoney', {
+                        classMoney: post
                     }).then (function (result) {
                         let res = result.data
                         if (res.code === '0') {
                             post.date = post.date.toString ()
                             this.postTexts.push (post)
-                            console.log(post)
+                            console.log (post)
                         } else {
                             console.log (res.code)
                         }
@@ -298,13 +299,43 @@ var vm = new Vue ({
                         window.alert (result.toString ())
                     })
                     break;
+                }
+                case 3:
+                {
+                    if (post.date == null || post.place == null || post.num == null || post.gotten == null
+                        || post.title == null || post.pAgree == null || post.pDisagree == null) {
+                        window.alert ('信息不全')
+                        this.emptyPost ()
+                        return
+                    }
+
+                    post.date = new Date (post.date)
+
+                    this.$http.post ('/meeting', {
+                        meeting: post
+                    }).then (function (result) {
+                        let res = result.data
+                        if (res.code === '0') {
+                            post.date = post.date.toString ()
+                            this.postTexts.push (post)
+                            console.log (post)
+                        } else {
+                            console.log (res.code)
+                        }
+                    }, function (result) {
+                        window.alert (result.toString ())
+                    })
+                    break;
+                }
                 case 4:
+                {
                     if (post.title == null || post.contant == null || post.date == null) {
                         window.alert ('信息不全')
                         this.emptyPost ()
                         return
                     }
                     break;
+                }
                 default:
                     break;
             }
