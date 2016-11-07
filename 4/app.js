@@ -157,7 +157,7 @@ app.post ('/login', async (req, res) => {
                 howMuch         : 0,   // 已经交了多少班费
                 howMuchRemain   : 0,   // 还差多少要交
                 numOfDayNotSign : 0,   // 旷课总数
-                dayNotSign      : [new Date()]    // 旷课情况
+                dayNotSign      : [new Date(),new Date()]    // 旷课情况
             }
         }).end ();
     } else {
@@ -171,7 +171,8 @@ app.post ('/login', async (req, res) => {
  *  验证是否登录
  */
 app.all ('*', function (req, res, next) {
-    if (req.session.authorId !== null) {
+    if (req.session.authorId !== null && req.session.authorId !== undefined) {
+        // console.log(req.session.authorId)
         next ();
     } else {
         res.redirect ('/');

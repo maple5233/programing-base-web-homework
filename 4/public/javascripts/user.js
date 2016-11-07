@@ -31,7 +31,7 @@ var vm = new Vue ({
             howMuch: 1000,// 已经交了多少班费
             howMuchRemain: 200, // 还差多少要交
             numOfDayNotSign: 2, // 旷课总数
-            dayNotSign: [ new Date (), new Date () ] // 旷课情况
+            dayNotSign: [] // 旷课情况
         }
     },
     filters: {
@@ -104,6 +104,26 @@ var vm = new Vue ({
         }
     },
     methods: {
+        /**
+         * 取出URL里的信息
+         */
+        getInfoFromURL: function () {
+            let url = window.location.href;
+            let urls = url.split ('/')
+            this.authorId = urls[ 4 ]
+            this.classId = urls[ 5 ]
+            let thisAuthor = JSON.parse (decodeURIComponent (urls[ 6 ]));
+            this.thisAuthor.howMuch = thisAuthor.howMuch
+            this.thisAuthor.howMuchRemain = thisAuthor.howMuchRemain
+            this.thisAuthor.numOfDayNotSign = thisAuthor.numOfDayNotSign
+            thisAuthor.dayNotSign.forEach ((item)=> {
+                this.thisAuthor.dayNotSign.push (new Date (item))
+            })
+        },
+        /**
+         * 登出
+         *
+         */
         logout: function () {
             this.$http.post ('/logout').then (function (result) {
                 window.location.href = '/'
@@ -153,9 +173,8 @@ var vm = new Vue ({
          * @param  {Number} index 是哪一种帖子
          */
         submitPost: function (index) {
-
             let datePattern =
-                /^((((1[6-9]|[2-9]\d)\d{2})-(0?[13578]|1[02])-(0?[1-9]|[12]\d|3[01]))|(((1[6-9]|[2-9]\d)\d{2})-(0?[13456789]|1[012])-(0?[1-9]|[12]\d|30))|(((1[6-9]|[2-9]\d)\d{2})-0?2-(0?[1-9]|1\d|2[0-8]))|(((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))-0?2-29-))$/
+                /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/
             try {
                 /* 字符串处理为数组 */
                 this.newPost.payedMembers = JSON.parse ('[' + this.newPost.payedMembers + ']')
@@ -227,5 +246,6 @@ var vm = new Vue ({
     },
     mounted () {
         this.changeTab (4, this.active)
+        this.getInfoFromURL ()
     }
 })
