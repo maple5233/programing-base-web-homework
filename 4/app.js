@@ -177,6 +177,18 @@ app.all ('*', function (req, res, next) {
         res.redirect ('/');
     }
 });
+/**
+ * 登出
+ */
+app.get ('/logout', function (req, res) {
+    if (req.session.authorId) {
+        req.session.destroy ()
+    }
+    if (req.session.manager) {
+        req.session.destroy ()
+    }
+    res.redirect ('/')
+});
 
 app.get ('/user/*', function (req, res, next) {
     res.sendFile (path.resolve (__dirname, './views/user.html'));
