@@ -39,6 +39,13 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     noInfo: true
+    //配置代理，使得允许跨域 
+    // proxy: {  
+    //   '/api': {  
+    //     target: 'http://localhost:3000/',  
+    //     secure: false  
+    //   }  
+    // }  
   },
   devtool: '#eval-source-map'
 }

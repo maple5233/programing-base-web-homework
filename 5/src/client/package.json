@@ -1,13 +1,14 @@
 {
-  "name": "element-starter",
-  "description": "A Vue.js project",
-  "author": "yi.shyang@ele.me",
+  "name": "基于Vue的简易商城",
+  "description": "一个基于Vue+Vue-router+VueX+Express+MongoDB的项目",
+  "author": "2014maple5233@gmail.com",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "axios": "^0.15.3",
     "element-ui": "^1.0.0",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
