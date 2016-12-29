@@ -8,6 +8,21 @@
 @1px-shadow: 0 1px 3px fade(black, 33);
 @2px-shadow: 0 2px 6px fade(black, 33);
 
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 .fade-out-gradient(@color, @fade, @deg: 180deg) {
     background: linear-gradient(@deg, fade(@color, @fade), fade(@color, 0));
 }
