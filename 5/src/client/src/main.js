@@ -1,4 +1,3 @@
-
 // 引入 Polyfills
 import 'core-js/fn/promise'
 import 'core-js/fn/string/pad-start'
@@ -29,7 +28,7 @@ Vue.filter('datetime', (str) => {
 
 new Vue({
   el: '#app',
-  // router,
+  router,
   // store: store,
   render: h => h(App)
 })
