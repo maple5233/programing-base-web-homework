@@ -20,17 +20,17 @@
             <!-- 编辑框 -->
             <el-dialog title="产品信息编辑" v-model="editing">
                 <el-form :model="product" ref="product" :rules="rules">
-                    <el-form-item label="商品名称" :label-width="formLabelWidth">
-                        <el-input v-model="product.productName" prop="productName" auto-complete="off"></el-input>
+                    <el-form-item label="商品名称" prop="productName" :label-width="formLabelWidth">
+                        <el-input v-model="product.productName" auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="价格(元)" :label-width="formLabelWidth">
-                        <el-input v-model="product.productPrice" prop="productPrice" auto-complete="off"></el-input>
+                        <el-input-number v-model="product.productPrice" auto-complete="off"></el-input-number>
                     </el-form-item>
                     <el-form-item label="库存(件)" :label-width="formLabelWidth">
-                        <el-input v-model="product.productInventory" prop="productInventory" auto-complete="off"></el-input>
+                        <el-input-number v-model="product.productInventory" auto-complete="off"></el-input-number>
                     </el-form-item>
-                    <el-form-item label="详情" :label-width="formLabelWidth">
-                        <el-input v-model="product.productDetails" prop="productDetails" auto-complete="off" type="textarea" :autosize="textareaSize"></el-input>
+                    <el-form-item label="详情" prop="productDetails" :label-width="formLabelWidth">
+                        <el-input v-model="product.productDetails" auto-complete="off" type="textarea" :autosize="textareaSize"></el-input>
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
@@ -51,9 +51,21 @@
             product: {
                 _id : -1,
                 productName: '',
-                productPrice: 0,  
-                productInventory: 0, 
+                productPrice: null,  
+                productInventory: null, 
                 productDetails: '' 
+            },
+            rules: {
+                productName: [{
+                    required: true,
+                    message: '不能留空',
+                    trigger: 'blur'
+                }],
+                productDetails: [{
+                    required: true,
+                    message: '不能留空',
+                    trigger: 'blur'
+                }]
             },
             editingIndex : -1,
             products:[{
@@ -116,12 +128,19 @@
                 }) 
             },
             submitForm: function (argument) {
-                if (this.adding) {
-                    this.products.push(this.product);
-                    this.resetProduct();
-                    this.adding = false;
-                }
-                this.editing = false;
+                this.$refs.product.validate((valid) => {
+                    if (!valid) {
+                        this.$message.error('您的输入有误');
+                        this.$refs.product.resetFields();
+                        return;
+                    }
+                    if (this.adding) {
+                        this.products.push(this.product);
+                        this.resetProduct();
+                        this.adding = false;
+                    }
+                    this.editing = false;
+                });
             },
             resetProduct: function (argument) {
                 this.product = {
