@@ -2,11 +2,17 @@
     <div>
         <el-menu theme="dark" default-active="1" mode="horizontal" class="menu">
             <div id="logo"><span><i class="el-icon-star-on"></i>图书商城</span></div>
-            <div class="sel-menu" v-if="isLogined">
-                <el-menu-item index="1" class="product">产品列表</el-menu-item>
+            <div class="sel-menu">
+                <router-link to="/product">
+                    <el-menu-item index="1" class="product">产品列表</el-menu-item>
+                </router-link>
                 <el-submenu index="2">
-                    <el-menu-item index="2-1">我的订单</el-menu-item>
-                    <a @click="logout"><el-menu-item index="2-2">退出系统</el-menu-item></a>
+                    <router-link to="/history">
+                        <el-menu-item index="2-1">我的订单</el-menu-item>
+                    </router-link>
+                    <router-link to="/login">
+                        <el-menu-item index="2-2">退出系统</el-menu-item>
+                    </router-link>
                 </el-submenu>
             </div>
         </el-menu>
@@ -17,15 +23,11 @@
     export default {
       data () {
         return {
-            token : '',
-            isLogined : true
+            token : ''
         }
     },
 
     methods: {
-        logout: function () {
-            this.isLogined = false;
-        }
     }
 }
 </script>
