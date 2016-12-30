@@ -1,5 +1,6 @@
 import App from './App.vue'
 import loginBox from './components/loginBox.vue'
+import manager from './components/manager.vue'
 
 export default [
 {
@@ -16,6 +17,14 @@ export default [
 	component: loginBox,
 	meta: {
 		requiresAuth: false,
+	}
+},
+{
+	path: '/manager',
+	name: 'manager',
+	component: manager,
+	meta: {
+		requiresAuth: false
 	}
 }
 ]
