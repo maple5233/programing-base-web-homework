@@ -2,7 +2,8 @@
     <div id="app">
         <header-menu></header-menu>
         <div class="container">
-            <router-view></router-view>
+            <!-- <router-view></router-view> -->
+            <product-item></product-item>
         </div>
         <footer-info></footer-info>
     </div>
@@ -11,6 +12,7 @@
 <script>
     import headerMenu from './components/headerMenu.vue'
     import footerInfo from './components/footerInfo.vue'
+    import productItem from './components/productItem.vue'
 
     export default {
       data () {
@@ -20,7 +22,8 @@
     },
     components: {
         headerMenu,
-        footerInfo
+        footerInfo,
+        productItem
     },
     methods: {
     }

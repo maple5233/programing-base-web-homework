@@ -24,7 +24,7 @@ export default [
 	name: 'manager',
 	component: manager,
 	meta: {
-		requiresAuth: false
+		requiresAuth: true
 	}
 }
 ]
