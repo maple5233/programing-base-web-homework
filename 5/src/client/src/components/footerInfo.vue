@@ -12,7 +12,7 @@
         background-color: #324057;
         color: #a4aebd;
         width: 100%;
-        position: absolute;
+        position: fixed;
         bottom: 0;
         margin-top: 20px;
 

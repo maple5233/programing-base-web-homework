@@ -12,7 +12,7 @@
 <script>
     import headerMenu from './components/headerMenu.vue'
     import footerInfo from './components/footerInfo.vue'
-    import order from './components/order.vue'
+    import order from './components/orderHistory.vue'
 
     export default {
       data () {
