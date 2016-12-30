@@ -2,8 +2,7 @@
     <div id="app">
         <header-menu></header-menu>
         <div class="container">
-            <!-- <router-view></router-view> -->
-            <order></order>
+            <router-view></router-view>
         </div>
         <footer-info></footer-info>
     </div>
@@ -12,7 +11,6 @@
 <script>
     import headerMenu from './components/headerMenu.vue'
     import footerInfo from './components/footerInfo.vue'
-    import order from './components/orderHistory.vue'
 
     export default {
       data () {
@@ -22,8 +20,7 @@
     },
     components: {
         headerMenu,
-        footerInfo,
-        order
+        footerInfo
     },
     methods: {
     }

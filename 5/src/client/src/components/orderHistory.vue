@@ -4,13 +4,13 @@
             <div slot="header" class="clearfix">
                 <span>历史订单</span>
             </div>
-            <order v-for="order in orders" :order="order" :isHistory="true"></order>
+            <order-item v-for="order in orders" :order="order" :isHistory="true"></order-item>
         </el-card>
     </div>
 </template>
 
 <script>
-    import order from './order.vue'
+    import orderItem from './orderItem.vue'
     export default {
         data: () => ({
             orders: [{
@@ -46,21 +46,7 @@
         methods: {
         },
         components: {
-            order
+            orderItem
         }
     }
 </script>
-
-<style lang="less">
-    @import '../assets/styles/definition.less';
-
-    .text {
-        font-size: 18px;
-        padding: 5px 0;
-    }
-
-    .item {
-        font-size: 15px;
-        padding: 4px 0;
-    }
-</style>
