@@ -1,5 +1,5 @@
-var path = require('path')
-var webpack = require('webpack')
+let path = require('path');
+let webpack = require('webpack');
 
 module.exports = {
   entry: './src/main.js',
@@ -38,20 +38,20 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    noInfo: true
-    //配置代理，使得允许跨域 
-    // proxy: {  
-    //   '/api': {  
-    //     target: 'http://localhost:3000/',  
-    //     secure: false  
-    //   }  
-    // }  
+    noInfo: true,
+    // 配置代理，使得允许跨域
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000/',
+        secure: false
+      }
+    }
   },
   devtool: '#eval-source-map'
-}
+};
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
+  module.exports.devtool = '#source-map';
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
