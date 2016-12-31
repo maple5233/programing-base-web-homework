@@ -2,8 +2,8 @@
  * 用户模型
  * Created by hongjiyao_2014150120 on 16-12-31.
  */
-let mongoose = require('mongoose');
-// let sha1 = require('sha1');
+"use strict";
+let mongoose = require ('../config');
 let Schema = mongoose.Schema;
 
 let UserSchema = new Schema({
@@ -29,16 +29,21 @@ let UserSchema = new Schema({
 });
 
 UserSchema.statics = {
-    fetchById: function(id, cb) {
+    fetchById: (id, cb) => {
         return this.findById(id)
                    .exec(cb);
     },
-    fetch: function(json, cb) {
+    fetch: (json, cb) => {
         return User.find(json)
                    .sort({
                        '_id': -1
                    })
                    .exec(cb);
+    },
+    fetchByName: (name, cb)=> {
+        return User.find({
+            userName: name
+        }).exec(cb);
     }
 };
 

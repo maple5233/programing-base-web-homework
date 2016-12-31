@@ -2,7 +2,7 @@
  * 订单模型
  * Created by hongjiyao_2014150120 on 16-12-31.
  */
-let mongoose = require('mongoose');
+let mongoose = require('../config');
 let Schema = mongoose.Schema;
 let User = require('./User');
 let Product = require('./Product');
