@@ -16,26 +16,31 @@
             orders: [{
                 orderDetails: [{
                     number: 1,
-                    name: '商品1'
+                    product: {
+                        _id : 1,
+                        productName: '深入理解计算机系统第1版',
+                        productPrice: 111,  
+                        productInventory: 10, 
+                        productDetails: '绝世好书2333333'  
+                    }
+                },{
+                    number: 3,
+                    product: {
+                        _id : 2,
+                        productName: '深入理解计算机系统第2版',
+                        productPrice: 222,  
+                        productInventory: 10, 
+                        productDetails: '绝世好书2333333'  
+                    }
                 },{
                     number: 2,
-                    name: '商品2'
-                },{
-                    number: 1,
-                    name: '商品3'
-                }],
-                orderPrice: 2333,
-                orderTime: new Date()
-            },{
-                orderDetails: [{
-                    number: 1,
-                    name: '商品1'
-                },{
-                    number: 2,
-                    name: '商品2'
-                },{
-                    number: 1,
-                    name: '商品3'
+                    product: {
+                        _id : 3,
+                        productName: '深入理解计算机系统第3版',
+                        productPrice: 333,  
+                        productInventory: 10, 
+                        productDetails: '绝世好书2333333'  
+                    }
                 }],
                 orderPrice: 2333,
                 orderTime: new Date()

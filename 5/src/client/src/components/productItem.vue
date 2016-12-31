@@ -21,9 +21,6 @@
     export default {
         props: {
             product: Object
-        },
-        data: () => ({
-            buyNum: 0
             // product:{
             //     _id : 1,
             //     productName: '深入理解计算机系统第二版',
@@ -31,16 +28,27 @@
             //     productInventory: 10, 
             //     productDetails: '绝世好书2333333'  
             // }
+        },
+        data: () => ({
+            buyNum: 0
         }),
         methods: {
             plus: function () {
                 if (this.buyNum < this.product.productInventory) {
                     this.buyNum++;
+                    this.$emit('buy',{
+                        product: this.product,
+                        isBuy: true
+                    })
                 }
             },
             minus: function () {
                 if (this.buyNum > 0) {
-                   this.buyNum--;
+                    this.buyNum--;
+                    this.$emit('buy',{
+                        product: this.product,
+                        isBuy: false
+                    })
                 }
             }
         }
