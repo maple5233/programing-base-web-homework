@@ -19,6 +19,8 @@ const config = require ('./config');
 /**
  * 引入各种REST路由文件
  */
+const safeAPI = require('./routes/safeAPI');
+const userAPI = require('./routes/userAPI');
 
 // 配置解析器和静态资源
 app.use(logger('dev'));
@@ -35,19 +37,29 @@ app.get('/', function(req, res, next) {
 });
 
 /**
- * 登录路由不用经过jwt
+ * safe路由不用经过jwt
  */
+safeAPI.$routers.forEach (router => {
+    app[ router.method ] ('/api' + router.path, router.router);
+});
 
 /**
  * jwt验证路由
  */
+//let jwtAuth = require ('./routes/jwtAuth');
 
-// 拦截restful请求
+// jwt拦截restful请求
 // app.all ('/api/*', [ bodyParser (), jwtAuth ]);
 
 /**
  * restful路由
  */
+//  restful路由
+[ userAPI ].forEach (item => {
+    item.$routers.forEach (router => {
+        app[ router.method ] ('/api' + router.path, router.router);
+    })
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
