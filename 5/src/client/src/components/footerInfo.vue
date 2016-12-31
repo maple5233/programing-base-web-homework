@@ -8,7 +8,7 @@
 <style lang="less">
 
     .footer {
-        height: 80px;
+        height: 50px;
         background-color: #324057;
         color: #a4aebd;
         width: 100%;
@@ -18,7 +18,7 @@
 
         span {
             display: block;
-            line-height: 80px;
+            line-height: 50px;
             width: 100%;
             text-align: center;
             font-size: 1.3rem;
