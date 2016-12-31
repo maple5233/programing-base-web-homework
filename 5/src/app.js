@@ -28,7 +28,7 @@ config.db.once('open', ()=> {
  * 引入各种REST路由文件
  */
 const safeAPI = require('./routes/safeAPI');
-const userAPI = require('./routes/userAPI');
+const productAPI = require('./routes/productAPI');
 
 // 配置解析器和静态资源
 app.use(logger('dev'));
@@ -63,7 +63,7 @@ safeAPI.$routers.forEach(router => {
  * restful路由
  */
 //  restful路由
-[ userAPI ].forEach(item => {
+[ productAPI ].forEach(item => {
     item.$routers.forEach(router => {
         app[ router.method ]('/api' + router.path, router.router);
     })

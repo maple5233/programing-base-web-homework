@@ -83,7 +83,7 @@ Response {
 
 ```
 2003 删除某产品
-PUT /product
+DELETE /product
 Params {
   token 	:	String
   productId	:	ObjectId
@@ -95,7 +95,7 @@ Response {
 
 ```
 2004 增加某产品
-PUT /product
+POST /product
 Params {
   token 	:	String
   product	:	Product
