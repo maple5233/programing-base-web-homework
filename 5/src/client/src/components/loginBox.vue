@@ -109,6 +109,9 @@
 							this.userForm.registerPass = '';
 							this.userForm.repeatRegisterPass = '';
 							return;
+						} else {
+							this.iNotify('成功','注册成功!');
+							this.$refs.userForm.resetFields();
 						}
 					} else {
 						this.$message.error('您的输入有误');
@@ -126,6 +129,7 @@
 						userPass: sha1(_userPass),
 					};
 					console.dir(auth);
+					this.$router.push({ path: '/product' });
 				} else {
 					this.$message.error('您的输入有误');
 					this.$refs.userForm.resetFields();
