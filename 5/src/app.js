@@ -29,6 +29,7 @@ config.db.once('open', ()=> {
  */
 const safeAPI = require('./routes/safeAPI');
 const productAPI = require('./routes/productAPI');
+const orderAPI = require('./routes/orderAPI');
 
 // 配置解析器和静态资源
 app.use(logger('dev'));
@@ -62,8 +63,7 @@ safeAPI.$routers.forEach(router => {
 /**
  * restful路由
  */
-//  restful路由
-[ productAPI ].forEach(item => {
+[ productAPI, orderAPI ].forEach(item => {
     item.$routers.forEach(router => {
         app[ router.method ]('/api' + router.path, router.router);
     })

@@ -106,16 +106,18 @@ Response {
 }
 ```
 
-#### 产品相关
+#### 订单相关
 
 ```
 3001 下订单
 POST /order
-PUT /product
 Params {
   token 		:	String
-  orderCreater	:	ObjectId
-  orderDetails	: 	[Product]
+  orderCreator	:	ObjectId
+  orderDetails	: 	[{
+    product     :   ObjectId,
+    number      :   Number
+  }]
   orderPrice	:	Number
 }
 Response {

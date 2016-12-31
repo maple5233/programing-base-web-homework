@@ -61,7 +61,8 @@ safeAPI.$routers = [
                         let result = {
                             _id: theUser._id,
                             token: token,
-                            userMoney: theUser.userBalance
+                            userMoney: theUser.userBalance,
+                            isManager:theUser.isManager
                             //userOrder	:	[Order]
                         };
                         jsonWrite(res, result, true, 200, '登录成功');
