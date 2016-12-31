@@ -4,13 +4,14 @@
  */
 "use strict";
 const Order = require('../models/Order');
+const User = require('../models/User');
 const jsonWrite = require('./utils/writeJson');
 
-let OrderAPI  = {};
+let OrderAPI = {};
 
 OrderAPI.$routers = [
     {
-        // 增加产品
+        // 增加订单
         method: 'post',
         path: '/order',
         router: async(req, res) => {
@@ -20,26 +21,32 @@ OrderAPI.$routers = [
             let orderDetails = order.orderDetails;
             let orderPrice = order.orderPrice;
             try {
-                let newOrder = await new Order({
-                    orderCreator: orderCreator,
-                    orderDetails: orderDetails,
-                    orderPrice: orderPrice,
-                    orderTime: new Date()
-                }).save();
-                jsonWrite(res, newOrder, true, 200, '添加成功');
+                let user = await User.fetchById(orderCreator);
+                if (user.userBalance < orderPrice){
+                    jsonWrite(res, null, false, 200, '余额不足，尴尬');
+                } else {
+                    let newOrder = await new Order({
+                        orderCreator: orderCreator,
+                        orderDetails: orderDetails,
+                        orderPrice: orderPrice,
+                        orderTime: new Date()
+                    }).save();
+                    jsonWrite(res, newOrder, true, 200, '下订单成功');
+                }
             } catch(err) {
                 jsonWrite(res, null, false, 500, err);
             }
         }
     },
     {
+        // 查找某人的历史订单
         method: 'get',
         path: '/order',
         router: async(req, res) => {
             let query = req.query;
             let orderCreator = query.orderCreator;
             try {
-                let orders = await Order.fetch({});
+                let orders = await Order.fetch({ orderCreator: orderCreator });
                 jsonWrite(res, orders, true, 200, '查找成功');
             } catch(err) {
                 jsonWrite(res, null, false, 500, err);

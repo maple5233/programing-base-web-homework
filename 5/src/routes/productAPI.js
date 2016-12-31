@@ -69,7 +69,7 @@ ProductAPI.$routers = [
         }
     },
     {
-        // 删除产品
+        // 查找所有产品
         method: 'get',
         path: '/product',
         router: async(req, res) => {
