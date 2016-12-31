@@ -11,7 +11,6 @@
                 <li v-for="orderDetail in order.orderDetails" class="item">
                     {{ orderDetail.name }}共{{ orderDetail.number }}件
                 </li>
-                <!-- <li class="text" v-show="isHistory">下单时间: {{ order.orderTime }}</li> -->
             </ul>
         </el-card>
     </div>
