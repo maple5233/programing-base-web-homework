@@ -25,6 +25,8 @@ OrderAPI.$routers = [
                 if (user.userBalance < orderPrice){
                     jsonWrite(res, null, false, 200, '余额不足，尴尬');
                 } else {
+                    user.userBalance -= orderPrice;
+                    await user.save();
                     let newOrder = await new Order({
                         orderCreator: orderCreator,
                         orderDetails: orderDetails,
