@@ -19,15 +19,18 @@
 
 <script>
     export default {
+        props: {
+            product: Object
+        },
         data: () => ({
-            buyNum: 0,
-            product:{
-                _id : 1,
-                productName: '深入理解计算机系统第二版',
-                productPrice: 233,  
-                productInventory: 10, 
-                productDetails: '绝世好书2333333'  
-            }
+            buyNum: 0
+            // product:{
+            //     _id : 1,
+            //     productName: '深入理解计算机系统第二版',
+            //     productPrice: 233,  
+            //     productInventory: 10, 
+            //     productDetails: '绝世好书2333333'  
+            // }
         }),
         methods: {
             plus: function () {
