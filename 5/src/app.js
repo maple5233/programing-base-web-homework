@@ -55,10 +55,10 @@ safeAPI.$routers.forEach(router => {
 /**
  * jwt验证路由
  */
-//let jwtAuth = require ('./routes/jwtAuth');
+let jwtAuth = require('./routes/jwtAuth');
 
 // jwt拦截restful请求
-// app.all ('/api/*', [ bodyParser (), jwtAuth ]);
+app.all('/api/*', [ bodyParser(), jwtAuth ]);
 
 /**
  * restful路由

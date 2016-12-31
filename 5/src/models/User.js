@@ -3,7 +3,7 @@
  * Created by hongjiyao_2014150120 on 16-12-31.
  */
 "use strict";
-let mongoose = require ('../config');
+let mongoose = require('../config');
 let Schema = mongoose.Schema;
 
 let UserSchema = new Schema({

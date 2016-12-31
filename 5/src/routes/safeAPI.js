@@ -7,7 +7,7 @@ const User = require('../models/User');
 const jsonWrite = require('./utils/writeJson');
 const sha1 = require("sha1");
 const jwt = require('jwt-simple');
-const moment = require ('moment');
+const moment = require('moment');
 
 let safeAPI = {};
 
@@ -52,8 +52,8 @@ safeAPI.$routers = [
                 } else {
                     if(theUser.userPass === param.userPass) {
                         // 用户登录后根据id生成token
-                        let expires = moment ().add (7, 'days').valueOf ();
-                        let token = jwt.encode ({
+                        let expires = moment().add(7, 'days').valueOf();
+                        let token = jwt.encode({
                             iss: theUser._id,
                             exp: expires
                         }, 'maple5233');
@@ -62,7 +62,7 @@ safeAPI.$routers = [
                             _id: theUser._id,
                             token: token,
                             userMoney: theUser.userBalance,
-                            isManager:theUser.isManager
+                            isManager: theUser.isManager
                             //userOrder	:	[Order]
                         };
                         jsonWrite(res, result, true, 200, '登录成功');

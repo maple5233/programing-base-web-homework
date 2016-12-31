@@ -22,7 +22,7 @@ OrderAPI.$routers = [
             let orderPrice = order.orderPrice;
             try {
                 let user = await User.fetchById(orderCreator);
-                if (user.userBalance < orderPrice){
+                if(user.userBalance < orderPrice) {
                     jsonWrite(res, null, false, 200, '余额不足，尴尬');
                 } else {
                     user.userBalance -= orderPrice;
