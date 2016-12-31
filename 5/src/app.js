@@ -26,6 +26,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/client')));
+// 配置icon
+app.use (favicon (__dirname + '/client/src/assets/vue_64px.png'));
 
 // 基本路由
 app.get('/', function(req, res, next) {
