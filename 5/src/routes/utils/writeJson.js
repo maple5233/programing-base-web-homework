@@ -16,9 +16,12 @@ let jsonWrite = function(res, ret, success, statusNum, msg) {
         res.status(statusNum).json({
             code: -1,
             msg: msg
-        });
+        }).end();
     } else {
-        res.status(200).json(ret);
+        res.status(200).json({
+            code: 0,
+            data: ret
+        }).end();
     }
 };
 
