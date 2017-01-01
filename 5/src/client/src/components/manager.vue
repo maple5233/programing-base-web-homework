@@ -10,7 +10,7 @@
                 <el-table-column prop="productPrice" label="价格(元)"  width="100"></el-table-column>
                 <el-table-column prop="productInventory" label="库存(件)" width="100"></el-table-column>
                 <el-table-column prop="productDetails" label="描述"></el-table-column>
-                <el-table-column label="操作" width="120">
+                <el-table-column label="操作" width="120" inline-template :context="_self" fixed="right">
                     <span>
                         <el-button type="primary" icon="edit" size="small" @click="editProducts(row)"></el-button>
                         <el-button type="danger" icon="delete" size="small" @click="deleteProducts(row)"></el-button>
@@ -42,6 +42,9 @@
 </template>
 
 <script>
+    import handleProduct from '../store/handleProduct'
+    import store from '../store'
+
     export default {
         data: () => ({
             formLabelWidth:'120px',
@@ -69,33 +72,35 @@
             },
             editingIndex : -1,
             products:[{
-                _id : 1,
-                productName: 'abbbbb',
+                _id : -1,
+                productName: '我就是个占位的',
                 productPrice: 0,  
                 productInventory: 0, 
-                productDetails: 'String'  
-            },{
-                _id : 3,
-                productName: 'deeeee',
-                productPrice: 1,  
-                productInventory: 1, 
-                productDetails: 'String'  
-            },{
-                _id : 5,
-                productName: 'cdddc',
-                productPrice: 3,  
-                productInventory: 3, 
-                productDetails: 'String'  
-            },{
-                _id : 7,
-                productName: 'ssssss',
-                productPrice: 2,  
-                productInventory: 2, 
-                productDetails: 'StringStringStringStringStringStringStringStringStringStringStringStringStringStringStringStringString'  
+                productDetails: '我就是个占位的'  
             }]
         }),
-
+        beforeMount() {
+            this.getProducts();
+        },
         methods: {
+            iNotify(title, content) {
+                this.$notify({
+                    title: title,
+                    message: content
+                });
+            },
+            getProducts: function (argument) {
+                // ajax get
+                handleProduct.getProduct().then(res => {
+                    let result  = res.data;
+                    let code = result.code;
+                    if (code === 0) {
+                        this.products = result.data
+                    } else {
+                        this.iNotify('失败',result.msg || '未知错误');
+                    }
+                });
+            },
             editProducts: function (row) {
                 this.product = row;
                 this.editing = true;
@@ -112,6 +117,7 @@
                             cancelButtonText: '取消',
                             type: 'warning'
                         }).then(() => {
+                            // ajax delete
                             this.products.splice(index, 1);
                             this.editingIndex = index;
                             this.$message({
@@ -135,9 +141,12 @@
                         return;
                     }
                     if (this.adding) {
+                        // ajax post
                         this.products.push(this.product);
                         this.resetProduct();
                         this.adding = false;
+                    } else {
+                        // ajax put
                     }
                     this.editing = false;
                 });
