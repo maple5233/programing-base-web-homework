@@ -33,7 +33,7 @@ OrderSchema.statics = {
     fetchById: function(id, cb) {
         return Order.findById(id)
                    .populate('orderCreator')
-                   .populate('product')
+                   .populate('orderDetails.product')
                    .exec(cb);
     },
     fetch: function(json, cb) {
@@ -42,7 +42,7 @@ OrderSchema.statics = {
                         '_id': -1
                     })
                     .populate('orderCreator')
-                    .populate('product')
+                    .populate('orderDetails.product')
                     .exec(cb);
     }
 };

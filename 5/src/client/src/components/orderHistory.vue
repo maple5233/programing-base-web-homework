@@ -11,6 +11,10 @@
 
 <script>
     import orderItem from './orderItem.vue'
+    import store from '../store'
+    import handleOrder from '../store/handleOrder'
+
+
     export default {
         data: () => ({
             orders: [{
@@ -46,9 +50,35 @@
                 orderTime: new Date()
             }]
         }),
-        computed: {
+        beforeMount() {
+            this.getOrders();
         },
         methods: {
+            iNotify(title, content) {
+                this.$notify({
+                    title: title,
+                    message: content
+                });
+            },
+            getOrders: function (argument) {
+                // ajax get
+                handleOrder.getOrder().then(res => {
+                    let result  = res.data;
+                    let code = result.code;
+                    let orders = result.data;
+                    if (code === 0) {
+                        this.orders= orders;
+                        // orders.forEach((item, index) => {
+                        //     this.orders.push({
+                        //         orderPrice: item.orderPrice,
+                        //         orderTime: item.orderTime
+                        //     })
+                        // });
+                    } else {
+                        this.iNotify('失败',result.msg || '未知错误');
+                    }
+                });
+            }
         },
         components: {
             orderItem

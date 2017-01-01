@@ -17,8 +17,10 @@ export default {
     },
     getOrder() {
         return axios.get('/api/order',{
-            token: store.getters.auth.token,
-            orderCreator: store.getters.auth._id
+            params: {
+                token: store.getters.auth.token,
+                orderCreator: store.getters.auth._id
+            }
         });
     }
 }
