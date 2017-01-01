@@ -11,13 +11,13 @@ const User = require('./models/User');
 User.remove({}).then(() => {
     new User({
         userName: 'hjy',
-        userBalance: 2333,
-        userPass: sha1('23333'),
+        userBalance: 100000,
+        userPass: sha1('123456'),
         isManager: false
     }).save();
     new User({
         userName: 'admin',
-        userBalance: 99999,
+        userBalance: 999999,
         userPass: sha1('123456'),
         isManager: true
     }).save();
