@@ -118,7 +118,11 @@
                 this.resetAll();
             },
             resetAll: function () {
+                this.order.orderPrice = 0;
+                this.wholePrice = 0;
                 this.getProducts();
+                // vuex
+                store.dispatch('makeClear');
             }
         }
     }

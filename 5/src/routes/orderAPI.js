@@ -5,6 +5,7 @@
 "use strict";
 const Order = require('../models/Order');
 const User = require('../models/User');
+const Product = require('../models/Product');
 const jsonWrite = require('./utils/writeJson');
 
 let OrderAPI = {};
@@ -21,10 +22,19 @@ OrderAPI.$routers = [
             let orderDetails = order.orderDetails;
             let orderPrice = order.orderPrice;
             try {
+                let theProduct;
                 let user = await User.fetchById(orderCreator);
                 if(user.userBalance < orderPrice) {
                     jsonWrite(res, null, false, 200, '余额不足，尴尬');
                 } else {
+                    // 更新User的余额和Product的库存
+                    orderDetails.forEach(async (orderDetail, index) => {
+                        let productId = orderDetail.product;
+                        let number = orderDetail.number;
+                        theProduct = await Product.fetchById(productId);
+                        theProduct.productInventory -= number;
+                        await theProduct.save();
+                    });
                     user.userBalance -= orderPrice;
                     await user.save();
                     let newOrder = await new Order({

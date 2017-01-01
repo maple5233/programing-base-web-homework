@@ -1,5 +1,5 @@
 <template>
-    <div class="productWrapper">
+    <div class="productWrapper" ref="productItem">
         <img class="left" src="../assets/csapp.jpg" height="220" width="200" alt="深入理解计算机系统">
         <div class="info">
             <ul>
@@ -18,7 +18,10 @@
 </template>
 
 <script>
+    import store from '../store.js'
+
     export default {
+        name: "productItem",
         props: {
             product: Object
             // product:{
@@ -32,6 +35,21 @@
         data: () => ({
             buyNum: 0
         }),
+        computed: {
+            // clear: store.getters.clear
+            clear: function () {
+                return store.getters.clear;
+            }
+        },
+        watch: {
+            clear: function () {
+                this.buyNum = 0;
+            }
+            // 也可以不要计算属性，直接监听state的
+            // 'store.clear': function (argument) {
+            //     this.buyNum = 0;
+            // }
+        },
         methods: {
             plus: function () {
                 if (this.buyNum < this.product.productInventory) {
@@ -50,6 +68,9 @@
                         isBuy: false
                     })
                 }
+            },
+            reset: function (argument) {
+                this.buyNum = 0;
             }
         }
     }
