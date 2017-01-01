@@ -115,6 +115,10 @@
                     }
                 });
                 this.showOrder = false;
+                this.resetAll();
+            },
+            resetAll: function () {
+                this.getProducts();
             }
         }
     }
