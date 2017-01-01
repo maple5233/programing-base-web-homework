@@ -19,59 +19,18 @@
 <script>
     import productItem from './productItem.vue'
     import orderItem from './orderItem.vue'
+    import store from '../store'
+    import handleProduct from '../store/handleProduct'
+    import handleOrder from '../store/handleOrder'
 
     export default {
         data: () => ({
             showOrder: false,
             wholePrice: 0,
-            products:[{
-                _id : 1,
-                productName: '深入理解计算机系统第1版',
-                productPrice: 233,  
-                productInventory: 10, 
-                productDetails: '绝世好书2333333'  
-            },{
-                _id : 2,
-                productName: '深入理解计算机系统第2版',
-                productPrice: 233,  
-                productInventory: 10, 
-                productDetails: '绝世好书2333333'  
-            },{
-                _id : 3,
-                productName: '深入理解计算机系统第3版',
-                productPrice: 233,  
-                productInventory: 10, 
-                productDetails: '绝世好书2333333'  
-            }],
+            money: store.getters.money,
+            products:[],
             order: {
-                orderDetails: [{
-                    number: 0,
-                    product: {
-                        _id : 1,
-                        productName: '深入理解计算机系统第1版',
-                        productPrice: 233,  
-                        productInventory: 10, 
-                        productDetails: '绝世好书2333333'  
-                    }
-                },{
-                    number: 0,
-                    product: {
-                        _id : 2,
-                        productName: '深入理解计算机系统第2版',
-                        productPrice: 233,  
-                        productInventory: 10, 
-                        productDetails: '绝世好书2333333'  
-                    }
-                },{
-                    number: 0,
-                    product: {
-                        _id : 3,
-                        productName: '深入理解计算机系统第3版',
-                        productPrice: 233,  
-                        productInventory: 10, 
-                        productDetails: '绝世好书2333333'  
-                    }
-                }],
+                orderDetails: [],
                 orderPrice: 0,
                 orderTime: new Date()
             }
@@ -80,7 +39,37 @@
             productItem,
             orderItem
         },
+        beforeMount() {
+            this.getProducts();
+        },
         methods: {
+            iNotify(title, content) {
+                this.$notify({
+                    title: title,
+                    message: content
+                });
+            },
+            getProducts: function (argument) {
+                // ajax get
+                handleProduct.getProduct().then(res => {
+                    let result  = res.data;
+                    let code = result.code;
+                    let products = result.data
+                    if (code === 0) {
+                        this.products = products;
+                        this.order.orderDetails = [];
+                        products.forEach((element, index) => {
+                            let orderDetailsItem = {
+                                number: 0,
+                                product : element
+                            };
+                            this.order.orderDetails.push(orderDetailsItem);
+                        });
+                    } else {
+                        this.iNotify('失败',result.msg || '未知错误');
+                    }
+                });
+            },
             handleBuy:function (argument) {
                 // console.log(argument[0])
                 let product = argument[0].product;
@@ -89,13 +78,42 @@
                     if(item.product._id == product._id) {
                         if (isBuy) {
                             item.number++;
+                            this.wholePrice += item.product.productPrice;
                         } else {
                             item.number--;
+                            this.wholePrice -= item.product.productPrice;
                         }
+                        this.order.orderPrice = this.wholePrice;
                     }
                 });
             },
             handleSubmitOrder: function (argument) {
+                if (this.money < this.wholePrice) {
+                    this.iNotify('尴尬','钱不够啊');
+                    return
+                }
+                // 组装数据
+                let orderDetails = [];
+                this.order.orderDetails.forEach((element, index) => {
+                    orderDetails.push({
+                        number: element.number,
+                        product: element.product
+                    })
+                });
+                let orderPrice = this.order.orderPrice;
+                // ajax
+                handleOrder.addOrder(orderDetails, orderPrice).then(res => {
+                    let result  = res.data;
+                    let code = result.code;
+                    let products = result.data;
+                    if (code === 0) {
+                        store.dispatch('buy', orderPrice);
+                        this.iNotify('买买买', '下单成功');
+                        this.money -= orderPrice;
+                    } else {
+                        this.iNotify('失败', result.msg || '未知错误');
+                    }
+                });
                 this.showOrder = false;
             }
         }

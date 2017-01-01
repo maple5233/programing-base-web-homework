@@ -15,7 +15,7 @@ module.exports = async function(req, res, next) {
     if(token) {
         try {
             let decoded = jwt.decode(token, "maple5233");
-            console.log(decoded)
+            // console.log(decoded)
             if(decoded.exp <= Date.now()) {
                 jsonWrite(res, null, false, 200, 'token已经过期');
             }

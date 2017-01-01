@@ -21,6 +21,11 @@ export default new Vuex.Store({
             state.auth = {};
             window.localStorage.removeItem('auth')
         },
+        // 买东西
+        buy(state, money) {
+            state.auth.userMoney -= money;
+            window.localStorage.setItem('auth', JSON.stringify(state.auth));
+        }
     },
     // 配置Vuex取变量的方式
     getters: {
@@ -32,6 +37,9 @@ export default new Vuex.Store({
         },
         hasLogin: state => {
             return state.auth.token || state.auth.isManager
+        },
+        money: state => {
+            return state.auth.userMoney
         }
     },
     // 定义开放的操作变量的动作，用来调用一个或者多个事务
@@ -41,7 +49,9 @@ export default new Vuex.Store({
         },
         clearAuth({ commit }) {
             commit('clearAuth')
+        },
+        buy({ commit }, money) {
+            commit('buy', money)
         }
     }
-
 })
