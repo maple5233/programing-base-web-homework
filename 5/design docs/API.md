@@ -37,10 +37,11 @@ Params {
 	userPass :	String	// Hash过的密码
 }
 Response {
-	code  		: 	'0'
+	code  		: 	0
+	_id			:	ObjectId
 	token 		: 	String
 	userMoney	:	Number
-	userOrder	:	[Order]
+	isManager	:	Boolean
 }
 ```
 
@@ -52,7 +53,7 @@ Params {
 	userPass :	String	// Hash过的密码
 }
 Response {
-	code	 :	'0'
+	code	 :	0
 }
 ```
 
@@ -64,7 +65,7 @@ GET /product
 Params {
 }
 Response {
-	code	 :	'0'
+	code	 :	0
 	products :	[Product]
 }
 ```
@@ -77,7 +78,7 @@ Params {
   product	:	Product
 }
 Response {
-	code	 :	'0'
+	code	 :	0
 }
 ```
 
@@ -89,7 +90,7 @@ Params {
   productId	:	ObjectId
 }
 Response {
-	code	 :	'0'
+	code	 :	0
 }
 ```
 
@@ -101,7 +102,7 @@ Params {
   product	:	Product
 }
 Response {
-	code	 	:	'0'
+	code	 	:	0
 	productId	:	ObjectId
 }
 ```
@@ -121,7 +122,7 @@ Params {
   orderPrice	:	Number
 }
 Response {
-	code	 	:	'0'
+	code	 	:	0
 	orderId		:	ObjectId
 	orderTime	:	Date
 }
@@ -135,7 +136,7 @@ Params {
   orderCreater	:	ObjectId
 }
 Response {
-	code	 	:	'0'
+	code	 	:	0
 	orders		:	[Order]
 }
 ```

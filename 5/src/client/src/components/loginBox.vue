@@ -40,6 +40,9 @@
 
 <script>
 	import sha1 from 'sha1'
+	import handleAuth from '../store/handleAuth'
+	import store from '../store'
+	import Vue from 'vue'
 
 	export default {
 		data() {
@@ -100,8 +103,8 @@
 				});
 			},
 			register() {
-				this.userForm.userName = 'null';
-				this.userForm.userPass = 'null';
+				this.userForm.userName = 'TAT';
+				this.userForm.userPass = 'QAQ';
 				this.$refs.userForm.validate((valid) => {
 					if (valid) {
 						if (this.userForm.registerPass != this.userForm.repeatRegisterPass) {
@@ -110,14 +113,26 @@
 							this.userForm.repeatRegisterPass = '';
 							return;
 						} else {
-							this.iNotify('成功','注册成功!');
-							this.$refs.userForm.resetFields();
+							handleAuth.register({
+								userName: this.userForm.registerName, 
+								userPass: sha1(this.userForm.registerPass)
+							}).then(res => {
+								let result  = res.data;
+								let code = result.code;
+								if (code === 0) {
+									this.iNotify('成功','注册成功!');
+									this.$refs.userForm.resetFields();
+								} else {
+									this.iNotify('注册失败',result.msg || '未知错误');
+									this.$refs.userForm.resetFields();
+								}
+							})
 						}
 					} else {
 						this.$message.error('您的输入有误');
 						this.$refs.userForm.resetFields();
 					}
-				})
+				});
 			},
 			login() {
 				let _userName = this.userForm.userName;
@@ -128,8 +143,20 @@
 						userName: _userName,
 						userPass: sha1(_userPass),
 					};
-					console.dir(auth);
-					this.$router.push({ path: '/product' });
+					handleAuth.login(auth).then(res => {
+						let result  = res.data;
+						let code = result.code;
+						if (code === 0) {
+							let auth = result.data;
+							Vue.set(auth, 'userName', _userName)
+							store.dispatch('saveAuth',auth);
+							this.$router.push({ path: '/product' });
+						} else {
+							this.iNotify('登录失败',result.msg || '未知错误');
+							this.$refs.userForm.resetFields();
+						}
+
+					})
 				} else {
 					this.$message.error('您的输入有误');
 					this.$refs.userForm.resetFields();
