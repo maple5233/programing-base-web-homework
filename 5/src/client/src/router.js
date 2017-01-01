@@ -11,12 +11,24 @@ const router = new VueRouter({
     routes
 })
 
-// router.beforeEach((to, from, next) => {
-//     if (to.meta.requiresAuth && !store.getters.auth.token) {
-//         next({ path: '/login' })
-//     } else {
-//         next();
-//     }
-// })
+router.beforeEach((to, from, next) => {
+    // console.log(to)
+    // console.log(from)
+    if (to.meta.requiresAuth && !store.getters.auth.token) {
+        // console.log(1)
+        next({ path: '/login' });
+    } else if (to.meta.requiresRoot) {
+        // console.log(2)
+        let isManager = store.getters.auth.isManager;
+        if (isManager) {
+            // console.log(3)
+            next();
+        } else {
+            next({ path: '/product' });
+        }
+    } else {
+        next();
+    }
+})
 
 export default router

@@ -29,6 +29,6 @@ Vue.filter('datetime', (str) => {
 new Vue({
   el: '#app',
   router,
-  // store: store,
+  store: store,
   render: h => h(App)
 })

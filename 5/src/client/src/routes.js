@@ -11,6 +11,7 @@ export default [
 	redirect: 'login',
 	meta: {
 		requiresAuth: true,
+		requiresRoot: false
 	}
 }, 
 {
@@ -19,6 +20,7 @@ export default [
 	component: loginBox,
 	meta: {
 		requiresAuth: false,
+		requiresRoot: false
 	}
 },
 {
@@ -26,7 +28,8 @@ export default [
 	name: 'manager',
 	component: manager,
 	meta: {
-		requiresAuth: true
+		requiresAuth: true,
+		requiresRoot: true
 	}
 },
 {
@@ -34,7 +37,8 @@ export default [
 	name: 'product',
 	component: product,
 	meta: {
-		requiresAuth: true
+		requiresAuth: true,
+		requiresRoot: false
 	}
 },
 {
@@ -42,7 +46,8 @@ export default [
 	name: 'history',
 	component: history,
 	meta: {
-		requiresAuth: true
+		requiresAuth: true,
+		requiresRoot: false
 	}
 }
 ]
