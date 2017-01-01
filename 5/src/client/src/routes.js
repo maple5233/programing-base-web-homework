@@ -3,9 +3,9 @@ import loginBox from './components/loginBox.vue'
 import manager from './components/manager.vue'
 import product from './components/product.vue'
 import history from './components/orderHistory.vue'
+import notFound from './components/notFound.vue'
 
-export default [
-{
+export default [{
 	path: '/',
 	name: 'home',
 	redirect: 'login',
@@ -49,5 +49,13 @@ export default [
 		requiresAuth: true,
 		requiresRoot: false
 	}
-}
-]
+},
+{
+	path: '*',
+	name: 'notFound',
+	component: notFound,
+	meta: {
+		requiresAuth: false,
+		requiresRoot: false
+	}
+}]
