@@ -150,7 +150,11 @@
 							let auth = result.data;
 							Vue.set(auth, 'userName', _userName)
 							store.dispatch('saveAuth',auth);
-							this.$router.push({ path: '/product' });
+							if (auth.isManager) {
+								this.$router.push({ path: '/manager' });
+							} else {
+								this.$router.push({ path: '/product' });
+							}
 						} else {
 							this.iNotify('登录失败',result.msg || '未知错误');
 							this.$refs.userForm.resetFields();

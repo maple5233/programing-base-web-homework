@@ -26,6 +26,12 @@ export default new Vuex.Store({
     getters: {
         auth: state => {
             return state.auth
+        },
+        isManager: state => {
+            return state.auth.isManager
+        },
+        hasLogin: state => {
+            return state.auth.token || state.auth.isManager
         }
     },
     // 定义开放的操作变量的动作，用来调用一个或者多个事务

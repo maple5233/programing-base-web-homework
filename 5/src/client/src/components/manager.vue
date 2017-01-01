@@ -10,7 +10,7 @@
                 <el-table-column prop="productPrice" label="价格(元)"  width="100"></el-table-column>
                 <el-table-column prop="productInventory" label="库存(件)" width="100"></el-table-column>
                 <el-table-column prop="productDetails" label="描述"></el-table-column>
-                <el-table-column inline-template :context="_self" fixed="right" label="操作" width="120">
+                <el-table-column label="操作" width="120">
                     <span>
                         <el-button type="primary" icon="edit" size="small" @click="editProducts(row)"></el-button>
                         <el-button type="danger" icon="delete" size="small" @click="deleteProducts(row)"></el-button>
