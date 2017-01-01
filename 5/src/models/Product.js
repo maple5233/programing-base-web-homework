@@ -27,7 +27,7 @@ let ProductSchema = new Schema({
 
 ProductSchema.statics = {
     fetchById: function(id, cb) {
-        return this.findById(id)
+        return Product.findById(id)
                    .exec(cb);
     },
     fetch: function(json, cb) {

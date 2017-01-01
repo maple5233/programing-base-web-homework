@@ -31,7 +31,7 @@ let OrderSchema = new Schema({
 
 OrderSchema.statics = {
     fetchById: function(id, cb) {
-        return this.findById(id)
+        return Order.findById(id)
                    .populate('orderCreator')
                    .populate('product')
                    .exec(cb);

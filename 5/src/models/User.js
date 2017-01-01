@@ -30,7 +30,7 @@ let UserSchema = new Schema({
 
 UserSchema.statics = {
     fetchById: (id, cb) => {
-        return this.findById(id)
+        return User.findById(id)
                    .exec(cb);
     },
     fetch: (json, cb) => {
