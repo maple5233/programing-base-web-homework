@@ -55,12 +55,16 @@ ProductAPI.$routers = [
         method: 'delete',
         path: '/product',
         router: async(req, res) => {
-            let productId = req.body.productId;
+            let productId = req.query.productId;
             //let productId = req.query._id;
             let theProduct;
             try {
                 theProduct = await Product.fetchById(productId);
-                await theProduct.remove();
+                // console.log(productId)
+                // console.log(theProduct)
+                await Product.remove({
+                    _id: theProduct._id
+                });
                 jsonWrite(res, theProduct, true, 200, '删除成功');
             } catch(err) {
                 console.log(err);

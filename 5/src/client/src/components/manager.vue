@@ -54,8 +54,8 @@
             product: {
                 _id : -1,
                 productName: '',
-                productPrice: null,  
-                productInventory: null, 
+                productPrice: 0,  
+                productInventory: 0, 
                 productDetails: '' 
             },
             rules: {
@@ -112,17 +112,26 @@
             deleteProducts: function (row) {
                 this.products.map((item, index) => {
                     if(item._id == row._id) {
+                        this.editingIndex = index;
                         this.$confirm('此操作将永久删除商品'+ item.productName +', 是否继续?', '提示', {
                             confirmButtonText: '确定',
                             cancelButtonText: '取消',
                             type: 'warning'
                         }).then(() => {
                             // ajax delete
-                            this.products.splice(index, 1);
-                            this.editingIndex = index;
-                            this.$message({
-                                type: 'success',
-                                message: '删除成功!'
+                            let id = this.products[index]._id;
+                            handleProduct.deleteProduct(id).then(res => {
+                                let result  = res.data;
+                                let code = result.code;
+                                if (code === 0) {
+                                    this.products.splice(index, 1);
+                                    this.$message({
+                                        type: 'success',
+                                        message: '删除成功!'
+                                    });
+                                } else {
+                                    this.iNotify('失败',result.msg || '未知错误');
+                                }
                             });
                         }).catch(() => {
                             this.$message({
@@ -139,14 +148,29 @@
                         this.$message.error('您的输入有误');
                         this.$refs.product.resetFields();
                         return;
-                    }
-                    if (this.adding) {
+                    } else if (this.adding) {
                         // ajax post
-                        this.products.push(this.product);
-                        this.resetProduct();
-                        this.adding = false;
+                        handleProduct.addProduct(this.product).then(res => {
+                            let result  = res.data;
+                            let code = result.code;
+                            if (code === 0) {
+                                console.log(result)
+                                this.products.push(result.data);
+                                this.resetProduct();
+                                this.adding = false;
+                            } else {
+                                this.iNotify('失败',result.msg || '未知错误');
+                            }
+                        });
                     } else {
-                        // ajax put
+                        handleProduct.updateProduct(this.product).then(res => {
+                            let result  = res.data;
+                            let code = result.code;
+                            if (code !== 0) {
+                                this.iNotify('失败',result.msg || '未知错误');
+                                this.getProducts(); // 重置产品信息
+                            }
+                        });
                     }
                     this.editing = false;
                 });

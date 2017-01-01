@@ -28,8 +28,10 @@ export default {
     },
     deleteProduct(productId) {
         return axios.delete('/api/product', {
-            token: store.getters.auth.token,
-            productId: productId
+            params: {
+                token: store.getters.auth.token,
+                productId: productId
+            }
         });
     }
 }

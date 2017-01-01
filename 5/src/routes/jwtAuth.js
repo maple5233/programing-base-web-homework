@@ -12,10 +12,10 @@ module.exports = async function(req, res, next) {
     || (req.query && req.query.token) || req.headers[ 'x-access-token' ];
     // console.log(req.body);
     // console.log(token)
-    // console.log(token);
     if(token) {
         try {
             let decoded = jwt.decode(token, "maple5233");
+            console.log(decoded)
             if(decoded.exp <= Date.now()) {
                 jsonWrite(res, null, false, 200, 'token已经过期');
             }
@@ -31,6 +31,8 @@ module.exports = async function(req, res, next) {
             jsonWrite(res, null, false, 200, err);
         }
     } else {
+        // console.log(req.body)
+        // console.log(req.query)
         jsonWrite(res, null, false, 200, '需要认证');
     }
 };
